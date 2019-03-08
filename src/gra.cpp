@@ -177,8 +177,8 @@ bool install_modules() {
 			throw errMsg("Failed to initialize acodec addon");
 		if (!al_init_primitives_addon())
 			throw errMsg("Failed to initialize primitives addon");
-		if (!al_init_font_addon())
-			throw errMsg("Failed to initialize font addon");
+		
+		al_init_font_addon();
 		if (!al_init_ttf_addon())
 			throw errMsg("Failed to initialize ttf addon");
 	}
