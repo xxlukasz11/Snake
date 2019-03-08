@@ -7,3 +7,4 @@ Required files:
 
 # Screenshoots
 ![Screen 1](screenshoots/ss1.png)
+![Screen 2](screenshoots/ss2.png)
