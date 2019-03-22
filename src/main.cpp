@@ -1,7 +1,5 @@
 #include <allegro5/allegro.h>
-//#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
-//#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <memory>
@@ -55,7 +53,7 @@ int main(int argc, char** argv) {
 	app.queue.register_keyboard();
 	app.queue.register_source(app.display.ptr);
 	app.queue.register_source(app.timer.ptr);
-	// pretla programu
+	
 	bool not_terminate = true;
 	while (not_terminate) {
 		//obiekty
