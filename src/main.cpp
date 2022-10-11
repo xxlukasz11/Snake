@@ -6,21 +6,7 @@
 #include "basic_allegro.hpp"
 #include "errMsg.hpp"
 #include "gra.hpp"
-
-const short width = 810;
-const short height = 510;
-
-class App {
-public:
-	Display display;
-	Font font;
-	ALLEGRO_MONITOR_INFO monitor;
-	Queue queue;
-	ALLEGRO_EVENT event;
-	Timer timer;
-	float dt{ 0.06f };
-};
-
+#include "app.hpp"
 
 int main(int argc, char** argv) {
 	// Inicjalizacja srodkowiska
@@ -28,13 +14,12 @@ int main(int argc, char** argv) {
 		return -1;
 
 	App app;
-	if (!app.display.init(width, height, "Snake")) {
+	if (!app.initDisplay("Snake")) {
 		errMsg r("Failed to init display");
 		r.print("error.log");
 		return -1;
 	}
-	al_get_monitor_info(0, &app.monitor);
-	al_set_window_position(app.display.ptr, (app.monitor.x2 - app.monitor.x1 - app.display.width) / 2, (app.monitor.y2 - app.monitor.y1 - app.display.height) / 2);
+
 	if (!app.font.add("Arial", 24, "arial.ttf")) {
 		errMsg r("Font not found");
 		r.print("error.log");
