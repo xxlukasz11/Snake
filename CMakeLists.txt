@@ -8,8 +8,8 @@ project (snake)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(snake ${SOURCES})
 
-set_property(TARGET snake PROPERTY CXX_STANDARD 11)
+set_property(TARGET snake PROPERTY CXX_STANDARD 17)
 
-target_compile_options(snake PRIVATE -Wall)
+target_compile_options(snake PRIVATE -Wall -pedantic)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "snake")
 target_link_libraries(snake allegro_ttf allegro_font allegro_primitives allegro_audio allegro_acodec allegro)
