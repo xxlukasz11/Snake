@@ -3,8 +3,6 @@
 
 #include <deque>
 
-bool install_modules();
-
 class Snake {
 	std::deque<float> x;
 	std::deque<float> y;

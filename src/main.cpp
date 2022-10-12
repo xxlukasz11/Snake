@@ -9,9 +9,9 @@
 #include "app.hpp"
 
 int main(int argc, char** argv) {
-	// Inicjalizacja srodkowiska
-	if (!install_modules())
+	if (!init_alllegro_modules()) {
 		return -1;
+	}
 
 	App app;
 	if (!app.initDisplay("Snake")) {

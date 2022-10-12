@@ -19,5 +19,7 @@ public:
 	float dt{ 0.06f };
 };
 
+bool init_alllegro_modules();
+
 
 #endif /* SRC_APP_HPP_ */

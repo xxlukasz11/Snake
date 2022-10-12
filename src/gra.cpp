@@ -63,7 +63,7 @@ void Snake::outro(ALLEGRO_FONT* font) {
 	file << " " << snake_size;;
 	file.close();
 	if (snake_size == max_value)
-		al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE, "BRAWO! WYRÓWNANY REKORD!");
+		al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE, "BRAWO! WYRï¿½WNANY REKORD!");
 	else if (snake_size > max_value)
 		al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE, "BRAWO! REKORD!");
 	else
@@ -165,32 +165,4 @@ void Snake::draw() {
 	al_draw_filled_rectangle(x[0], y[0], x[0] + part_size, y[0] + part_size, head_color);
 	if (snake_size > 1)
 		al_draw_filled_rectangle(x[1], y[1], x[1] + part_size, y[1] + part_size, snake_color);
-}
-
-bool install_modules() {
-	try {
-		if (!al_init())
-			throw errMsg("Failed to initialize allegro");
-		if (!al_install_audio())
-			throw errMsg("Failed to install audio");
-		if (!al_init_acodec_addon())
-			throw errMsg("Failed to initialize acodec addon");
-		if (!al_init_primitives_addon())
-			throw errMsg("Failed to initialize primitives addon");
-		
-		al_init_font_addon();
-		if (!al_init_ttf_addon())
-			throw errMsg("Failed to initialize ttf addon");
-	}
-	catch (errMsg r) {
-		r.print("error.log");
-		return false;
-	}
-	
-	ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-	al_append_path_component(path, "../resources");
-	al_change_directory(al_path_cstr(path, '/'));
-	al_destroy_path(path);
-	
-	return true;
 }
