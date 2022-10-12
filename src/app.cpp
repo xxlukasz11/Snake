@@ -34,6 +34,12 @@ bool App::initFrameRateTimer() {
 	return timer.init(dt);
 }
 
+void App::registerEventSources() {
+	queue.register_keyboard();
+	queue.register_source(display.ptr);
+	queue.register_source(timer.ptr);
+}
+
 bool init_alllegro_modules() {
 	try {
 		if (!al_init())

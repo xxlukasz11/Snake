@@ -10,6 +10,7 @@ public:
 	bool initDisplay();
 	bool loadMainFont();
 	bool initFrameRateTimer();
+	void registerEventSources();
 
 	Display display;
 	Font font;

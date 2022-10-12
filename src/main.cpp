@@ -32,9 +32,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	app.queue.register_keyboard();
-	app.queue.register_source(app.display.ptr);
-	app.queue.register_source(app.timer.ptr);
+	app.registerEventSources();
 	
 	bool not_terminate = true;
 	while (not_terminate) {
