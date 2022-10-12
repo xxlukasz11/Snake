@@ -42,22 +42,28 @@ void App::registerEventSources() {
 
 bool init_alllegro_modules() {
 	try {
-		if (!al_init())
+		if (!al_init()) {
 			throw errMsg("Failed to initialize allegro");
-		if (!al_install_audio())
+		}
+		if (!al_install_audio()) {
 			throw errMsg("Failed to install audio");
-		if (!al_init_acodec_addon())
+		}
+		if (!al_init_acodec_addon()) {
 			throw errMsg("Failed to initialize acodec addon");
-		if (!al_init_primitives_addon())
+		}
+		if (!al_init_primitives_addon()) {
 			throw errMsg("Failed to initialize primitives addon");
-		if (!al_install_keyboard())
+		}
+		if (!al_install_keyboard()) {
 			throw errMsg("Failed to install keyboard");
+		}
 
 		al_init_font_addon();
-		if (!al_init_ttf_addon())
+		if (!al_init_ttf_addon()) {
 			throw errMsg("Failed to initialize ttf addon");
+		}
 	}
-	catch (errMsg r) {
+	catch (errMsg& r) {
 		r.print("error.log");
 		return false;
 	}
@@ -66,6 +72,5 @@ bool init_alllegro_modules() {
 	al_append_path_component(path, "../resources");
 	al_change_directory(al_path_cstr(path, '/'));
 	al_destroy_path(path);
-
 	return true;
 }

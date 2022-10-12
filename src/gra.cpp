@@ -10,38 +10,39 @@
 #include "errMsg.hpp"
 #include "gra.hpp"
 
-
-
 Snake::Snake(float _part_size, short _window_width, short _window_height,
 	float _dt, short _border, ALLEGRO_COLOR _head_color, ALLEGRO_COLOR _snake_color,
 	ALLEGRO_COLOR _border_color, ALLEGRO_COLOR _background_color) :
-	part_size(_part_size),
-	window_width(_window_width),
-	window_height(_window_height),
-	dt(_dt),
-	border(_border*_part_size),
-	head_color(_head_color),
-	snake_color(_snake_color),
-	border_color(_border_color),
-	background_color(_background_color),
-	width(_window_width / _part_size),
-	height(_window_height / _part_size) {
+		part_size(_part_size),
+		window_width(_window_width),
+		window_height(_window_height),
+		dt(_dt),
+		border(_border*_part_size),
+		head_color(_head_color),
+		snake_color(_snake_color),
+		border_color(_border_color),
+		background_color(_background_color),
+		width(_window_width / _part_size),
+		height(_window_height / _part_size) {
 	std::srand(std::time(NULL));
 	try {
-		if (!al_reserve_samples(1))
+		if (!al_reserve_samples(1)) {
 			throw errMsg("Failed to reserve sample");
+		}
 		sample = al_load_sample("sample.wav");
-		if (!sample)
+		if (!sample) {
 			throw errMsg("Failed to load sample.wav");
+		}
 	}
-	catch (errMsg r) {
+	catch (errMsg& r) {
 		r.print("error.log");
 	}
 }
 
 Snake::~Snake() {
-	if (sample)
+	if (sample) {
 		al_destroy_sample(sample);
+	}
 }
 
 void Snake::intro(ALLEGRO_FONT* font) {
@@ -55,24 +56,30 @@ void Snake::outro(ALLEGRO_FONT* font) {
 	short max_value = 0;
 	short result;
 	while (file >> result) {
-		if (result > max_value)
+		if (result > max_value) {
 			max_value = result;
+		}
 	}
 	file.close();
 	file.open("snake_results.dat", std::ios::app);
 	file << " " << snake_size;;
 	file.close();
-	if (snake_size == max_value)
+
+	if (snake_size == max_value) {
 		al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE, "BRAWO! WYR�WNANY REKORD!");
-	else if (snake_size > max_value)
+	} else if (snake_size > max_value) {
 		al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE, "BRAWO! REKORD!");
-	else
+	} else {
 		al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE, "KONIEC GRY");
+	}
+
 	al_draw_textf(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4 + 50, ALLEGRO_ALIGN_CENTRE, "Dlugosc weza: %hd", snake_size);
-	if (snake_size < max_value)
+	if (snake_size < max_value) {
 		al_draw_textf(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4 + 85, ALLEGRO_ALIGN_CENTRE, "Aktualny rekord: %hd", max_value);
-	else if (snake_size > max_value)
+	} else if (snake_size > max_value) {
 		al_draw_textf(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4 + 85, ALLEGRO_ALIGN_CENTRE, "Poprzedni rekord: %hd", max_value);
+	}
+
 	al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4 + 120, ALLEGRO_ALIGN_CENTRE, "Jeszcze raz? [t/n]");
 	al_flip_display();
 }
@@ -146,8 +153,9 @@ bool Snake::calc() {
 	if (x[0] > window_width - part_size - border
 		|| x[0] < border
 		|| y[0] > window_height - part_size - border
-		|| y[0] < border)
+		|| y[0] < border) {
 		return false;
+	}
 	return true;
 }
 
@@ -156,13 +164,15 @@ void Snake::draw_all() {
 	al_draw_filled_rectangle(border, border, window_width - border, window_height - border, background_color);
 	al_draw_filled_circle(jx + part_size / 2, jy + part_size / 2, part_size / 2.2, al_map_rgb(0, 0, 0));
 	al_draw_filled_rectangle(x[0], y[0], x[0] + part_size, y[0] + part_size, head_color);
-	for (int i = 1; i < snake_size; i++)
+	for (int i = 1; i < snake_size; i++) {
 		al_draw_filled_rectangle(x[i], y[i], x[i] + part_size, y[i] + part_size, snake_color);
+	}
 }
 
 void Snake::draw() {
 	al_draw_filled_circle(jx + part_size / 2, jy + part_size / 2, part_size / 2.2, al_map_rgb(0, 0, 0));
 	al_draw_filled_rectangle(x[0], y[0], x[0] + part_size, y[0] + part_size, head_color);
-	if (snake_size > 1)
+	if (snake_size > 1) {
 		al_draw_filled_rectangle(x[1], y[1], x[1] + part_size, y[1] + part_size, snake_color);
+	}
 }

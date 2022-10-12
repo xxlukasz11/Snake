@@ -16,7 +16,7 @@ class Snake {
 	ALLEGRO_COLOR background_color;
 	int width, height;
 	short vx{ 0 }, vy{ 0 };
-	float jx, jy;
+	float jx{ 0 }, jy{ 0 };
 	short snake_size{ 0 };
 	ALLEGRO_SAMPLE* sample{ nullptr };
 public:
