@@ -32,12 +32,6 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	if (!al_install_keyboard()) {
-		errMsg r("Failed to install keyboard");
-		r.print("error.log");
-		return -1;
-	}
-
 	app.queue.register_keyboard();
 	app.queue.register_source(app.display.ptr);
 	app.queue.register_source(app.timer.ptr);

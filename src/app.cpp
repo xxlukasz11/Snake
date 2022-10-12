@@ -44,6 +44,8 @@ bool init_alllegro_modules() {
 			throw errMsg("Failed to initialize acodec addon");
 		if (!al_init_primitives_addon())
 			throw errMsg("Failed to initialize primitives addon");
+		if (!al_install_keyboard())
+			throw errMsg("Failed to install keyboard");
 
 		al_init_font_addon();
 		if (!al_init_ttf_addon())
