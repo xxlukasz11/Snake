@@ -11,11 +11,12 @@
 constexpr int DISPLAY_WIDTH = 810;
 constexpr int DISPLAY_HEIGHT = 510;
 constexpr int MAIN_FONT_SIZE= 24;
+constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 
-bool App::initDisplay(const std::string& displayName) {
-	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, displayName.c_str());
+bool App::initDisplay() {
+	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_NAME);
 	if (!initResult) {
 		return initResult;
 	}
@@ -27,6 +28,10 @@ bool App::initDisplay(const std::string& displayName) {
 
 bool App::loadMainFont() {
 	return font.add(MAIN_FONT_NAME, MAIN_FONT_SIZE, MAIN_FONT_FILE_NAME);
+}
+
+bool App::initFrameRateTimer() {
+	return timer.init(dt);
 }
 
 bool init_alllegro_modules() {

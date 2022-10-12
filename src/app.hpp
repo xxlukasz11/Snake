@@ -3,13 +3,13 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
-#include <string>
 #include "basic_allegro.hpp"
 
 class App {
 public:
-	bool initDisplay(const std::string& displayName);
+	bool initDisplay();
 	bool loadMainFont();
+	bool initFrameRateTimer();
 
 	Display display;
 	Font font;

@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
 	}
 
 	App app;
-	if (!app.initDisplay("Snake")) {
+	if (!app.initDisplay()) {
 		errMsg r("Failed to init display");
 		r.print("error.log");
 		return -1;
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	if (!app.timer.init(app.dt)) {
+	if (!app.initFrameRateTimer()) {
 		errMsg r("Failed to init timer");
 		r.print("error.log");
 		return -1;
