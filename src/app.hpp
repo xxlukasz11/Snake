@@ -9,6 +9,7 @@
 class App {
 public:
 	bool initDisplay(const std::string& displayName);
+	bool loadMainFont();
 
 	Display display;
 	Font font;

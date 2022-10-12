@@ -10,6 +10,9 @@
 
 constexpr int DISPLAY_WIDTH = 810;
 constexpr int DISPLAY_HEIGHT = 510;
+constexpr int MAIN_FONT_SIZE= 24;
+constexpr const char* MAIN_FONT_NAME = "Arial";
+constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 
 bool App::initDisplay(const std::string& displayName) {
 	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, displayName.c_str());
@@ -20,6 +23,10 @@ bool App::initDisplay(const std::string& displayName) {
 	al_get_monitor_info(0, &monitor);
 	al_set_window_position(display.ptr, (monitor.x2 - monitor.x1 - display.width) / 2, (monitor.y2 - monitor.y1 - display.height) / 2);
 	return true;
+}
+
+bool App::loadMainFont() {
+	return font.add(MAIN_FONT_NAME, MAIN_FONT_SIZE, MAIN_FONT_FILE_NAME);
 }
 
 bool init_alllegro_modules() {
