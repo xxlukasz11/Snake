@@ -8,6 +8,14 @@
 #include "gra.hpp"
 #include "app.hpp"
 
+bool isEscapeHit(const ALLEGRO_EVENT& event) {
+	return event.type == ALLEGRO_EVENT_KEY_UP && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE;
+}
+
+bool isDisplayClosed(const ALLEGRO_EVENT& event) {
+	return event.type == ALLEGRO_EVENT_DISPLAY_CLOSE;
+}
+
 int main(int argc, char** argv) {
 	if (!init_alllegro_modules()) {
 		return -1;
@@ -33,7 +41,7 @@ int main(int argc, char** argv) {
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			old_dir = snake.change_dir(event.keyboard.keycode, old_dir);
 		}
-		else if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		else if (isDisplayClosed(event)) {
 			return 0;
 		}
 
@@ -76,9 +84,12 @@ int main(int argc, char** argv) {
 		app.flushEventQueue();
 		while (true) {
 			app.waitForEvent(event);
+			if (isEscapeHit(event)) {
+				not_terminate = false;
+				break;
+			}
 			if (event.type == ALLEGRO_EVENT_KEY_UP) {
-				if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE
-						|| event.keyboard.keycode == ALLEGRO_KEY_N) {
+				if (event.keyboard.keycode == ALLEGRO_KEY_N) {
 					not_terminate = false;
 					break;
 				}
@@ -86,7 +97,7 @@ int main(int argc, char** argv) {
 					break;
 				}
 			}
-			if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			if (isDisplayClosed(event)) {
 				return 0;
 			}
 		}
