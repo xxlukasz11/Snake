@@ -34,19 +34,24 @@ int main(int argc, char** argv) {
 
 	app.registerEventSources();
 	
+	const auto& display = app.getDisplay();
+	const auto &timer = app.getFrameRateTimer();
+	ALLEGRO_EVENT event;
+
 	bool not_terminate = true;
 	while (not_terminate) {
 
-		Snake snake(15, app.display.width, app.display.height, app.dt, 1, al_map_rgb(255, 0, 0), al_map_rgb(68, 136, 170), al_map_rgb(35, 121, 22), al_map_rgb(238, 230, 165));
+		Snake snake(15, display.width, display.height, app.getFrameRateIntervalSeconds(), 1, al_map_rgb(255, 0, 0),
+				al_map_rgb(68, 136, 170), al_map_rgb(35, 121, 22), al_map_rgb(238, 230, 165));
 		snake.set_start_variables(300, 300, 1, 0);
-		snake.intro(app.font["Arial"]);
-		al_wait_for_event(app.queue.ptr, &app.event);
+		snake.intro(app.getMainFont());
+		app.waitForEvent(event);
 
 		int old_dir = ALLEGRO_KEY_RIGHT;
-		if (app.event.type == ALLEGRO_EVENT_KEY_DOWN) {
-			old_dir = snake.change_dir(app.event.keyboard.keycode, old_dir);
+		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+			old_dir = snake.change_dir(event.keyboard.keycode, old_dir);
 		}
-		else if (app.event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		else if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			return 0;
 		}
 
@@ -56,10 +61,10 @@ int main(int argc, char** argv) {
 
 
 		bool no_exit = true;
-		al_start_timer(app.timer.ptr);
+		al_start_timer(timer.ptr);
 		while (no_exit) {
-			al_wait_for_event(app.queue.ptr, &app.event);
-			switch (app.event.type) {
+			app.waitForEvent(event);
+			switch (event.type) {
 			case ALLEGRO_EVENT_TIMER:
 				if (!snake.calc()) {
 					no_exit = false;
@@ -71,12 +76,12 @@ int main(int argc, char** argv) {
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				return 0;
 			case ALLEGRO_EVENT_KEY_UP:
-				if (app.event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+				if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
 					no_exit = false;
 				}
 				break;
 			case ALLEGRO_EVENT_KEY_DOWN:
-				tmp_dir = snake.change_dir(app.event.keyboard.keycode, old_dir);
+				tmp_dir = snake.change_dir(event.keyboard.keycode, old_dir);
 				if (tmp_dir != old_dir) {
 					new_dir = tmp_dir;
 				}
@@ -84,21 +89,22 @@ int main(int argc, char** argv) {
 			}
 		}
 
-		al_stop_timer(app.timer.ptr);
-		snake.outro(app.font["Arial"]);
-		al_flush_event_queue(app.queue.ptr);
+		al_stop_timer(timer.ptr);
+		snake.outro(app.getMainFont());
+		app.flushEventQueue();
 		while (true) {
-			al_wait_for_event(app.queue.ptr, &app.event);
-			if (app.event.type == ALLEGRO_EVENT_KEY_UP) {
-				if (app.event.keyboard.keycode == ALLEGRO_KEY_ESCAPE || app.event.keyboard.keycode == ALLEGRO_KEY_N) {
+			app.waitForEvent(event);
+			if (event.type == ALLEGRO_EVENT_KEY_UP) {
+				if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE
+						|| event.keyboard.keycode == ALLEGRO_KEY_N) {
 					not_terminate = false;
 					break;
 				}
-				if (app.event.keyboard.keycode == ALLEGRO_KEY_T) {
+				if (event.keyboard.keycode == ALLEGRO_KEY_T) {
 					break;
 				}
 			}
-			if (app.event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 				return 0;
 			}
 		}

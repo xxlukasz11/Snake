@@ -11,12 +11,19 @@ public:
 	bool loadMainFont();
 	bool initFrameRateTimer();
 	void registerEventSources();
+	void flushEventQueue();
 
+	ALLEGRO_FONT* getMainFont() const;
+	float getFrameRateIntervalSeconds() const;
+	const Display& getDisplay() const;
+	const Timer& getFrameRateTimer() const;
+	void waitForEvent(ALLEGRO_EVENT &event);
+
+private:
 	Display display;
 	Font font;
-	ALLEGRO_MONITOR_INFO monitor;
 	Queue queue;
-	ALLEGRO_EVENT event;
+	ALLEGRO_MONITOR_INFO monitor;
 	Timer timer;
 	float dt{ 0.06f };
 };

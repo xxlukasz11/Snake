@@ -40,6 +40,30 @@ void App::registerEventSources() {
 	queue.register_source(timer.ptr);
 }
 
+void App::flushEventQueue() {
+	al_flush_event_queue(queue.ptr);
+}
+
+ALLEGRO_FONT* App::getMainFont() const {
+	return font[MAIN_FONT_NAME];
+}
+
+float App::getFrameRateIntervalSeconds() const {
+	return dt;
+}
+
+const Display& App::getDisplay() const {
+	return display;
+}
+
+const Timer& App::getFrameRateTimer() const {
+	return timer;
+}
+
+void App::waitForEvent(ALLEGRO_EVENT& event) {
+	al_wait_for_event(queue.ptr, &event);
+}
+
 bool init_alllegro_modules() {
 	try {
 		if (!al_init()) {

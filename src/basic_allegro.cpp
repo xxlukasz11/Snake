@@ -50,7 +50,7 @@ bool Font::add(const char* _name, int _size, const char* _filename) {
 	return true;
 }
 
-ALLEGRO_FONT* Font::operator[](const char* _name) {
+ALLEGRO_FONT* Font::operator[](const std::string& _name) const {
 	auto itr = font_array.find(_name);
 	if (itr != font_array.end()) {
 		return itr->second;
