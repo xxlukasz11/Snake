@@ -14,28 +14,11 @@ int main(int argc, char** argv) {
 	}
 
 	App app;
-	if (!app.initDisplay()) {
-		errMsg r("Failed to init display");
-		r.print("error.log");
+	if (!app.initialize()) {
 		return -1;
 	}
-
-	if (!app.loadMainFont()) {
-		errMsg r("Failed to load main font");
-		r.print("error.log");
-		return -1;
-	}
-
-	if (!app.initFrameRateTimer()) {
-		errMsg r("Failed to init timer");
-		r.print("error.log");
-		return -1;
-	}
-
-	app.registerEventSources();
 	
 	const auto& display = app.getDisplay();
-	const auto &timer = app.getFrameRateTimer();
 	ALLEGRO_EVENT event;
 
 	bool not_terminate = true;
@@ -61,7 +44,7 @@ int main(int argc, char** argv) {
 
 
 		bool no_exit = true;
-		al_start_timer(timer.ptr);
+		app.startFrameRateUpdates();
 		while (no_exit) {
 			app.waitForEvent(event);
 			switch (event.type) {
@@ -89,7 +72,7 @@ int main(int argc, char** argv) {
 			}
 		}
 
-		al_stop_timer(timer.ptr);
+		app.stopFrameRateUpdates();
 		snake.outro(app.getMainFont());
 		app.flushEventQueue();
 		while (true) {

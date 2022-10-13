@@ -7,19 +7,22 @@
 
 class App {
 public:
-	bool initDisplay();
-	bool loadMainFont();
-	bool initFrameRateTimer();
-	void registerEventSources();
+	bool initialize();
 	void flushEventQueue();
+	void startFrameRateUpdates();
+	void stopFrameRateUpdates();
 
 	ALLEGRO_FONT* getMainFont() const;
 	float getFrameRateIntervalSeconds() const;
 	const Display& getDisplay() const;
-	const Timer& getFrameRateTimer() const;
 	void waitForEvent(ALLEGRO_EVENT &event);
 
 private:
+	bool initDisplay();
+	bool loadMainFont();
+	bool initFrameRateTimer();
+	void registerEventSources();
+
 	Display display;
 	Font font;
 	Queue queue;

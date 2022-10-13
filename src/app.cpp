@@ -14,6 +14,31 @@ constexpr int MAIN_FONT_SIZE= 24;
 constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
+constexpr const char* ERROR_FILE = "error.log";
+
+
+bool App::initialize() {
+	if (!initDisplay()) {
+		errMsg r("Failed to init display");
+		r.print(ERROR_FILE);
+		return false;
+	}
+
+	if (!loadMainFont()) {
+		errMsg r("Failed to load main font");
+		r.print(ERROR_FILE);
+		return false;
+	}
+
+	if (!initFrameRateTimer()) {
+		errMsg r("Failed to init timer");
+		r.print(ERROR_FILE);
+		return false;
+	}
+
+	registerEventSources();
+	return true;
+}
 
 bool App::initDisplay() {
 	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_NAME);
@@ -22,7 +47,8 @@ bool App::initDisplay() {
 	}
 
 	al_get_monitor_info(0, &monitor);
-	al_set_window_position(display.ptr, (monitor.x2 - monitor.x1 - display.width) / 2, (monitor.y2 - monitor.y1 - display.height) / 2);
+	al_set_window_position(display.ptr, (monitor.x2 - monitor.x1 - display.width) / 2,
+			(monitor.y2 - monitor.y1 - display.height) / 2);
 	return true;
 }
 
@@ -44,6 +70,14 @@ void App::flushEventQueue() {
 	al_flush_event_queue(queue.ptr);
 }
 
+void App::startFrameRateUpdates() {
+	al_start_timer(timer.ptr);
+}
+
+void App::stopFrameRateUpdates() {
+	al_stop_timer(timer.ptr);
+}
+
 ALLEGRO_FONT* App::getMainFont() const {
 	return font[MAIN_FONT_NAME];
 }
@@ -54,10 +88,6 @@ float App::getFrameRateIntervalSeconds() const {
 
 const Display& App::getDisplay() const {
 	return display;
-}
-
-const Timer& App::getFrameRateTimer() const {
-	return timer;
 }
 
 void App::waitForEvent(ALLEGRO_EVENT& event) {
@@ -88,7 +118,7 @@ bool init_alllegro_modules() {
 		}
 	}
 	catch (errMsg& r) {
-		r.print("error.log");
+		r.print(ERROR_FILE);
 		return false;
 	}
 
