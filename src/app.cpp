@@ -11,11 +11,11 @@
 constexpr int DISPLAY_WIDTH = 810;
 constexpr int DISPLAY_HEIGHT = 510;
 constexpr int MAIN_FONT_SIZE= 24;
+constexpr double FRAME_RATE_INTERVAL_SECONDS = 0.06;
 constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
-
 
 bool App::initialize() {
 	if (!initDisplay()) {
@@ -46,6 +46,7 @@ bool App::initDisplay() {
 		return initResult;
 	}
 
+	ALLEGRO_MONITOR_INFO monitor;
 	al_get_monitor_info(0, &monitor);
 	al_set_window_position(display.ptr, (monitor.x2 - monitor.x1 - display.width) / 2,
 			(monitor.y2 - monitor.y1 - display.height) / 2);
@@ -57,7 +58,7 @@ bool App::loadMainFont() {
 }
 
 bool App::initFrameRateTimer() {
-	return timer.init(dt);
+	return timer.init(FRAME_RATE_INTERVAL_SECONDS);
 }
 
 void App::registerEventSources() {
@@ -83,7 +84,7 @@ ALLEGRO_FONT* App::getMainFont() const {
 }
 
 float App::getFrameRateIntervalSeconds() const {
-	return dt;
+	return FRAME_RATE_INTERVAL_SECONDS;
 }
 
 const Display& App::getDisplay() const {

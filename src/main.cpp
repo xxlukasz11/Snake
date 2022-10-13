@@ -20,7 +20,6 @@ int main(int argc, char** argv) {
 	
 	const auto& display = app.getDisplay();
 	ALLEGRO_EVENT event;
-
 	bool not_terminate = true;
 	while (not_terminate) {
 
