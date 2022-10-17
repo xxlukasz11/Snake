@@ -1,23 +1,25 @@
+#include "appContext.h"
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-
+#include <memory>
 #include "errMsg.hpp"
-#include "app.hpp"
 
 constexpr int DISPLAY_WIDTH = 810;
 constexpr int DISPLAY_HEIGHT = 510;
-constexpr int MAIN_FONT_SIZE= 24;
+constexpr int MAIN_FONT_SIZE = 24;
 constexpr double FRAME_RATE_INTERVAL_SECONDS = 0.06;
 constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
+constexpr const char* AUDIO_SAMPLE_FILE = "sample.wav";
 
-bool App::initialize() {
+bool AppContext::initialize() {
 	if (!initDisplay()) {
 		errMsg r("Failed to init display");
 		r.print(ERROR_FILE);
@@ -36,11 +38,17 @@ bool App::initialize() {
 		return false;
 	}
 
+	if (!loadAudioSamples()) {
+		errMsg r("Failed to load audio samples");
+		r.print(ERROR_FILE);
+		return false;
+	}
+
 	registerEventSources();
 	return true;
 }
 
-bool App::initDisplay() {
+bool AppContext::initDisplay() {
 	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_NAME);
 	if (!initResult) {
 		return initResult;
@@ -53,49 +61,73 @@ bool App::initDisplay() {
 	return true;
 }
 
-bool App::loadMainFont() {
+bool AppContext::loadMainFont() {
 	return font.add(MAIN_FONT_NAME, MAIN_FONT_SIZE, MAIN_FONT_FILE_NAME);
 }
 
-bool App::initFrameRateTimer() {
+bool AppContext::initFrameRateTimer() {
 	return timer.init(FRAME_RATE_INTERVAL_SECONDS);
 }
 
-void App::registerEventSources() {
+bool AppContext::loadAudioSamples() {
+	if (!al_reserve_samples(1)) {
+		return false;
+	}
+	ALLEGRO_SAMPLE* samplePtr = al_load_sample(AUDIO_SAMPLE_FILE);
+	if (!samplePtr) {
+		return false;
+	}
+	errorSample = std::make_unique<AudioSample>(samplePtr);
+	return true;
+}
+
+void AppContext::registerEventSources() {
 	queue.register_keyboard();
 	queue.register_source(display.ptr);
 	queue.register_source(timer.ptr);
 }
 
-void App::flushEventQueue() {
+void AppContext::flushEventQueue() {
 	al_flush_event_queue(queue.ptr);
 }
 
-void App::startFrameRateUpdates() {
+void AppContext::startFrameRateUpdates() {
 	al_start_timer(timer.ptr);
 }
 
-void App::stopFrameRateUpdates() {
+void AppContext::stopFrameRateUpdates() {
 	al_stop_timer(timer.ptr);
 }
 
-ALLEGRO_FONT* App::getMainFont() const {
+void AppContext::stopApp() {
+	runningFlag = false;
+}
+
+bool AppContext::getRunningFlag() const {
+	return runningFlag;
+}
+
+ALLEGRO_FONT* AppContext::getMainFont() const {
 	return font[MAIN_FONT_NAME];
 }
 
-float App::getFrameRateIntervalSeconds() const {
+float AppContext::getFrameRateIntervalSeconds() const {
 	return FRAME_RATE_INTERVAL_SECONDS;
 }
 
-const Display& App::getDisplay() const {
+const Display& AppContext::getDisplay() const {
 	return display;
 }
 
-void App::waitForEvent(ALLEGRO_EVENT& event) {
+const AudioSample& AppContext::getErrorAudioSample() const {
+	return *errorSample;
+}
+
+void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
 	al_wait_for_event(queue.ptr, &event);
 }
 
-bool init_alllegro_modules() {
+bool app_init_alllegro_modules() {
 	try {
 		if (!al_init()) {
 			throw errMsg("Failed to initialize allegro");
@@ -117,13 +149,12 @@ bool init_alllegro_modules() {
 		if (!al_init_ttf_addon()) {
 			throw errMsg("Failed to initialize ttf addon");
 		}
-	}
-	catch (errMsg& r) {
+	} catch (errMsg& r) {
 		r.print(ERROR_FILE);
 		return false;
 	}
 
-	ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+	ALLEGRO_PATH* path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
 	al_append_path_component(path, "../resources");
 	al_change_directory(al_path_cstr(path, '/'));
 	al_destroy_path(path);

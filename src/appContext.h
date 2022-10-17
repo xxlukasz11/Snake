@@ -1,33 +1,40 @@
-#ifndef SRC_APP_HPP_
-#define SRC_APP_HPP_
+#ifndef SRC_APPCONTEXT_H_
+#define SRC_APPCONTEXT_H_
 
-#include "basic_allegro.hpp"
+#include "audioSample.h"
+#include <memory>
+#include "basic_allegro.h"
 
-class App {
+class AppContext {
 public:
 	bool initialize();
 	void flushEventQueue();
 	void startFrameRateUpdates();
 	void stopFrameRateUpdates();
+	void stopApp();
 
+	bool getRunningFlag() const;
 	ALLEGRO_FONT* getMainFont() const;
 	float getFrameRateIntervalSeconds() const;
 	const Display& getDisplay() const;
+	const AudioSample& getErrorAudioSample() const;
 	void waitForEvent(ALLEGRO_EVENT& event);
 
 private:
 	bool initDisplay();
 	bool loadMainFont();
 	bool initFrameRateTimer();
+	bool loadAudioSamples();
 	void registerEventSources();
 
+	bool runningFlag{ true };
 	Display display;
 	Font font;
 	Queue queue;
 	Timer timer;
+	std::unique_ptr<AudioSample> errorSample;
 };
 
-bool init_alllegro_modules();
+bool app_init_alllegro_modules();
 
-
-#endif /* SRC_APP_HPP_ */
+#endif /* SRC_APPCONTEXT_H_ */
