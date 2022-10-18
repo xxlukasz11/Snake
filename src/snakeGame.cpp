@@ -5,8 +5,11 @@
 #include "gameOverState.h"
 #include "snakeGame.h"
 
-SnakeGame::SnakeGame() :
-		startupState(std::make_shared<StartupState>(*this)),
+constexpr int PIXEL_SIZE = 15;
+
+SnakeGame::SnakeGame(App& app) :
+		painter(app.getDisplay(), PIXEL_SIZE),
+		startupState(std::make_shared<StartupState>(*this, painter)),
 		introState(std::make_shared<IntroState>(*this)),
 		playState(std::make_shared<PlayState>(*this)),
 		pauseState(std::make_shared<PauseState>(*this)),
@@ -34,4 +37,8 @@ void SnakeGame::setState(StateType stateType) {
 	default:
 		break;
 	}
+}
+
+void SnakeGame::handleEvent(const ALLEGRO_EVENT& event) {
+	currentState->handleEvent(event);
 }

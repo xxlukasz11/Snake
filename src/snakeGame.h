@@ -5,13 +5,17 @@
 
 #include "state.h"
 #include "stateMachine.h"
+#include "app.hpp"
+#include "worldPainter.h"
 
-class SnakeGame : public StateMachine {
+class SnakeGame : public StateMachine, public State {
 public:
-	SnakeGame();
+	SnakeGame(App& app);
 	void setState(StateType stateType) override;
+	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:
+	WorldPainter painter;
 	std::shared_ptr<State> startupState;
 	std::shared_ptr<State> introState;
 	std::shared_ptr<State> playState;

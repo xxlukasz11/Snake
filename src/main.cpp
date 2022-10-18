@@ -7,6 +7,7 @@
 #include "errMsg.hpp"
 #include "gra.hpp"
 #include "app.hpp"
+#include "snakeGame.h"
 
 bool isEscapeHit(const ALLEGRO_EVENT& event) {
 	return event.type == ALLEGRO_EVENT_KEY_UP && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE;
@@ -29,6 +30,13 @@ int main(int argc, char** argv) {
 	const auto& display = app.getDisplay();
 	ALLEGRO_EVENT event;
 	bool not_terminate = true;
+
+	SnakeGame game(app);
+	while (not_terminate) {
+		app.waitForEvent(event);
+		game.handleEvent(event);
+	}
+
 	while (not_terminate) {
 
 		Snake snake(15, display.width, display.height, app.getFrameRateIntervalSeconds(), 1, al_map_rgb(255, 0, 0),

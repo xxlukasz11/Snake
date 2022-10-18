@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <allegro5/allegro_font.h>
 
 class Display {
 public:
