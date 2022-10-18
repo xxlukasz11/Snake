@@ -7,6 +7,7 @@
 #include "stateMachine.h"
 #include "app.hpp"
 #include "worldPainter.h"
+#include "snakeContext.h"
 
 class SnakeGame : public StateMachine {
 public:
@@ -15,6 +16,7 @@ public:
 	void handleEvent(const ALLEGRO_EVENT& event);
 
 private:
+	SnakeContext snakeContext;
 	WorldPainter painter;
 	std::shared_ptr<State> startupState;
 	std::shared_ptr<State> playState;

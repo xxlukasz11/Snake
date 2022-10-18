@@ -12,7 +12,7 @@ WorldPainter::WorldPainter(const Display& display, double pixelSize) :
 		borderSize(pixelSize) {
 }
 
-void WorldPainter::draw() {
+void WorldPainter::drawMap() {
 	al_clear_to_color(BORDER_COLOR);
 	al_draw_filled_rectangle(borderSize, borderSize, display.width - borderSize, display.height - borderSize,
 			BACKGROUND_COLOR);
@@ -21,5 +21,26 @@ void WorldPainter::draw() {
 	//for (int i = 1; i < snake_size; i++) {
 	//	al_draw_filled_rectangle(x[i], y[i], x[i] + part_size, y[i] + part_size, snake_color);
 	//}
+}
+
+void WorldPainter::drawSnake(const SnakeContext& snake) {
+	const auto& body = snake.getBody();
+	if (body.empty()) {
+		return;
+	}
+
+	const auto& head = body[0];
+	drawPixel(head.x, head.y, snake.getHeadColor());
+	for (size_t i = 1; i < body.size(); ++i) {
+		const auto& segment = body[i];
+		drawPixel(segment.x, segment.y, snake.getBodyColor());
+	}
+}
+
+void WorldPainter::drawPixel(double x, double y, const ALLEGRO_COLOR& color) {
+	al_draw_filled_rectangle(x, y, x + pixelSize, y + pixelSize, color);
+}
+
+void WorldPainter::flushDisplay() {
 	al_flip_display();
 }
