@@ -2,7 +2,7 @@
 #define SRC_STATEMACHINE_H_
 
 enum class StateType {
-	STARTUP, INTRO, PLAY, PAUSE, GAME_OVER
+	STARTUP, INTRO, PLAY, PAUSE, GAME_OVER, NONE
 };
 
 class StateMachine {

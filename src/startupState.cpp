@@ -5,6 +5,10 @@ StartupState::StartupState(StateMachine& stateMachine, WorldPainter& painter) :
 		painter(painter) {
 }
 
+void StartupState::onEnter() {
+	painter.draw();
+}
+
 void StartupState::handleEvent(const ALLEGRO_EVENT& event) {
 
 }

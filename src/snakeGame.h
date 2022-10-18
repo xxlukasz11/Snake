@@ -8,11 +8,11 @@
 #include "app.hpp"
 #include "worldPainter.h"
 
-class SnakeGame : public StateMachine, public State {
+class SnakeGame : public StateMachine {
 public:
 	SnakeGame(App& app);
 	void setState(StateType stateType) override;
-	void handleEvent(const ALLEGRO_EVENT& event) override;
+	void handleEvent(const ALLEGRO_EVENT& event);
 
 private:
 	WorldPainter painter;
@@ -22,6 +22,7 @@ private:
 	std::shared_ptr<State> pauseState;
 	std::shared_ptr<State> gameOverState;
 	std::shared_ptr<State> currentState;
+	StateType currentStateType;
 };
 
 #endif /* SRC_SNAKEGAME_H_ */

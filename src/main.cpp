@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 	if (!app.initialize()) {
 		return -1;
 	}
-	
+
 	const auto& display = app.getDisplay();
 	ALLEGRO_EVENT event;
 	bool not_terminate = true;

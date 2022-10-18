@@ -8,6 +8,7 @@
 class StartupState : public State {
 public:
 	StartupState(StateMachine& stateMachine, WorldPainter& painter);
+	void onEnter() override;
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:

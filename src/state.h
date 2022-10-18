@@ -6,6 +6,7 @@
 class State {
 public:
 	virtual ~State() = default;
+	virtual void onEnter() = 0;
 	virtual void handleEvent(const ALLEGRO_EVENT& event) = 0;
 };
 

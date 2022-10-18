@@ -14,10 +14,16 @@ SnakeGame::SnakeGame(App& app) :
 		playState(std::make_shared<PlayState>(*this)),
 		pauseState(std::make_shared<PauseState>(*this)),
 		gameOverState(std::make_shared<GameOverState>(*this)),
-		currentState(startupState) {
+		currentStateType(StateType::NONE) {
+	setState(StateType::STARTUP);
 }
 
 void SnakeGame::setState(StateType stateType) {
+	if (currentStateType == stateType) {
+		return;
+	}
+	currentStateType = stateType;
+
 	switch (stateType) {
 	case StateType::STARTUP:
 		currentState = startupState;
@@ -37,6 +43,7 @@ void SnakeGame::setState(StateType stateType) {
 	default:
 		break;
 	}
+	currentState->onEnter();
 }
 
 void SnakeGame::handleEvent(const ALLEGRO_EVENT& event) {

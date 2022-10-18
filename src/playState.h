@@ -7,6 +7,7 @@
 class PlayState : public State {
 public:
 	PlayState(StateMachine& stateMachine);
+	void onEnter() override;
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:

@@ -7,6 +7,7 @@
 class GameOverState : public State {
 public:
 	GameOverState(StateMachine& stateMachine);
+	void onEnter() override;
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:

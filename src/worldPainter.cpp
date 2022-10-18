@@ -21,4 +21,5 @@ void WorldPainter::draw() {
 	//for (int i = 1; i < snake_size; i++) {
 	//	al_draw_filled_rectangle(x[i], y[i], x[i] + part_size, y[i] + part_size, snake_color);
 	//}
+	al_flip_display();
 }
