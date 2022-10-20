@@ -13,6 +13,8 @@ public:
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:
+	void handleKeyDown(int keyCode);
+
 	WorldPainter& painter;
 	SnakeContext& snakeContext;
 };
