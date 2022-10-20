@@ -47,15 +47,13 @@ int main(int argc, char** argv) {
 		int old_dir = ALLEGRO_KEY_RIGHT;
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			old_dir = snake.change_dir(event.keyboard.keycode, old_dir);
-		}
-		else if (isDisplayClosed(event)) {
+		} else if (isDisplayClosed(event)) {
 			return 0;
 		}
 
 		int new_dir = old_dir;
 		int tmp_dir;
 		snake.draw_all();
-
 
 		bool no_exit = true;
 		app.startFrameRateUpdates();

@@ -44,3 +44,7 @@ void WorldPainter::drawPixel(double x, double y, const ALLEGRO_COLOR& color) {
 void WorldPainter::flushDisplay() {
 	al_flip_display();
 }
+
+double WorldPainter::getPixelSize() const {
+	return pixelSize;
+}

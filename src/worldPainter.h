@@ -11,6 +11,8 @@ public:
 	void drawSnake(const SnakeContext& snake);
 	void flushDisplay();
 
+	double getPixelSize() const;
+
 private:
 	void drawPixel(double x, double y, const ALLEGRO_COLOR& color);
 
@@ -18,6 +20,5 @@ private:
 	double pixelSize;
 	double borderSize;
 };
-
 
 #endif /* SRC_WORLDPAINTER_H_ */
