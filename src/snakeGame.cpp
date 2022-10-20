@@ -16,6 +16,10 @@ SnakeGame::SnakeGame(App& app) :
 	setState(StateType::STARTUP);
 }
 
+void SnakeGame::terminate() {
+	runningFlag = false;
+}
+
 void SnakeGame::setState(StateType stateType) {
 	if (currentStateType == stateType) {
 		return;

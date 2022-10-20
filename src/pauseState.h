@@ -1,17 +1,16 @@
 #ifndef SRC_PAUSESTATE_H_
 #define SRC_PAUSESTATE_H_
 
-#include "state.h"
+#include "stateBase.h"
 #include "stateMachine.h"
 
-class PauseState : public State {
+class PauseState : public StateBase {
 public:
 	PauseState(StateMachine& stateMachine);
 	void onEnter() override;
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:
-	StateMachine& stateMachine;
 };
 
 #endif /* SRC_PAUSESTATE_H_ */

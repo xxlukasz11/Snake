@@ -1,19 +1,18 @@
 #ifndef SRC_STARTUPSTATE_H_
 #define SRC_STARTUPSTATE_H_
 
-#include "state.h"
+#include "stateBase.h"
 #include "stateMachine.h"
 #include "worldPainter.h"
 #include "snakeContext.h"
 
-class StartupState : public State {
+class StartupState : public StateBase {
 public:
 	StartupState(StateMachine& stateMachine, WorldPainter& painter, SnakeContext& snakeContext);
 	void onEnter() override;
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:
-	StateMachine& stateMachine;
 	WorldPainter& painter;
 	SnakeContext& snakeContext;
 };

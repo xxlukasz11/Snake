@@ -1,7 +1,7 @@
 #include "pauseState.h"
 
 PauseState::PauseState(StateMachine& stateMachine) :
-		stateMachine(stateMachine) {
+		StateBase(stateMachine) {
 }
 
 void PauseState::onEnter() {
@@ -9,5 +9,5 @@ void PauseState::onEnter() {
 }
 
 void PauseState::handleEvent(const ALLEGRO_EVENT& event) {
-
+	handleCommonEvent(event);
 }

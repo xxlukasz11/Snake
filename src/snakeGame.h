@@ -13,9 +13,11 @@ class SnakeGame : public StateMachine {
 public:
 	SnakeGame(App& app);
 	void setState(StateType stateType) override;
+	void terminate() override;
 	void handleEvent(const ALLEGRO_EVENT& event);
 
 private:
+	bool runningFlag{ true };
 	SnakeContext snakeContext;
 	WorldPainter painter;
 	std::shared_ptr<State> startupState;
