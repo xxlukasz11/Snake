@@ -15,6 +15,7 @@ public:
 	void setState(StateType stateType) override;
 	void terminate() override;
 	void handleEvent(const ALLEGRO_EVENT& event);
+	bool shouldBeRunning() const;
 
 private:
 	bool runningFlag{ true };

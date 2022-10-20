@@ -29,14 +29,13 @@ int main(int argc, char** argv) {
 
 	const auto& display = app.getDisplay();
 	ALLEGRO_EVENT event;
-	bool not_terminate = true;
-
 	SnakeGame game(app);
-	while (not_terminate) {
+	while (game.shouldBeRunning()) {
 		app.waitForEvent(event);
 		game.handleEvent(event);
 	}
 
+	bool not_terminate = true;
 	while (not_terminate) {
 
 		Snake snake(15, display.width, display.height, app.getFrameRateIntervalSeconds(), 1, al_map_rgb(255, 0, 0),

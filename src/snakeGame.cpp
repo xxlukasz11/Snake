@@ -48,3 +48,7 @@ void SnakeGame::setState(StateType stateType) {
 void SnakeGame::handleEvent(const ALLEGRO_EVENT& event) {
 	currentState->handleEvent(event);
 }
+
+bool SnakeGame::shouldBeRunning() const {
+	return runningFlag;
+}
