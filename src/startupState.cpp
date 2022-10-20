@@ -37,11 +37,10 @@ void StartupState::onEnter() {
 }
 
 void StartupState::handleEvent(const ALLEGRO_EVENT& event) {
-	if (event.type != ALLEGRO_EVENT_KEY_DOWN) {
-		handleCommonEvent(event);
-		return;
+	if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+		handleKeyDown(event.keyboard.keycode);
 	}
-	handleKeyDown(event.keyboard.keycode);
+	handleCommonEvent(event);
 }
 
 void StartupState::handleKeyDown(int keyCode) {

@@ -11,6 +11,8 @@ public:
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 private:
+	void moveSnake();
+	void changeSnakeDirection(int keyCode);
 };
 
 #endif /* SRC_PLAYSTATE_H_ */
