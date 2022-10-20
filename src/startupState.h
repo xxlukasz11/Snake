@@ -10,7 +10,7 @@ class StartupState : public StateBase {
 public:
 	StartupState(StateMachine& stateMachine, WorldPainter& painter, SnakeContext& snakeContext);
 	void onEnter() override;
-	void handleEvent(const ALLEGRO_EVENT& event) override;
+	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
 private:
 	void handleKeyDown(int keyCode);

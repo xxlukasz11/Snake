@@ -4,17 +4,18 @@ StateBase::StateBase(StateMachine& stateMachine) :
 		stateMachine(stateMachine) {
 }
 
-void StateBase::handleCommonEvent(const ALLEGRO_EVENT& event) {
+void StateBase::handleEvent(const ALLEGRO_EVENT& event) {
 	switch (event.type) {
 	case ALLEGRO_EVENT_DISPLAY_CLOSE:
 		exitGame();
-		break;
+		return;
 	case ALLEGRO_EVENT_KEY_UP:
 		if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
 			exitGame();
 		}
-		break;
+		return;
 	}
+	handleStateEvent(event);
 }
 
 void StateBase::exitGame() {

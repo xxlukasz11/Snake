@@ -11,11 +11,13 @@ public:
 	StateBase(StateMachine& stateMachine);
 
 protected:
-	void handleCommonEvent(const ALLEGRO_EVENT& event);
+	virtual void handleStateEvent(const ALLEGRO_EVENT& event) = 0;
 	void exitGame();
 	void nextState(StateType stateType);
 
 private:
+	void handleEvent(const ALLEGRO_EVENT& event) override;
+
 	StateMachine& stateMachine;
 };
 

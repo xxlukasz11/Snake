@@ -8,7 +8,7 @@ class PauseState : public StateBase {
 public:
 	PauseState(StateMachine& stateMachine);
 	void onEnter() override;
-	void handleEvent(const ALLEGRO_EVENT& event) override;
+	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
 private:
 };

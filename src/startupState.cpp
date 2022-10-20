@@ -36,11 +36,10 @@ void StartupState::onEnter() {
 	painter.flushDisplay();
 }
 
-void StartupState::handleEvent(const ALLEGRO_EVENT& event) {
+void StartupState::handleStateEvent(const ALLEGRO_EVENT& event) {
 	if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 		handleKeyDown(event.keyboard.keycode);
 	}
-	handleCommonEvent(event);
 }
 
 void StartupState::handleKeyDown(int keyCode) {

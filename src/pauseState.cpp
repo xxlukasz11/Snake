@@ -8,6 +8,6 @@ void PauseState::onEnter() {
 
 }
 
-void PauseState::handleEvent(const ALLEGRO_EVENT& event) {
-	handleCommonEvent(event);
+void PauseState::handleStateEvent(const ALLEGRO_EVENT& event) {
+
 }

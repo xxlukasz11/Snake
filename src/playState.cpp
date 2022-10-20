@@ -8,7 +8,7 @@ void PlayState::onEnter() {
 
 }
 
-void PlayState::handleEvent(const ALLEGRO_EVENT& event) {
+void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
 	switch (event.type) {
 	case ALLEGRO_EVENT_TIMER:
 		moveSnake();
@@ -17,7 +17,6 @@ void PlayState::handleEvent(const ALLEGRO_EVENT& event) {
 		changeSnakeDirection(event.keyboard.keycode);
 		break;
 	}
-	handleCommonEvent(event);
 }
 
 void PlayState::moveSnake() {
