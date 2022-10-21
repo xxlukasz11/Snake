@@ -6,13 +6,13 @@
 static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
 
-WorldPainter::WorldPainter(const Display& display, double pixelSize) :
+WorldPainter::WorldPainter(const Display& display, double rasterSize) :
 		display(display),
-		pixelSize(pixelSize),
-		borderSize(pixelSize) {
+		rasterSize(rasterSize),
+		borderSize(rasterSize) {
 }
 
-void WorldPainter::drawMap() {
+void WorldPainter::drawMap() const {
 	al_clear_to_color(BORDER_COLOR);
 	al_draw_filled_rectangle(borderSize, borderSize, display.width - borderSize, display.height - borderSize,
 			BACKGROUND_COLOR);
@@ -23,28 +23,30 @@ void WorldPainter::drawMap() {
 	//}
 }
 
-void WorldPainter::drawSnake(const SnakeContext& snake) {
+void WorldPainter::drawSnake(const SnakeContext& snake) const {
 	const auto& body = snake.getBody();
 	if (body.empty()) {
 		return;
 	}
 
 	const auto& head = body[0];
-	drawPixel(head.x, head.y, snake.getHeadColor());
+	drawRaster(head.x, head.y, snake.getHeadColor());
 	for (size_t i = 1; i < body.size(); ++i) {
 		const auto& segment = body[i];
-		drawPixel(segment.x, segment.y, snake.getBodyColor());
+		drawRaster(segment.x, segment.y, snake.getBodyColor());
 	}
 }
 
-void WorldPainter::drawPixel(double x, double y, const ALLEGRO_COLOR& color) {
-	al_draw_filled_rectangle(x, y, x + pixelSize, y + pixelSize, color);
+void WorldPainter::drawRaster(double x, double y, const ALLEGRO_COLOR& color) const {
+	const auto xOffset = x * rasterSize;
+	const auto yOffset = y * rasterSize;
+	al_draw_filled_rectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
 }
 
-void WorldPainter::flushDisplay() {
+void WorldPainter::flushDisplay() const {
 	al_flip_display();
 }
 
-double WorldPainter::getPixelSize() const {
-	return pixelSize;
+double WorldPainter::getRasterSize() const {
+	return rasterSize;
 }

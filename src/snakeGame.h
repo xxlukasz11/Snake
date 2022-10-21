@@ -19,7 +19,6 @@ public:
 private:
 	AppContext& appContext;
 	GameContext gameContext;
-	WorldPainter painter;
 	std::shared_ptr<State> startupState;
 	std::shared_ptr<State> playState;
 	std::shared_ptr<State> pauseState;

@@ -4,13 +4,13 @@
 #include "gameOverState.h"
 #include "snakeGame.h"
 
-constexpr int PIXEL_SIZE = 15;
+constexpr int RASTER_SIZE = 15;
 
 SnakeGame::SnakeGame(AppContext& appContext) :
 		appContext(appContext),
-		painter(appContext.getDisplay(), PIXEL_SIZE),
-		startupState(std::make_shared<StartupState>(*this, painter, gameContext)),
-		playState(std::make_shared<PlayState>(*this, painter, gameContext, appContext)),
+		gameContext(appContext.getDisplay(), RASTER_SIZE),
+		startupState(std::make_shared<StartupState>(*this, gameContext)),
+		playState(std::make_shared<PlayState>(*this, gameContext, appContext)),
 		pauseState(std::make_shared<PauseState>(*this)),
 		gameOverState(std::make_shared<GameOverState>(*this)),
 		currentStateType(StateType::NONE) {

@@ -1,12 +1,11 @@
 #include <allegro5/allegro.h>
 #include "playState.h"
 
-PlayState::PlayState(StateMachine& stateMachine, WorldPainter& worldPainter, GameContext& gameContext, AppContext& app) :
+PlayState::PlayState(StateMachine& stateMachine, GameContext& gameContext, AppContext& app) :
 		StateBase(stateMachine),
-		painter(worldPainter),
-		snakeContext(gameContext.snakeContext),
+		gameContext(gameContext),
 		app(app),
-		pixelSize(worldPainter.getPixelSize()) {
+		snakeContext(gameContext.getSnakeContext()) {
 }
 
 void PlayState::onEnter() {
@@ -33,6 +32,7 @@ void PlayState::nextIteration() {
 }
 
 void PlayState::drawFrame() {
+	const auto& painter = gameContext.getWorldPainter();
 	painter.drawMap();
 	painter.drawSnake(snakeContext);
 	painter.flushDisplay();
@@ -42,15 +42,10 @@ bool PlayState::moveSnake() {
 	const auto& speed = snakeContext.getSpeed();
 	const auto& body = snakeContext.getBody();
 	const auto& headPosition = body.at(0);
-	const Position newHeadPosition = { headPosition.x + dirToPixelSize(speed.x), headPosition.y
-			+ dirToPixelSize(speed.y) };
+	const Position newHeadPosition = { headPosition.x + speed.x, headPosition.y + speed.y };
 	snakeContext.appendHeadSegment(newHeadPosition);
 	snakeContext.eraseTailSegment();
 	return true;
-}
-
-int PlayState::dirToPixelSize(int speed) const {
-	return pixelSize * speed;
 }
 
 void PlayState::changeSnakeDirection(int keyCode) {

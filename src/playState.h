@@ -10,21 +10,19 @@
 
 class PlayState : public StateBase {
 public:
-	PlayState(StateMachine& stateMachine, WorldPainter& worldPainter, GameContext& gameContext, AppContext& app);
+	PlayState(StateMachine& stateMachine, GameContext& gameContext, AppContext& app);
 	void onEnter() override;
 	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
 private:
 	void nextIteration();
 	bool moveSnake();
-	int dirToPixelSize(int speed) const;
 	void changeSnakeDirection(int keyCode);
 	void drawFrame();
 
-	WorldPainter& painter;
-	SnakeContext& snakeContext;
+	GameContext& gameContext;
 	AppContext& app;
-	double pixelSize;
+	SnakeContext& snakeContext;
 };
 
 #endif /* SRC_PLAYSTATE_H_ */

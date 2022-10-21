@@ -6,19 +6,19 @@
 
 class WorldPainter {
 public:
-	WorldPainter(const Display& display, double pixelSize);
-	void drawMap();
-	void drawSnake(const SnakeContext& snake);
-	void flushDisplay();
+	WorldPainter(const Display& display, double rasterSize);
+	void drawMap() const;
+	void drawSnake(const SnakeContext& snake) const;
+	void flushDisplay() const;
 
-	double getPixelSize() const;
+	double getRasterSize() const;
 
 private:
-	void drawPixel(double x, double y, const ALLEGRO_COLOR& color);
+	void drawRaster(double x, double y, const ALLEGRO_COLOR& color) const;
 
 	const Display& display;
-	double pixelSize;
-	double borderSize;
+	const double rasterSize;
+	const double borderSize;
 };
 
 #endif /* SRC_WORLDPAINTER_H_ */
