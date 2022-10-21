@@ -23,10 +23,10 @@ std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
 }
 }
 
-StartupState::StartupState(StateMachine& stateMachine, WorldPainter& painter, SnakeContext& snakeContext) :
+StartupState::StartupState(StateMachine& stateMachine, WorldPainter& painter, GameContext& gameContext) :
 		StateBase(stateMachine),
 		painter(painter),
-		snakeContext(snakeContext) {
+		snakeContext(gameContext.snakeContext) {
 }
 
 void StartupState::onEnter() {

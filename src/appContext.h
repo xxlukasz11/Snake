@@ -1,9 +1,9 @@
-#ifndef SRC_APP_HPP_
-#define SRC_APP_HPP_
+#ifndef SRC_APPCONTEXT_H_
+#define SRC_APPCONTEXT_H_
 
 #include "basic_allegro.hpp"
 
-class App {
+class AppContext {
 public:
 	bool initialize();
 	void flushEventQueue();
@@ -30,4 +30,4 @@ private:
 bool init_alllegro_modules();
 
 
-#endif /* SRC_APP_HPP_ */
+#endif /* SRC_APPCONTEXT_H_ */

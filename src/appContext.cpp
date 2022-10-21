@@ -1,3 +1,5 @@
+#include "appContext.h"
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -6,7 +8,6 @@
 #include <allegro5/allegro_acodec.h>
 
 #include "errMsg.hpp"
-#include "app.hpp"
 
 constexpr int DISPLAY_WIDTH = 810;
 constexpr int DISPLAY_HEIGHT = 510;
@@ -17,7 +18,7 @@ constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
 
-bool App::initialize() {
+bool AppContext::initialize() {
 	if (!initDisplay()) {
 		errMsg r("Failed to init display");
 		r.print(ERROR_FILE);
@@ -40,7 +41,7 @@ bool App::initialize() {
 	return true;
 }
 
-bool App::initDisplay() {
+bool AppContext::initDisplay() {
 	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_NAME);
 	if (!initResult) {
 		return initResult;
@@ -53,45 +54,45 @@ bool App::initDisplay() {
 	return true;
 }
 
-bool App::loadMainFont() {
+bool AppContext::loadMainFont() {
 	return font.add(MAIN_FONT_NAME, MAIN_FONT_SIZE, MAIN_FONT_FILE_NAME);
 }
 
-bool App::initFrameRateTimer() {
+bool AppContext::initFrameRateTimer() {
 	return timer.init(FRAME_RATE_INTERVAL_SECONDS);
 }
 
-void App::registerEventSources() {
+void AppContext::registerEventSources() {
 	queue.register_keyboard();
 	queue.register_source(display.ptr);
 	queue.register_source(timer.ptr);
 }
 
-void App::flushEventQueue() {
+void AppContext::flushEventQueue() {
 	al_flush_event_queue(queue.ptr);
 }
 
-void App::startFrameRateUpdates() {
+void AppContext::startFrameRateUpdates() {
 	al_start_timer(timer.ptr);
 }
 
-void App::stopFrameRateUpdates() {
+void AppContext::stopFrameRateUpdates() {
 	al_stop_timer(timer.ptr);
 }
 
-ALLEGRO_FONT* App::getMainFont() const {
+ALLEGRO_FONT* AppContext::getMainFont() const {
 	return font[MAIN_FONT_NAME];
 }
 
-float App::getFrameRateIntervalSeconds() const {
+float AppContext::getFrameRateIntervalSeconds() const {
 	return FRAME_RATE_INTERVAL_SECONDS;
 }
 
-const Display& App::getDisplay() const {
+const Display& AppContext::getDisplay() const {
 	return display;
 }
 
-void App::waitForEvent(ALLEGRO_EVENT& event) {
+void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
 	al_wait_for_event(queue.ptr, &event);
 }
 

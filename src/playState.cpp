@@ -1,10 +1,10 @@
 #include <allegro5/allegro.h>
 #include "playState.h"
 
-PlayState::PlayState(StateMachine& stateMachine, WorldPainter& worldPainter, SnakeContext& snakeContext, App& app) :
+PlayState::PlayState(StateMachine& stateMachine, WorldPainter& worldPainter, GameContext& gameContext, AppContext& app) :
 		StateBase(stateMachine),
 		painter(worldPainter),
-		snakeContext(snakeContext),
+		snakeContext(gameContext.snakeContext),
 		app(app),
 		pixelSize(worldPainter.getPixelSize()) {
 }

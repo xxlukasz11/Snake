@@ -3,10 +3,11 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <memory>
+
+#include "appContext.h"
 #include "basic_allegro.hpp"
 #include "errMsg.hpp"
 #include "gra.hpp"
-#include "app.hpp"
 #include "snakeGame.h"
 
 bool isEscapeHit(const ALLEGRO_EVENT& event) {
@@ -22,7 +23,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	App app;
+	AppContext app;
 	if (!app.initialize()) {
 		return -1;
 	}

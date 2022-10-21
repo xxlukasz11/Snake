@@ -3,15 +3,15 @@
 
 #include <memory>
 
+#include "appContext.h"
 #include "state.h"
 #include "stateMachine.h"
-#include "app.hpp"
 #include "worldPainter.h"
-#include "snakeContext.h"
+#include "gameContext.h"
 
 class SnakeGame : public StateMachine {
 public:
-	SnakeGame(App& app);
+	SnakeGame(AppContext& app);
 	void setState(StateType stateType) override;
 	void terminate() override;
 	void handleEvent(const ALLEGRO_EVENT& event);
@@ -19,7 +19,7 @@ public:
 
 private:
 	bool runningFlag{ true };
-	SnakeContext snakeContext;
+	GameContext gameContext;
 	WorldPainter painter;
 	std::shared_ptr<State> startupState;
 	std::shared_ptr<State> playState;

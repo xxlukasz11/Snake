@@ -6,10 +6,10 @@
 
 constexpr int PIXEL_SIZE = 15;
 
-SnakeGame::SnakeGame(App& app) :
+SnakeGame::SnakeGame(AppContext& app) :
 		painter(app.getDisplay(), PIXEL_SIZE),
-		startupState(std::make_shared<StartupState>(*this, painter, snakeContext)),
-		playState(std::make_shared<PlayState>(*this, painter, snakeContext, app)),
+		startupState(std::make_shared<StartupState>(*this, painter, gameContext)),
+		playState(std::make_shared<PlayState>(*this, painter, gameContext, app)),
 		pauseState(std::make_shared<PauseState>(*this)),
 		gameOverState(std::make_shared<GameOverState>(*this)),
 		currentStateType(StateType::NONE) {
