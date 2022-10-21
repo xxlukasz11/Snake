@@ -11,7 +11,7 @@
 
 constexpr int DISPLAY_WIDTH = 810;
 constexpr int DISPLAY_HEIGHT = 510;
-constexpr int MAIN_FONT_SIZE= 24;
+constexpr int MAIN_FONT_SIZE = 24;
 constexpr double FRAME_RATE_INTERVAL_SECONDS = 0.06;
 constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_NAME = "Arial";
@@ -80,6 +80,14 @@ void AppContext::stopFrameRateUpdates() {
 	al_stop_timer(timer.ptr);
 }
 
+void AppContext::stopApp() {
+	runningFlag = false;
+}
+
+bool AppContext::getRunningFlag() const {
+	return runningFlag;
+}
+
 ALLEGRO_FONT* AppContext::getMainFont() const {
 	return font[MAIN_FONT_NAME];
 }
@@ -96,7 +104,7 @@ void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
 	al_wait_for_event(queue.ptr, &event);
 }
 
-bool init_alllegro_modules() {
+bool app_init_alllegro_modules() {
 	try {
 		if (!al_init()) {
 			throw errMsg("Failed to initialize allegro");
@@ -118,13 +126,12 @@ bool init_alllegro_modules() {
 		if (!al_init_ttf_addon()) {
 			throw errMsg("Failed to initialize ttf addon");
 		}
-	}
-	catch (errMsg& r) {
+	} catch (errMsg& r) {
 		r.print(ERROR_FILE);
 		return false;
 	}
 
-	ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+	ALLEGRO_PATH* path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
 	al_append_path_component(path, "../resources");
 	al_change_directory(al_path_cstr(path, '/'));
 	al_destroy_path(path);

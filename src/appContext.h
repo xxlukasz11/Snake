@@ -9,7 +9,9 @@ public:
 	void flushEventQueue();
 	void startFrameRateUpdates();
 	void stopFrameRateUpdates();
+	void stopApp();
 
+	bool getRunningFlag() const;
 	ALLEGRO_FONT* getMainFont() const;
 	float getFrameRateIntervalSeconds() const;
 	const Display& getDisplay() const;
@@ -21,13 +23,13 @@ private:
 	bool initFrameRateTimer();
 	void registerEventSources();
 
+	bool runningFlag{ true };
 	Display display;
 	Font font;
 	Queue queue;
 	Timer timer;
 };
 
-bool init_alllegro_modules();
-
+bool app_init_alllegro_modules();
 
 #endif /* SRC_APPCONTEXT_H_ */

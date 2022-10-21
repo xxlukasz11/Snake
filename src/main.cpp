@@ -19,7 +19,7 @@ bool isDisplayClosed(const ALLEGRO_EVENT& event) {
 }
 
 int main(int argc, char** argv) {
-	if (!init_alllegro_modules()) {
+	if (!app_init_alllegro_modules()) {
 		return -1;
 	}
 
@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
 	const auto& display = app.getDisplay();
 	ALLEGRO_EVENT event;
 	SnakeGame game(app);
-	while (game.shouldBeRunning()) {
+	while (app.getRunningFlag()) {
 		app.waitForEvent(event);
 		game.handleEvent(event);
 	}

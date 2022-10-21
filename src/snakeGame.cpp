@@ -6,10 +6,11 @@
 
 constexpr int PIXEL_SIZE = 15;
 
-SnakeGame::SnakeGame(AppContext& app) :
-		painter(app.getDisplay(), PIXEL_SIZE),
+SnakeGame::SnakeGame(AppContext& appContext) :
+		appContext(appContext),
+		painter(appContext.getDisplay(), PIXEL_SIZE),
 		startupState(std::make_shared<StartupState>(*this, painter, gameContext)),
-		playState(std::make_shared<PlayState>(*this, painter, gameContext, app)),
+		playState(std::make_shared<PlayState>(*this, painter, gameContext, appContext)),
 		pauseState(std::make_shared<PauseState>(*this)),
 		gameOverState(std::make_shared<GameOverState>(*this)),
 		currentStateType(StateType::NONE) {
@@ -17,7 +18,7 @@ SnakeGame::SnakeGame(AppContext& app) :
 }
 
 void SnakeGame::terminate() {
-	runningFlag = false;
+	appContext.stopApp();
 }
 
 void SnakeGame::setState(StateType stateType) {
@@ -47,8 +48,4 @@ void SnakeGame::setState(StateType stateType) {
 
 void SnakeGame::handleEvent(const ALLEGRO_EVENT& event) {
 	currentState->handleEvent(event);
-}
-
-bool SnakeGame::shouldBeRunning() const {
-	return runningFlag;
 }
