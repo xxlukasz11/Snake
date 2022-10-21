@@ -3,11 +3,7 @@
 
 #include <deque>
 #include <allegro5/allegro_color.h>
-
-struct Position {
-	int x;
-	int y;
-};
+#include "position.h"
 
 struct SpeedVector {
 	int x;
@@ -28,9 +24,8 @@ public:
 	void eraseTailSegment();
 
 private:
-	SpeedVector speed { 0, 0 };
+	SpeedVector speed{ 0, 0 };
 	Body body;
 };
-
 
 #endif /* SRC_SNAKECONTEXT_H_ */

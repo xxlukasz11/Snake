@@ -12,6 +12,7 @@ public:
 	void flushDisplay() const;
 
 	double getRasterSize() const;
+	int getBorderRasters() const;
 
 private:
 	void drawRaster(double x, double y, const ALLEGRO_COLOR& color) const;

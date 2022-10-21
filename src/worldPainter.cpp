@@ -3,13 +3,14 @@
 
 #include "worldPainter.h"
 
+constexpr int BORDER_RASTERS = 1;
 static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
 
 WorldPainter::WorldPainter(const Display& display, double rasterSize) :
 		display(display),
 		rasterSize(rasterSize),
-		borderSize(rasterSize) {
+		borderSize(rasterSize * BORDER_RASTERS) {
 }
 
 void WorldPainter::drawMap() const {
@@ -49,4 +50,8 @@ void WorldPainter::flushDisplay() const {
 
 double WorldPainter::getRasterSize() const {
 	return rasterSize;
+}
+
+int WorldPainter::getBorderRasters() const {
+	return BORDER_RASTERS;
 }

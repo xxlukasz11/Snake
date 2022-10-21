@@ -4,6 +4,7 @@
 #include "basic_allegro.hpp"
 #include "snakeContext.h"
 #include "worldPainter.h"
+#include "foodContext.h"
 
 class GameContext {
 public:
@@ -13,12 +14,16 @@ public:
 	const WorldPainter& getWorldPainter() const;
 	const SnakeContext& getSnakeContext() const;
 	SnakeContext& getSnakeContext();
+	const FoodContext& getFoodContext() const;
+	FoodContext& getFoodContext();
 
 private:
+	AvailableArea calculateFoodArea(const Display& display, int borderRasters) const;
+
 	int rasterSize;
 	WorldPainter worldPainter;
 	SnakeContext snakeContext;
-	// TODO food info
+	FoodContext foodContext;
 };
 
 #endif /* SRC_GAMECONTEXT_H_ */
