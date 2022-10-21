@@ -1,11 +1,13 @@
-#include "worldMap.h"
-
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
+#include "worldMap.h"
+#include "snakeContext.h"
+#include "foodContext.h"
 
 constexpr int BORDER_RASTERS = 1;
 static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
+static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
 
 WorldMap::WorldMap(const Display& display, double rasterSize) :
 		display(display),
@@ -17,6 +19,20 @@ void WorldMap::drawMap() const {
 	al_clear_to_color(BORDER_COLOR);
 	al_draw_filled_rectangle(borderSize, borderSize, display.width - borderSize, display.height - borderSize,
 			BACKGROUND_COLOR);
+}
+
+void WorldMap::drawFood(const FoodContext& foodContext) const {
+	const auto& foodPosition = foodContext.getFoodPositon();
+	if (foodPosition.has_value()) {
+		drawFoodAt(foodPosition.value());
+	}
+}
+
+void WorldMap::drawFoodAt(const Position& position) const {
+	const double circleRadius = rasterSize / 2.2;
+	const auto xOffset = position.x * rasterSize + circleRadius;
+	const auto yoffset = position.y * rasterSize + circleRadius;
+	al_draw_filled_circle(xOffset, yoffset, circleRadius, FOOD_COLOR);
 }
 
 void WorldMap::drawSnake(const SnakeContext& snake) const {

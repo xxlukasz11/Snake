@@ -7,7 +7,7 @@ FoodContext::FoodContext(const Area& availableArea) :
 
 void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
 	// TODO place food randomly
-	foodPosition = Position{ 33, 33 };
+	foodPosition = Position{ 25, 25 };
 }
 
 bool FoodContext::isFoodHere(const Position position) const {
@@ -15,4 +15,8 @@ bool FoodContext::isFoodHere(const Position position) const {
 		return position == foodPosition.value();
 	}
 	return false;
+}
+
+const std::optional<Position>& FoodContext::getFoodPositon() const {
+	return foodPosition;
 }

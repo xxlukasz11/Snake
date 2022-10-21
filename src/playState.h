@@ -6,6 +6,7 @@
 #include "stateMachine.h"
 #include "gameContext.h"
 #include "snakeContext.h"
+#include "foodContext.h"
 #include "worldMap.h"
 
 class PlayState : public StateBase {
@@ -23,6 +24,7 @@ private:
 	GameContext& gameContext;
 	AppContext& app;
 	SnakeContext& snakeContext;
+	FoodContext& foodContext;
 };
 
 #endif /* SRC_PLAYSTATE_H_ */

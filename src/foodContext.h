@@ -11,6 +11,7 @@ public:
 	FoodContext(const Area& availableArea);
 	void placeFoodOnAvailableSquares(const SnakeContext& snakeContext);
 	bool isFoodHere(const Position position) const;
+	const std::optional<Position>& getFoodPositon() const;
 
 private:
 	Area availableArea;

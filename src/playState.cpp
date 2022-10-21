@@ -5,10 +5,12 @@ PlayState::PlayState(StateMachine& stateMachine, GameContext& gameContext, AppCo
 		StateBase(stateMachine),
 		gameContext(gameContext),
 		app(app),
-		snakeContext(gameContext.getSnakeContext()) {
+		snakeContext(gameContext.getSnakeContext()),
+		foodContext(gameContext.getFoodContext()) {
 }
 
 void PlayState::onEnter() {
+	foodContext.placeFoodOnAvailableSquares(snakeContext);
 	app.startFrameRateUpdates();
 }
 
@@ -35,6 +37,7 @@ void PlayState::drawFrame() {
 	const auto& worldMap = gameContext.getWorldMap();
 	worldMap.drawMap();
 	worldMap.drawSnake(snakeContext);
+	worldMap.drawFood(foodContext);
 	worldMap.flushDisplay();
 }
 
