@@ -26,13 +26,16 @@ void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
 
 void PlayState::nextIteration() {
 	const auto successfullyMoved = moveSnake();
+	drawFrame();
+	if (!successfullyMoved) {
+		nextState(StateType::GAME_OVER);
+	}
+}
+
+void PlayState::drawFrame() {
 	painter.drawMap();
 	painter.drawSnake(snakeContext);
 	painter.flushDisplay();
-	if (!successfullyMoved) {
-		exitGame();
-		nextState(StateType::GAME_OVER);
-	}
 }
 
 bool PlayState::moveSnake() {

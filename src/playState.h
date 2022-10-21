@@ -19,6 +19,7 @@ private:
 	bool moveSnake();
 	int dirToPixelSize(int speed) const;
 	void changeSnakeDirection(int keyCode);
+	void drawFrame();
 
 	WorldPainter& painter;
 	SnakeContext& snakeContext;
