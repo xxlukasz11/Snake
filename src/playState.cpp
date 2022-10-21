@@ -47,7 +47,12 @@ bool PlayState::moveSnake() {
 	const auto& headPosition = body.at(0);
 	const Position newHeadPosition = { headPosition.x + speed.x, headPosition.y + speed.y };
 	snakeContext.appendHeadSegment(newHeadPosition);
-	snakeContext.eraseTailSegment();
+
+	if (foodContext.isFoodHere(newHeadPosition)) {
+		foodContext.placeFoodOnAvailableSquares(snakeContext);
+	} else {
+		snakeContext.eraseTailSegment();
+	}
 	return true;
 }
 
