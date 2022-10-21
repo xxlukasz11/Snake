@@ -32,10 +32,10 @@ void PlayState::nextIteration() {
 }
 
 void PlayState::drawFrame() {
-	const auto& painter = gameContext.getWorldPainter();
-	painter.drawMap();
-	painter.drawSnake(snakeContext);
-	painter.flushDisplay();
+	const auto& wolrdMap = gameContext.getWolrdMap();
+	wolrdMap.drawMap();
+	wolrdMap.drawSnake(snakeContext);
+	wolrdMap.flushDisplay();
 }
 
 bool PlayState::moveSnake() {

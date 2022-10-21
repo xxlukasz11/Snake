@@ -6,8 +6,8 @@
 #include "appContext.h"
 #include "state.h"
 #include "stateMachine.h"
-#include "worldPainter.h"
 #include "gameContext.h"
+#include "wolrdMap.h"
 
 class SnakeGame : public StateMachine {
 public:

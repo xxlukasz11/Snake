@@ -3,9 +3,9 @@
 
 #include "stateBase.h"
 #include "stateMachine.h"
-#include "worldPainter.h"
 #include "gameContext.h"
 #include "snakeContext.h"
+#include "wolrdMap.h"
 
 class StartupState : public StateBase {
 public:
@@ -16,7 +16,7 @@ public:
 private:
 	void handleKeyDown(int keyCode);
 
-	const WorldPainter& painter;
+	const WolrdMap& wolrdMap;
 	SnakeContext& snakeContext;
 };
 

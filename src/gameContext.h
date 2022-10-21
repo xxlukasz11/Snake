@@ -3,15 +3,15 @@
 
 #include "basic_allegro.hpp"
 #include "snakeContext.h"
-#include "worldPainter.h"
 #include "foodContext.h"
+#include "wolrdMap.h"
 
 class GameContext {
 public:
 	GameContext(const Display& display, int rasterSize);
 
 	int getRasterSize() const;
-	const WorldPainter& getWorldPainter() const;
+	const WolrdMap& getWolrdMap() const;
 	const SnakeContext& getSnakeContext() const;
 	SnakeContext& getSnakeContext();
 	const FoodContext& getFoodContext() const;
@@ -21,7 +21,7 @@ private:
 	Area calculateFoodArea(const Display& display, int borderRasters) const;
 
 	int rasterSize;
-	WorldPainter worldPainter;
+	WolrdMap wolrdMap;
 	SnakeContext snakeContext;
 	FoodContext foodContext;
 };

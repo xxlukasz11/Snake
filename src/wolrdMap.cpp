@@ -1,19 +1,20 @@
+#include "wolrdMap.h"
+
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
 
-#include "worldPainter.h"
 
 constexpr int BORDER_RASTERS = 1;
 static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
 
-WorldPainter::WorldPainter(const Display& display, double rasterSize) :
+WolrdMap::WolrdMap(const Display& display, double rasterSize) :
 		display(display),
 		rasterSize(rasterSize),
 		borderSize(rasterSize * BORDER_RASTERS) {
 }
 
-void WorldPainter::drawMap() const {
+void WolrdMap::drawMap() const {
 	al_clear_to_color(BORDER_COLOR);
 	al_draw_filled_rectangle(borderSize, borderSize, display.width - borderSize, display.height - borderSize,
 			BACKGROUND_COLOR);
@@ -24,7 +25,7 @@ void WorldPainter::drawMap() const {
 	//}
 }
 
-void WorldPainter::drawSnake(const SnakeContext& snake) const {
+void WolrdMap::drawSnake(const SnakeContext& snake) const {
 	const auto& body = snake.getBody();
 	if (body.empty()) {
 		return;
@@ -38,20 +39,20 @@ void WorldPainter::drawSnake(const SnakeContext& snake) const {
 	}
 }
 
-void WorldPainter::drawRaster(double x, double y, const ALLEGRO_COLOR& color) const {
+void WolrdMap::drawRaster(double x, double y, const ALLEGRO_COLOR& color) const {
 	const auto xOffset = x * rasterSize;
 	const auto yOffset = y * rasterSize;
 	al_draw_filled_rectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
 }
 
-void WorldPainter::flushDisplay() const {
+void WolrdMap::flushDisplay() const {
 	al_flip_display();
 }
 
-double WorldPainter::getRasterSize() const {
+double WolrdMap::getRasterSize() const {
 	return rasterSize;
 }
 
-int WorldPainter::getBorderRasters() const {
+int WolrdMap::getBorderRasters() const {
 	return BORDER_RASTERS;
 }

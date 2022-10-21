@@ -6,7 +6,7 @@
 #include "stateMachine.h"
 #include "gameContext.h"
 #include "snakeContext.h"
-#include "worldPainter.h"
+#include "wolrdMap.h"
 
 class PlayState : public StateBase {
 public:

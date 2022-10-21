@@ -26,15 +26,15 @@ std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
 
 StartupState::StartupState(StateMachine& stateMachine, GameContext& gameContext) :
 		StateBase(stateMachine),
-		painter(gameContext.getWorldPainter()),
+		wolrdMap(gameContext.getWolrdMap()),
 		snakeContext(gameContext.getSnakeContext()) {
 }
 
 void StartupState::onEnter() {
 	snakeContext.appendHeadSegment(INITIAL_SNAKE_POSITION);
-	painter.drawMap();
-	painter.drawSnake(snakeContext);
-	painter.flushDisplay();
+	wolrdMap.drawMap();
+	wolrdMap.drawSnake(snakeContext);
+	wolrdMap.flushDisplay();
 }
 
 void StartupState::handleStateEvent(const ALLEGRO_EVENT& event) {

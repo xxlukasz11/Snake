@@ -1,12 +1,12 @@
-#ifndef SRC_WORLDPAINTER_H_
-#define SRC_WORLDPAINTER_H_
+#ifndef SRC_WOLRDMAP_H_
+#define SRC_WOLRDMAP_H_
 
 #include "basic_allegro.hpp"
 #include "snakeContext.h"
 
-class WorldPainter {
+class WolrdMap {
 public:
-	WorldPainter(const Display& display, double rasterSize);
+	WolrdMap(const Display& display, double rasterSize);
 	void drawMap() const;
 	void drawSnake(const SnakeContext& snake) const;
 	void flushDisplay() const;
@@ -22,4 +22,4 @@ private:
 	const double borderSize;
 };
 
-#endif /* SRC_WORLDPAINTER_H_ */
+#endif /* SRC_WOLRDMAP_H_ */
