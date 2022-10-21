@@ -11,7 +11,7 @@
 
 class PlayState : public StateBase {
 public:
-	PlayState(StateMachine& stateMachine, GameContext& gameContext, AppContext& app);
+	PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext);
 	void onEnter() override;
 	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
@@ -21,8 +21,8 @@ private:
 	void changeSnakeDirection(int keyCode);
 	void drawFrame();
 
-	GameContext& gameContext;
 	AppContext& app;
+	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 };

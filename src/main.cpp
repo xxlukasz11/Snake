@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 		game.handleEvent(event);
 	}
 
-	bool not_terminate = true;
+	bool not_terminate = false;
 	while (not_terminate) {
 
 		Snake snake(15, display.width, display.height, app.getFrameRateIntervalSeconds(), 1, al_map_rgb(255, 0, 0),

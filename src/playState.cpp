@@ -1,10 +1,10 @@
 #include <allegro5/allegro.h>
 #include "playState.h"
 
-PlayState::PlayState(StateMachine& stateMachine, GameContext& gameContext, AppContext& app) :
+PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext) :
 		StateBase(stateMachine),
-		gameContext(gameContext),
 		app(app),
+		gameContext(gameContext),
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()) {
 }
