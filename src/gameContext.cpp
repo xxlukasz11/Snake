@@ -6,12 +6,12 @@ GameContext::GameContext(const Display& display, int rasterSize) :
 		foodContext(calculateFoodArea(display, worldPainter.getBorderRasters())) {
 }
 
-AvailableArea GameContext::calculateFoodArea(const Display& display, int borderRasters) const {
+Area GameContext::calculateFoodArea(const Display& display, int borderRasters) const {
 	int horizontalRasters = display.width / rasterSize;
 	int verticalRasters = display.height / rasterSize;
 	Position topLeft{ borderRasters, borderRasters };
 	Position bottomRight{ horizontalRasters - borderRasters, verticalRasters - borderRasters };
-	return AvailableArea{ topLeft, bottomRight };
+	return Area{ topLeft, bottomRight };
 }
 
 int GameContext::getRasterSize() const {

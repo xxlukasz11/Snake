@@ -3,7 +3,8 @@
 
 #include <deque>
 #include <allegro5/allegro_color.h>
-#include "position.h"
+
+#include "utils.h"
 
 struct SpeedVector {
 	int x;

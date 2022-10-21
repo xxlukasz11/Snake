@@ -1,7 +1,7 @@
 #include "foodContext.h"
 #include "snakeContext.h"
 
-FoodContext::FoodContext(const AvailableArea& availableArea) :
+FoodContext::FoodContext(const Area& availableArea) :
 		availableArea(availableArea) {
 }
 

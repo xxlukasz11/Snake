@@ -2,23 +2,18 @@
 #define SRC_FOODCONTEXT_H_
 
 #include <optional>
-#include "position.h"
-
-struct AvailableArea {
-	Position topLeft;
-	Position bottomRight;
-};
+#include "utils.h"
 
 class SnakeContext;
 
 class FoodContext {
 public:
-	FoodContext(const AvailableArea& availableArea);
+	FoodContext(const Area& availableArea);
 	void placeFoodOnAvailableSquares(const SnakeContext& snakeContext);
 	bool isFoodHere(const Position position) const;
 
 private:
-	AvailableArea availableArea;
+	Area availableArea;
 	std::optional<Position> foodPosition;
 };
 

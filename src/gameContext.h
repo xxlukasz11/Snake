@@ -18,7 +18,7 @@ public:
 	FoodContext& getFoodContext();
 
 private:
-	AvailableArea calculateFoodArea(const Display& display, int borderRasters) const;
+	Area calculateFoodArea(const Display& display, int borderRasters) const;
 
 	int rasterSize;
 	WorldPainter worldPainter;
