@@ -5,7 +5,7 @@
 #include "stateMachine.h"
 #include "gameContext.h"
 #include "snakeContext.h"
-#include "wolrdMap.h"
+#include "worldMap.h"
 
 class StartupState : public StateBase {
 public:
@@ -16,7 +16,7 @@ public:
 private:
 	void handleKeyDown(int keyCode);
 
-	const WolrdMap& wolrdMap;
+	const WorldMap& worldMap;
 	SnakeContext& snakeContext;
 };
 

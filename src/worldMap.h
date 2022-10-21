@@ -1,18 +1,18 @@
-#ifndef SRC_WOLRDMAP_H_
-#define SRC_WOLRDMAP_H_
+#ifndef SRC_WORLDMAP_H_
+#define SRC_WORLDMAP_H_
 
 #include "basic_allegro.hpp"
 #include "snakeContext.h"
+#include "utils.h"
 
-class WolrdMap {
+class WorldMap {
 public:
-	WolrdMap(const Display& display, double rasterSize);
+	WorldMap(const Display& display, double rasterSize);
 	void drawMap() const;
 	void drawSnake(const SnakeContext& snake) const;
 	void flushDisplay() const;
-
+	Area calculateAvailableArea() const;
 	double getRasterSize() const;
-	int getBorderRasters() const;
 
 private:
 	void drawRaster(double x, double y, const ALLEGRO_COLOR& color) const;
@@ -22,4 +22,4 @@ private:
 	const double borderSize;
 };
 
-#endif /* SRC_WOLRDMAP_H_ */
+#endif /* SRC_WORLDMAP_H_ */

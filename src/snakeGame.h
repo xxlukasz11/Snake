@@ -7,7 +7,7 @@
 #include "state.h"
 #include "stateMachine.h"
 #include "gameContext.h"
-#include "wolrdMap.h"
+#include "worldMap.h"
 
 class SnakeGame : public StateMachine {
 public:
