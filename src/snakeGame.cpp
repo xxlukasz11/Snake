@@ -14,6 +14,9 @@ SnakeGame::SnakeGame(AppContext& appContext) :
 		pauseState(std::make_shared<PauseState>(*this, appContext)),
 		gameOverState(std::make_shared<GameOverState>(*this, appContext)),
 		currentStateType(StateType::NONE) {
+}
+
+void SnakeGame::initialize() {
 	setState(StateType::STARTUP);
 }
 

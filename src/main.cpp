@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
 	const auto& display = app.getDisplay();
 	ALLEGRO_EVENT event;
 	SnakeGame game(app);
+	game.initialize();
 	while (app.getRunningFlag()) {
 		app.waitForEvent(event);
 		game.handleEvent(event);
