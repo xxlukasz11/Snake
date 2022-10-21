@@ -1,8 +1,9 @@
+#include <optional>
 #include "startupState.h"
 
-#include <optional>
-
 namespace {
+const Position INITIAL_SNAKE_POSITION = { 20, 20 };
+
 std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
 	switch (keyCode) {
 	case ALLEGRO_KEY_UP:
@@ -21,7 +22,7 @@ std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
 		return std::nullopt;
 	}
 }
-}
+} // namespace
 
 StartupState::StartupState(StateMachine& stateMachine, GameContext& gameContext) :
 		StateBase(stateMachine),
@@ -30,7 +31,7 @@ StartupState::StartupState(StateMachine& stateMachine, GameContext& gameContext)
 }
 
 void StartupState::onEnter() {
-	snakeContext.appendHeadSegment({ 10, 10 });
+	snakeContext.appendHeadSegment(INITIAL_SNAKE_POSITION);
 	painter.drawMap();
 	painter.drawSnake(snakeContext);
 	painter.flushDisplay();
