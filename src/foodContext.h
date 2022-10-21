@@ -3,6 +3,7 @@
 
 #include <optional>
 #include "utils.h"
+#include "positionGenerator.h"
 
 class SnakeContext;
 
@@ -14,7 +15,7 @@ public:
 	const std::optional<Position>& getFoodPositon() const;
 
 private:
-	Area availableArea;
+	PositionGenerator generator;
 	std::optional<Position> foodPosition;
 };
 

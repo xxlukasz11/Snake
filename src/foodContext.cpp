@@ -1,4 +1,3 @@
-#include <random>
 #include <algorithm>
 #include "foodContext.h"
 #include "snakeContext.h"
@@ -14,30 +13,25 @@ bool containsYPos(const SnakeContext::Body& body, int value) {
 	auto found = std::find_if(body.cbegin(), body.cend(), [value](auto&& position) {
 		return position.y == value;
 	});
-	return found == body.cend();
+	return found != body.cend();
 }
 }
 
 FoodContext::FoodContext(const Area& availableArea) :
-		availableArea(availableArea) {
+		generator(availableArea) {
 }
 
 void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
-	std::random_device randomDevice;
-	std::mt19937 generator(randomDevice());
-	std::uniform_int_distribution<> xDistrib(availableArea.topLeft.x, availableArea.bottomRight.x);
-	std::uniform_int_distribution<> yDistrib(availableArea.topLeft.y, availableArea.bottomRight.y);
-
 	const auto& forbiddenCoords = snakeContext.getBody();
 
 	int x{ };
 	do {
-		x = xDistrib(generator);
+		x = generator.ramdomX();
 	} while (containsXPos(forbiddenCoords, x));
 
 	int y{ };
 	do {
-		y = xDistrib(generator);
+		y = generator.randomY();
 	} while (containsYPos(forbiddenCoords, y));
 
 	foodPosition = Position{ x, y };
