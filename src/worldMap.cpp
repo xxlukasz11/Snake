@@ -63,7 +63,7 @@ Area WorldMap::calculateAvailableArea() const {
 	int horizontalRasters = display.width / rasterSize;
 	int verticalRasters = display.height / rasterSize;
 	Position topLeft{ BORDER_RASTERS, BORDER_RASTERS };
-	Position bottomRight{ horizontalRasters - BORDER_RASTERS, verticalRasters - BORDER_RASTERS };
+	Position bottomRight{ horizontalRasters - BORDER_RASTERS - 1, verticalRasters - BORDER_RASTERS - 1 };
 	return Area{ topLeft, bottomRight };
 }
 
