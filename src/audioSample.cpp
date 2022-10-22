@@ -1,7 +1,7 @@
 #include "audioSample.h"
 
 AudioSample::AudioSample(ALLEGRO_SAMPLE* sample) :
-		sample(std::move(sample), destroySample) {
+		sample(sample, destroySample) {
 }
 
 void AudioSample::play() const {
