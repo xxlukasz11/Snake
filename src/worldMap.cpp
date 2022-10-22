@@ -70,3 +70,16 @@ Area WorldMap::calculateAvailableArea() const {
 double WorldMap::getRasterSize() const {
 	return rasterSize;
 }
+
+bool WorldMap::isBorderHere(const Position& position) const {
+	const int horizontalRasters = display.width / rasterSize;
+	if (position.x < BORDER_RASTERS || position.x >= horizontalRasters - BORDER_RASTERS) {
+		return true;
+	}
+
+	const int verticalRasters = display.height / rasterSize;
+	if (position.y < BORDER_RASTERS || position.y >= verticalRasters - BORDER_RASTERS) {
+		return true;
+	}
+	return false;
+}

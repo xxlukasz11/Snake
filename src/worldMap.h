@@ -16,6 +16,7 @@ public:
 	void flushDisplay() const;
 	Area calculateAvailableArea() const;
 	double getRasterSize() const;
+	bool isBorderHere(const Position& position) const;
 
 private:
 	void drawFoodAt(const Position& position) const;

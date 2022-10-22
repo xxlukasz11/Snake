@@ -53,6 +53,11 @@ bool PlayState::moveSnake() {
 	} else {
 		snakeContext.eraseTailSegment();
 	}
+
+	const auto& worldMap = gameContext.getWorldMap();
+	if (worldMap.isBorderHere(newHeadPosition)) {
+		return false;
+	}
 	return true;
 }
 
