@@ -1,3 +1,4 @@
+#include <allegro5/allegro_font.h>
 #include <optional>
 #include "startupState.h"
 
@@ -34,7 +35,13 @@ void StartupState::onEnter() {
 	snakeContext.appendHeadSegment(INITIAL_SNAKE_POSITION);
 	worldMap.drawMap();
 	worldMap.drawSnake(snakeContext);
+	writeInstructions();
 	worldMap.flushDisplay();
+}
+
+void StartupState::writeInstructions() const {
+	// TODO implement when text writer is implemented
+	//al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE,"Press any arrow key"
 }
 
 void StartupState::handleStateEvent(const ALLEGRO_EVENT& event) {

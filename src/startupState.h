@@ -14,6 +14,7 @@ public:
 	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
 private:
+	void writeInstructions() const;
 	void handleKeyDown(int keyCode);
 
 	const WorldMap& worldMap;
