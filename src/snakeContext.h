@@ -19,6 +19,7 @@ public:
 	const ALLEGRO_COLOR& getBodyColor() const;
 	const Body& getBody() const;
 	const SpeedVector& getSpeed() const;
+	int getSnakeSize() const;
 
 	void setSpeed(const SpeedVector& newSpeed);
 	void appendHeadSegment(const Position& headPosition);

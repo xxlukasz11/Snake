@@ -19,6 +19,10 @@ const SpeedVector& SnakeContext::getSpeed() const {
 	return speed;
 }
 
+int SnakeContext::getSnakeSize() const {
+	return body.size();
+}
+
 void SnakeContext::setSpeed(const SpeedVector& newSpeed) {
 	speed = newSpeed;
 }
