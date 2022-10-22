@@ -1,4 +1,5 @@
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_audio.h>
 #include "playState.h"
 
 PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext) :
@@ -56,9 +57,15 @@ bool PlayState::moveSnake() {
 
 	const auto& worldMap = gameContext.getWorldMap();
 	if (worldMap.isBorderHere(newHeadPosition)) {
+		playErrorSound();
 		return false;
 	}
 	return true;
+}
+
+void PlayState::playErrorSound() const {
+	const auto& sample = app.getErrorAudioSample();
+	sample.play();
 }
 
 void PlayState::changeSnakeDirection(int keyCode) {

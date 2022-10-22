@@ -18,6 +18,7 @@ public:
 private:
 	void nextIteration();
 	bool moveSnake();
+	void playErrorSound() const;
 	void changeSnakeDirection(int keyCode);
 	void drawFrame();
 

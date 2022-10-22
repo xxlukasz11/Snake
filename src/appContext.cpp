@@ -6,7 +6,7 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-
+#include <memory>
 #include "errMsg.hpp"
 
 constexpr int DISPLAY_WIDTH = 810;
@@ -17,6 +17,7 @@ constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
+constexpr const char* AUDIO_SAMPLE_FILE = "sample.wav";
 
 bool AppContext::initialize() {
 	if (!initDisplay()) {
@@ -33,6 +34,12 @@ bool AppContext::initialize() {
 
 	if (!initFrameRateTimer()) {
 		errMsg r("Failed to init timer");
+		r.print(ERROR_FILE);
+		return false;
+	}
+
+	if (!loadAudioSamples()) {
+		errMsg r("Failed to load audio samples");
 		r.print(ERROR_FILE);
 		return false;
 	}
@@ -60,6 +67,18 @@ bool AppContext::loadMainFont() {
 
 bool AppContext::initFrameRateTimer() {
 	return timer.init(FRAME_RATE_INTERVAL_SECONDS);
+}
+
+bool AppContext::loadAudioSamples() {
+	if (!al_reserve_samples(1)) {
+		return false;
+	}
+	ALLEGRO_SAMPLE* samplePtr = al_load_sample(AUDIO_SAMPLE_FILE);
+	if (!samplePtr) {
+		return false;
+	}
+	errorSample = std::make_unique<AudioSample>(samplePtr);
+	return true;
 }
 
 void AppContext::registerEventSources() {
@@ -98,6 +117,10 @@ float AppContext::getFrameRateIntervalSeconds() const {
 
 const Display& AppContext::getDisplay() const {
 	return display;
+}
+
+const AudioSample& AppContext::getErrorAudioSample() const {
+	return *errorSample;
 }
 
 void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
