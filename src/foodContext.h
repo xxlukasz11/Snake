@@ -13,6 +13,7 @@ public:
 	void placeFoodOnAvailableSquares(const SnakeContext& snakeContext);
 	bool isFoodHere(const Position position) const;
 	const std::optional<Position>& getFoodPositon() const;
+	bool isFoodPlanted() const;
 
 private:
 	PositionGenerator generator;

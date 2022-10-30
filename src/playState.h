@@ -20,6 +20,7 @@ private:
 	bool moveSnake();
 	void playErrorSound() const;
 	void changeSnakeDirection(int keyCode);
+	void handleControlKey(int keyCode);
 	void drawFrame();
 
 	AppContext& app;

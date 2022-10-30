@@ -11,7 +11,7 @@ SnakeGame::SnakeGame(AppContext& appContext) :
 		gameContext(appContext.getDisplay(), RASTER_SIZE),
 		startupState(std::make_shared<StartupState>(*this, gameContext)),
 		playState(std::make_shared<PlayState>(*this, appContext, gameContext)),
-		pauseState(std::make_shared<PauseState>(*this, appContext)),
+		pauseState(std::make_shared<PauseState>(*this, appContext, gameContext)),
 		gameOverState(std::make_shared<GameOverState>(*this, appContext, gameContext)),
 		currentStateType(StateType::NONE) {
 }

@@ -11,7 +11,9 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& g
 }
 
 void PlayState::onEnter() {
-	foodContext.placeFoodOnAvailableSquares(snakeContext);
+	if (!foodContext.isFoodPlanted()) {
+		foodContext.placeFoodOnAvailableSquares(snakeContext);
+	}
 	app.startFrameRateUpdates();
 }
 
@@ -22,6 +24,9 @@ void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
 		break;
 	case ALLEGRO_EVENT_KEY_DOWN:
 		changeSnakeDirection(event.keyboard.keycode);
+		break;
+	case ALLEGRO_EVENT_KEY_UP:
+		handleControlKey(event.keyboard.keycode);
 		break;
 	}
 }
@@ -88,5 +93,11 @@ void PlayState::changeSnakeDirection(int keyCode) {
 	if (keyCode == ALLEGRO_KEY_RIGHT && currentSpeed.x == 0) {
 		snakeContext.setSpeed(SpeedVector{ 1, 0 });
 		return;
+	}
+}
+
+void PlayState::handleControlKey(int keyCode) {
+	if (keyCode == ALLEGRO_KEY_ESCAPE) {
+		nextState(StateType::PAUSE);
 	}
 }

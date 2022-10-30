@@ -47,3 +47,7 @@ bool FoodContext::isFoodHere(const Position position) const {
 const std::optional<Position>& FoodContext::getFoodPositon() const {
 	return foodPosition;
 }
+
+bool FoodContext::isFoodPlanted() const {
+	return foodPosition.has_value();
+}
