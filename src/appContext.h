@@ -1,9 +1,9 @@
 #ifndef SRC_APPCONTEXT_H_
 #define SRC_APPCONTEXT_H_
 
-#include "basic_allegro.hpp"
 #include "audioSample.h"
 #include <memory>
+#include "basic_allegro.h"
 
 class AppContext {
 public:

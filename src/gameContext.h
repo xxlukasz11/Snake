@@ -1,7 +1,7 @@
 #ifndef SRC_GAMECONTEXT_H_
 #define SRC_GAMECONTEXT_H_
 
-#include "basic_allegro.hpp"
+#include "basic_allegro.h"
 #include "snakeContext.h"
 #include "foodContext.h"
 #include "worldMap.h"

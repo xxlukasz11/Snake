@@ -1,7 +1,7 @@
 #ifndef SRC_WORLDMAP_H_
 #define SRC_WORLDMAP_H_
 
-#include "basic_allegro.hpp"
+#include "basic_allegro.h"
 #include "utils.h"
 
 class FoodContext;
