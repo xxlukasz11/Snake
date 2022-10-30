@@ -1,6 +1,6 @@
-#include <allegro5/allegro_font.h>
 #include <fstream>
 #include "gameOverState.h"
+#include "textWriter.h"
 
 constexpr const char* HIGHSCORES_FILE_NAME = "snake_results.dat";
 
@@ -59,35 +59,31 @@ void GameOverState::handleGameEnd() {
 void GameOverState::drawEndingScreen(int snakeSize, int highestScore) const {
 	const auto& snakeContext = gameContext.getSnakeContext();
 	const auto& worldMap = gameContext.getWorldMap();
-	auto font = appContext.getMainFont();
-	const auto& display = appContext.getDisplay();
 	worldMap.drawMap();
 	worldMap.drawSnake(snakeContext);
-	if (snakeSize == highestScore) {
-		al_draw_text(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4, ALLEGRO_ALIGN_CENTRE,
-				"EXCELLENT! YOU MATCHED THE RECORD!");
-	} else if (snakeSize > highestScore) {
-		al_draw_text(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4, ALLEGRO_ALIGN_CENTRE,
-				"EXCELLENT! THAT IS HIGHEST SCORE!");
-	} else {
-		al_draw_text(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4, ALLEGRO_ALIGN_CENTRE,
-				"GAME OVER");
-	}
-
-	al_draw_textf(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4 + 50, ALLEGRO_ALIGN_CENTRE,
-			"Snake length: %d", snakeSize);
-	if (snakeSize < highestScore) {
-		al_draw_textf(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4 + 85, ALLEGRO_ALIGN_CENTRE,
-				"Current highsore: %d", highestScore);
-	} else if (snakeSize > highestScore) {
-		al_draw_textf(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4 + 85, ALLEGRO_ALIGN_CENTRE,
-				"Previous highscore: %d", highestScore);
-	}
-
-	al_draw_text(font, al_map_rgb(0, 0, 0), display.width / 2, display.height / 4 + 120, ALLEGRO_ALIGN_CENTRE,
-			"Play again? [y/n]");
-
+	drawInstructions(snakeSize, highestScore);
 	worldMap.flushDisplay();
+}
+
+void GameOverState::drawInstructions(int snakeSize, int highestScore) const {
+	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	if (snakeSize == highestScore) {
+		writer.writeCenterAtLine(-3, "EXCELLENT! YOU MATCHED THE RECORD!");
+	} else if (snakeSize > highestScore) {
+		writer.writeCenterAtLine(-3, "EXCELLENT! THAT IS HIGHEST SCORE!");
+	} else {
+		writer.writeCenterAtLine(-3, "GAME OVER");
+	}
+
+	writer.writeCenterAtLine(-2, "Snake length: " + std::to_string(snakeSize));
+
+	if (snakeSize < highestScore) {
+		writer.writeCenterAtLine(-1, "Current highscore: " + std::to_string(highestScore));
+	} else if (snakeSize > highestScore) {
+		writer.writeCenterAtLine(-1, "Previous highscore: " + std::to_string(highestScore));
+	}
+
+	writer.writeCenterAtLine(1, "Play again? [y/n]");
 }
 
 void GameOverState::handleYesResponse() {

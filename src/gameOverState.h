@@ -15,6 +15,7 @@ public:
 private:
 	void handleGameEnd();
 	void drawEndingScreen(int snakeSize, int highestScore) const;
+	void drawInstructions(int snakeSize, int highestScore) const;
 	void handleYesResponse();
 	void handleNoResponse();
 

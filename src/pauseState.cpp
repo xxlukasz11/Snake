@@ -1,5 +1,5 @@
-#include <allegro5/allegro_font.h>
 #include "pauseState.h"
+#include "textWriter.h"
 
 PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine),
@@ -27,9 +27,8 @@ void PauseState::handleControlKey(int keyCode) {
 }
 
 void PauseState::displayPauseInformation() {
-	const auto& display = appContext.getDisplay();
-	al_draw_text(appContext.getMainFont(), al_map_rgb(0, 0, 0), display.width / 2, display.height / 2,
-			ALLEGRO_ALIGN_CENTRE, "PAUSED");
+	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	writer.writeCenter("PAUSED");
 	const auto& worldMap = gameContext.getWorldMap();
 	worldMap.flushDisplay();
 }
