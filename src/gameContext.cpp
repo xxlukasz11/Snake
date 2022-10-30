@@ -6,6 +6,11 @@ GameContext::GameContext(const Display& display, int rasterSize) :
 		foodContext(worldMap.calculateAvailableArea()) {
 }
 
+void GameContext::reset() {
+	snakeContext.reset();
+	foodContext.reset();
+}
+
 int GameContext::getRasterSize() const {
 	return rasterSize;
 }

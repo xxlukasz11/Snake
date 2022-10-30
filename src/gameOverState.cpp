@@ -87,7 +87,8 @@ void GameOverState::drawInstructions(int snakeSize, int highestScore) const {
 }
 
 void GameOverState::handleYesResponse() {
-	// TODO introduce new state - RESTART
+	gameContext.reset();
+	nextState(StateType::STARTUP);
 }
 
 void GameOverState::handleNoResponse() {

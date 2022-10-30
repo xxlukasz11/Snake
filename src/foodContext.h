@@ -10,6 +10,7 @@ class SnakeContext;
 class FoodContext {
 public:
 	FoodContext(const Area& availableArea);
+	void reset();
 	void placeFoodOnAvailableSquares(const SnakeContext& snakeContext);
 	bool isFoodHere(const Position position) const;
 	const std::optional<Position>& getFoodPositon() const;

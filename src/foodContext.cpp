@@ -21,6 +21,10 @@ FoodContext::FoodContext(const Area& availableArea) :
 		generator(availableArea) {
 }
 
+void FoodContext::reset() {
+	foodPosition.reset();
+}
+
 void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
 	const auto& forbiddenCoords = snakeContext.getBody();
 

@@ -10,6 +10,7 @@ class GameContext {
 public:
 	GameContext(const Display& display, int rasterSize);
 
+	void reset();
 	int getRasterSize() const;
 	const WorldMap& getWorldMap() const;
 	const SnakeContext& getSnakeContext() const;

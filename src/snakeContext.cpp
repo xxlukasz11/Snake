@@ -3,6 +3,11 @@
 static const ALLEGRO_COLOR HEAD_COLOR = al_map_rgb(255, 0, 0);
 static const ALLEGRO_COLOR BODY_COLOR = al_map_rgb(68, 136, 170);
 
+void SnakeContext::reset() {
+	body.clear();
+	speed = { 0, 0 };
+}
+
 const ALLEGRO_COLOR& SnakeContext::getHeadColor() const {
 	return HEAD_COLOR;
 }

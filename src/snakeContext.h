@@ -15,6 +15,7 @@ class SnakeContext {
 public:
 	using Body = std::deque<Position>;
 
+	void reset();
 	const ALLEGRO_COLOR& getHeadColor() const;
 	const ALLEGRO_COLOR& getBodyColor() const;
 	const Body& getBody() const;
