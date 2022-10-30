@@ -9,11 +9,7 @@ PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameC
 
 void PauseState::onEnter() {
 	appContext.stopFrameRateUpdates();
-	const auto& display = appContext.getDisplay();
-	al_draw_text(appContext.getMainFont(), al_map_rgb(0, 0, 0), display.width / 2, display.height / 2,
-			ALLEGRO_ALIGN_CENTRE, "PAUSED");
-	const auto& worldMap = gameContext.getWorldMap();
-	worldMap.flushDisplay();
+	displayPauseInformation();
 }
 
 void PauseState::handleStateEvent(const ALLEGRO_EVENT& event) {
@@ -28,4 +24,12 @@ void PauseState::handleControlKey(int keyCode) {
 	if (keyCode == ALLEGRO_KEY_ESCAPE) {
 		nextState(StateType::PLAY);
 	}
+}
+
+void PauseState::displayPauseInformation() {
+	const auto& display = appContext.getDisplay();
+	al_draw_text(appContext.getMainFont(), al_map_rgb(0, 0, 0), display.width / 2, display.height / 2,
+			ALLEGRO_ALIGN_CENTRE, "PAUSED");
+	const auto& worldMap = gameContext.getWorldMap();
+	worldMap.flushDisplay();
 }

@@ -14,6 +14,7 @@ public:
 
 private:
 	void handleControlKey(int keyCode);
+	void displayPauseInformation();
 
 	AppContext& appContext;
 	GameContext& gameContext;
