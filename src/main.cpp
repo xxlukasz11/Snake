@@ -1,6 +1,6 @@
 #include <allegro5/allegro.h>
 #include "appContext.h"
-#include "snakeGame.h"
+#include "gameStateController.h"
 
 int main(int argc, char** argv) {
 	if (!app_init_alllegro_modules()) {
@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 	}
 
 	ALLEGRO_EVENT event;
-	SnakeGame game(app);
+	GameStateController game(app);
 	game.initialize();
 	while (app.getRunningFlag()) {
 		app.waitForEvent(event);

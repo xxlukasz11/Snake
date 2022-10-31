@@ -1,12 +1,13 @@
+#include "gameStateController.h"
+
 #include "startupState.h"
 #include "playState.h"
 #include "pauseState.h"
 #include "gameOverState.h"
-#include "snakeGame.h"
 
 constexpr int RASTER_SIZE = 15;
 
-SnakeGame::SnakeGame(AppContext& appContext) :
+GameStateController::GameStateController(AppContext& appContext) :
 		appContext(appContext),
 		gameContext(appContext.getDisplay(), RASTER_SIZE),
 		startupState(std::make_shared<StartupState>(*this, appContext, gameContext)),
@@ -16,15 +17,15 @@ SnakeGame::SnakeGame(AppContext& appContext) :
 		currentStateType(StateType::NONE) {
 }
 
-void SnakeGame::initialize() {
+void GameStateController::initialize() {
 	setState(StateType::STARTUP);
 }
 
-void SnakeGame::terminate() {
+void GameStateController::terminate() {
 	appContext.stopApp();
 }
 
-void SnakeGame::setState(StateType stateType) {
+void GameStateController::setState(StateType stateType) {
 	if (currentStateType == stateType) {
 		return;
 	}
@@ -49,6 +50,6 @@ void SnakeGame::setState(StateType stateType) {
 	currentState->onEnter();
 }
 
-void SnakeGame::handleEvent(const ALLEGRO_EVENT& event) {
+void GameStateController::handleEvent(const ALLEGRO_EVENT& event) {
 	currentState->handleEvent(event);
 }

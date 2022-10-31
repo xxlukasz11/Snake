@@ -1,5 +1,5 @@
-#ifndef SRC_SNAKEGAME_H_
-#define SRC_SNAKEGAME_H_
+#ifndef SRC_GAMESTATECONTROLLER_H_
+#define SRC_GAMESTATECONTROLLER_H_
 
 #include <memory>
 
@@ -9,9 +9,9 @@
 #include "gameContext.h"
 #include "worldMap.h"
 
-class SnakeGame : public StateMachine {
+class GameStateController : public StateMachine {
 public:
-	SnakeGame(AppContext& appContext);
+	GameStateController(AppContext& appContext);
 	void setState(StateType stateType) override;
 	void initialize();
 	void terminate() override;
@@ -28,4 +28,4 @@ private:
 	StateType currentStateType;
 };
 
-#endif /* SRC_SNAKEGAME_H_ */
+#endif /* SRC_GAMESTATECONTROLLER_H_ */
