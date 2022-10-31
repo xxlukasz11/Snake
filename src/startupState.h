@@ -6,10 +6,11 @@
 #include "gameContext.h"
 #include "snakeContext.h"
 #include "worldMap.h"
+#include "appContext.h"
 
 class StartupState : public StateBase {
 public:
-	StartupState(StateMachine& stateMachine, GameContext& gameContext);
+	StartupState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
 	void onEnter() override;
 	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
@@ -17,6 +18,7 @@ private:
 	void writeInstructions() const;
 	void handleKeyDown(int keyCode);
 
+	AppContext& appContext;
 	const WorldMap& worldMap;
 	SnakeContext& snakeContext;
 };

@@ -9,7 +9,7 @@ constexpr int RASTER_SIZE = 15;
 SnakeGame::SnakeGame(AppContext& appContext) :
 		appContext(appContext),
 		gameContext(appContext.getDisplay(), RASTER_SIZE),
-		startupState(std::make_shared<StartupState>(*this, gameContext)),
+		startupState(std::make_shared<StartupState>(*this, appContext, gameContext)),
 		playState(std::make_shared<PlayState>(*this, appContext, gameContext)),
 		pauseState(std::make_shared<PauseState>(*this, appContext, gameContext)),
 		gameOverState(std::make_shared<GameOverState>(*this, appContext, gameContext)),

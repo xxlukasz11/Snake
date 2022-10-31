@@ -1,5 +1,6 @@
 #include <allegro5/allegro_font.h>
 #include <optional>
+#include "textWriter.h"
 #include "startupState.h"
 
 namespace {
@@ -25,8 +26,9 @@ std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
 }
 } // namespace
 
-StartupState::StartupState(StateMachine& stateMachine, GameContext& gameContext) :
+StartupState::StartupState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine),
+		appContext(appContext),
 		worldMap(gameContext.getWorldMap()),
 		snakeContext(gameContext.getSnakeContext()) {
 }
@@ -40,8 +42,8 @@ void StartupState::onEnter() {
 }
 
 void StartupState::writeInstructions() const {
-	// TODO implement when text writer is implemented
-	//al_draw_text(font, al_map_rgb(0, 0, 0), window_width / 2, window_height / 4, ALLEGRO_ALIGN_CENTRE,"Press any arrow key"
+	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	writer.writeCenter("Press any arrow to start the game");
 }
 
 void StartupState::handleStateEvent(const ALLEGRO_EVENT& event) {
