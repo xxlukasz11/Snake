@@ -48,15 +48,8 @@ void PlayState::drawFrame() {
 }
 
 bool PlayState::moveSnake() {
-	if (snakeSpeedForNextMove.has_value()) {
-		snakeContext.setSpeed(snakeSpeedForNextMove.value());
-		snakeSpeedForNextMove.reset();
-	}
-
-	const auto& speed = snakeContext.getSpeed();
-	const auto& body = snakeContext.getBody();
-	const auto& headPosition = body.at(0);
-	const Position newHeadPosition = { headPosition.x + speed.x, headPosition.y + speed.y };
+	updateSnakeSpeed();
+	const auto newHeadPosition = calculateNewHeadPosition();
 	snakeContext.appendHeadSegment(newHeadPosition);
 
 	if (foodContext.isFoodHere(newHeadPosition)) {
@@ -71,6 +64,20 @@ bool PlayState::moveSnake() {
 		return false;
 	}
 	return true;
+}
+
+void PlayState::updateSnakeSpeed() {
+	if (snakeSpeedForNextMove.has_value()) {
+		snakeContext.setSpeed(snakeSpeedForNextMove.value());
+		snakeSpeedForNextMove.reset();
+	}
+}
+
+Position PlayState::calculateNewHeadPosition() {
+	const auto& speed = snakeContext.getSpeed();
+	const auto& body = snakeContext.getBody();
+	const auto& headPosition = body.at(0);
+	return {headPosition.x + speed.x, headPosition.y + speed.y};
 }
 
 void PlayState::playErrorSound() const {
