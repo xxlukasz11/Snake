@@ -48,6 +48,11 @@ void PlayState::drawFrame() {
 }
 
 bool PlayState::moveSnake() {
+	if (snakeSpeedForNextMove.has_value()) {
+		snakeContext.setSpeed(snakeSpeedForNextMove.value());
+		snakeSpeedForNextMove.reset();
+	}
+
 	const auto& speed = snakeContext.getSpeed();
 	const auto& body = snakeContext.getBody();
 	const auto& headPosition = body.at(0);
@@ -76,22 +81,22 @@ void PlayState::playErrorSound() const {
 void PlayState::changeSnakeDirection(int keyCode) {
 	const auto currentSpeed = snakeContext.getSpeed();
 	if (keyCode == ALLEGRO_KEY_UP && currentSpeed.y == 0) {
-		snakeContext.setSpeed(SpeedVector{ 0, -1 });
+		snakeSpeedForNextMove = SpeedVector{ 0, -1 };
 		return;
 	}
 
 	if (keyCode == ALLEGRO_KEY_DOWN && currentSpeed.y == 0) {
-		snakeContext.setSpeed(SpeedVector{ 0, 1 });
+		snakeSpeedForNextMove = SpeedVector{ 0, 1 };
 		return;
 	}
 
 	if (keyCode == ALLEGRO_KEY_LEFT && currentSpeed.x == 0) {
-		snakeContext.setSpeed(SpeedVector{ -1, 0 });
+		snakeSpeedForNextMove = SpeedVector{ -1, 0 };
 		return;
 	}
 
 	if (keyCode == ALLEGRO_KEY_RIGHT && currentSpeed.x == 0) {
-		snakeContext.setSpeed(SpeedVector{ 1, 0 });
+		snakeSpeedForNextMove = SpeedVector{ 1, 0 };
 		return;
 	}
 }

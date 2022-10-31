@@ -27,6 +27,7 @@ private:
 	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
+	std::optional<SpeedVector> snakeSpeedForNextMove;
 };
 
 #endif /* SRC_PLAYSTATE_H_ */
