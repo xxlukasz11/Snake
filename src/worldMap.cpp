@@ -16,6 +16,7 @@ WorldMap::WorldMap(const Display& display, double rasterSize) :
 }
 
 void WorldMap::drawMap() const {
+	// TODO: split world map and painter contexts
 	al_clear_to_color(BORDER_COLOR);
 	al_draw_filled_rectangle(borderSize, borderSize, display.width - borderSize, display.height - borderSize,
 			BACKGROUND_COLOR);
@@ -103,6 +104,7 @@ double WorldMap::getRasterSize() const {
 }
 
 bool WorldMap::isBorderHere(const Position& position) const {
+	// TODO: create generic border representation, so that it is possible to create complex maps
 	const int horizontalRasters = display.width / rasterSize;
 	if (position.x < BORDER_RASTERS || position.x >= horizontalRasters - BORDER_RASTERS) {
 		return true;
