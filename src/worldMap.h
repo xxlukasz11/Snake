@@ -20,7 +20,8 @@ public:
 
 private:
 	void drawFoodAt(const Position& position) const;
-	void drawRaster(double x, double y, const ALLEGRO_COLOR& color) const;
+	void drawTailSegment(const Position& tailPos, const Position& adjacentSegmentPos, const ALLEGRO_COLOR& color) const;
+	void drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const;
 
 	const Display& display;
 	const double rasterSize;
