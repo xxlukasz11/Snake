@@ -2,10 +2,10 @@
 #define SRC_WORLDMAP_H_
 
 #include "basic_allegro.h"
+#include "snakeContext.h"
 #include "utils.h"
 
 class FoodContext;
-class SnakeContext;
 
 class WorldMap {
 public:
@@ -20,7 +20,10 @@ public:
 
 private:
 	void drawFoodAt(const Position& position) const;
-	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos, const ALLEGRO_COLOR& color) const;
+	void drawSnakeHead(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const;
+	void drawSnakeBody(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const;
+	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos,
+			const ALLEGRO_COLOR& color) const;
 	void drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const;
 
 	const Display& display;

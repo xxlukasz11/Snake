@@ -38,24 +38,30 @@ void WorldMap::drawFoodAt(const Position& position) const {
 
 void WorldMap::drawSnake(const SnakeContext& snake) const {
 	const auto& body = snake.getBody();
-	const auto bodySize = body.size();
 	if (body.empty()) {
 		return;
 	}
+	drawSnakeHead(body, snake.getHeadColor());
+	drawSnakeBody(body, snake.getBodyColor());
+}
 
-	const auto& head = body[0];
-	if (bodySize > 1) {
-		drawRoundedSegment(head, body[1], snake.getHeadColor());
+void WorldMap::drawSnakeHead(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
+	const auto& head = bodySegments[0];
+	if (bodySegments.size() > 1) {
+		drawRoundedSegment(head, bodySegments[1], color);
 	} else {
-		drawRoundedSegment(head, head, snake.getHeadColor());
+		drawRoundedSegment(head, head, color);
 	}
+}
 
+void WorldMap::drawSnakeBody(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
+	const auto bodySize = bodySegments.size();
 	for (size_t i = 1; i < bodySize; ++i) {
-		const auto& segment = body[i];
+		const auto& segment = bodySegments[i];
 		if (i == bodySize - 1) {
-			drawRoundedSegment(segment, body[i - 1], snake.getBodyColor());
+			drawRoundedSegment(segment, bodySegments[i - 1], color);
 		} else {
-			drawBodySegment(segment, snake.getBodyColor());
+			drawBodySegment(segment, color);
 		}
 	}
 }
