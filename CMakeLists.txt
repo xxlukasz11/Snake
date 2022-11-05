@@ -10,6 +10,6 @@ add_executable(snake ${SOURCES})
 
 set_property(TARGET snake PROPERTY CXX_STANDARD 17)
 
-target_compile_options(snake PRIVATE -Wall -pedantic)
+target_compile_options(snake PRIVATE -Wall -pedantic -O2)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "snake")
 target_link_libraries(snake allegro_ttf allegro_font allegro_primitives allegro_audio allegro_acodec allegro)
