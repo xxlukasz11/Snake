@@ -20,7 +20,7 @@ public:
 
 private:
 	void drawFoodAt(const Position& position) const;
-	void drawTailSegment(const Position& tailPos, const Position& adjacentSegmentPos, const ALLEGRO_COLOR& color) const;
+	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos, const ALLEGRO_COLOR& color) const;
 	void drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const;
 
 	const Display& display;
