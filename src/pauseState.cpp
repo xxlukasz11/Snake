@@ -9,7 +9,7 @@ PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameC
 
 void PauseState::onEnter() {
 	appContext.stopFrameRateUpdates();
-	displayPauseInformation();
+	drawFrame();
 }
 
 void PauseState::handleStateEvent(const ALLEGRO_EVENT& event) {
@@ -26,9 +26,16 @@ void PauseState::handleControlKey(int keyCode) {
 	}
 }
 
+void PauseState::drawFrame() {
+	const auto& worldMap = gameContext.getWorldMap();
+	worldMap.drawMap();
+	worldMap.drawFood(gameContext.getFoodContext());
+	worldMap.drawSnake(gameContext.getSnakeContext());
+	displayPauseInformation();
+	worldMap.flushDisplay();
+}
+
 void PauseState::displayPauseInformation() {
 	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
 	writer.writeCenter("PAUSED");
-	const auto& worldMap = gameContext.getWorldMap();
-	worldMap.flushDisplay();
 }
