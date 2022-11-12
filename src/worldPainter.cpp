@@ -17,6 +17,7 @@ WorldPainter::WorldPainter(const Display& display, double rasterSize) :
 }
 
 void WorldPainter::drawMap(const WorldMapContext& worldMapContext) const {
+	// TODO: make this class independent from allegro -> create primitives painter
 	al_clear_to_color(BACKGROUND_COLOR);
 	const auto& borderColor = worldMapContext.getBorderColor();
 	for (const auto& border : worldMapContext.getBorders()) {
