@@ -15,7 +15,7 @@ int GameContext::getRasterSize() const {
 	return rasterSize;
 }
 
-const WorldMap& GameContext::getWorldMap() const {
+const WorldMapPainter& GameContext::getWorldMap() const {
 	return worldMap;
 }
 

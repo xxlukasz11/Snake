@@ -7,7 +7,7 @@
 #include "gameContext.h"
 #include "snakeContext.h"
 #include "foodContext.h"
-#include "worldMap.h"
+#include "worldMapPainter.h"
 
 class PlayState : public StateBase {
 public:
