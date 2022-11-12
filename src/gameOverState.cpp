@@ -58,11 +58,11 @@ void GameOverState::handleGameEnd() {
 
 void GameOverState::drawEndingScreen(int snakeSize, int highestScore) const {
 	const auto& snakeContext = gameContext.getSnakeContext();
-	const auto& worldMap = gameContext.getWorldMap();
-	worldMap.drawMap();
-	worldMap.drawSnake(snakeContext);
+	const auto& painter = gameContext.getPainter();
+	painter.drawMap(gameContext.getWorldMapContext());
+	painter.drawSnake(snakeContext);
 	drawInstructions(snakeSize, highestScore);
-	worldMap.flushDisplay();
+	painter.flushDisplay();
 }
 
 void GameOverState::drawInstructions(int snakeSize, int highestScore) const {

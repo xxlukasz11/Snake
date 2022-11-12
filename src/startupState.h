@@ -19,8 +19,9 @@ private:
 	void handleKeyDown(int keyCode);
 
 	AppContext& appContext;
-	const WorldMapPainter& worldMap;
+	const WorldMapPainter& painter;
 	SnakeContext& snakeContext;
+	GameContext& gameContext;
 };
 
 #endif /* SRC_STARTUPSTATE_H_ */

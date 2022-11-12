@@ -3,6 +3,7 @@
 
 #include "basic_allegro.h"
 #include "snakeContext.h"
+#include "worldMapContext.h"
 #include "utils.h"
 
 class FoodContext;
@@ -10,13 +11,12 @@ class FoodContext;
 class WorldMapPainter {
 public:
 	WorldMapPainter(const Display& display, double rasterSize);
-	void drawMap() const;
+	void drawMap(const WorldMapContext& worldMapContext) const;
 	void drawFood(const FoodContext& foodContext) const;
 	void drawSnake(const SnakeContext& snake) const;
 	void flushDisplay() const;
 	Area calculateAvailableArea() const;
 	double getRasterSize() const;
-	bool isBorderHere(const Position& position) const;
 
 private:
 	void drawFoodAt(const Position& position) const;

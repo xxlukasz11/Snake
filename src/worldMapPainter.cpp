@@ -16,11 +16,14 @@ WorldMapPainter::WorldMapPainter(const Display& display, double rasterSize) :
 		borderSize(rasterSize * BORDER_RASTERS) {
 }
 
-void WorldMapPainter::drawMap() const {
-	// TODO: split world map and painter contexts
-	al_clear_to_color(BORDER_COLOR);
-	al_draw_filled_rectangle(borderSize, borderSize, display.width - borderSize, display.height - borderSize,
-			BACKGROUND_COLOR);
+void WorldMapPainter::drawMap(const WorldMapContext& worldMapContext) const {
+	al_clear_to_color(BACKGROUND_COLOR);
+	const auto& borderColor = worldMapContext.getBorderColor();
+	for (const auto& border : worldMapContext.getBorders()) {
+		const auto& area = border.getArea();
+		al_draw_filled_rectangle(area.topLeft.x * rasterSize, area.topLeft.y * rasterSize,
+				area.bottomRight.x * rasterSize, area.bottomRight.y * rasterSize, borderColor);
+	}
 }
 
 void WorldMapPainter::drawFood(const FoodContext& foodContext) const {
@@ -108,18 +111,4 @@ Area WorldMapPainter::calculateAvailableArea() const {
 
 double WorldMapPainter::getRasterSize() const {
 	return rasterSize;
-}
-
-bool WorldMapPainter::isBorderHere(const Position& position) const {
-	// TODO: create generic border representation, so that it is possible to create complex maps
-	const int horizontalRasters = display.width / rasterSize;
-	if (position.x < BORDER_RASTERS || position.x >= horizontalRasters - BORDER_RASTERS) {
-		return true;
-	}
-
-	const int verticalRasters = display.height / rasterSize;
-	if (position.y < BORDER_RASTERS || position.y >= verticalRasters - BORDER_RASTERS) {
-		return true;
-	}
-	return false;
 }

@@ -2,8 +2,8 @@
 
 GameContext::GameContext(const Display& display, int rasterSize) :
 		rasterSize(rasterSize),
-		worldMap(display, rasterSize),
-		foodContext(worldMap.calculateAvailableArea()) {
+		painter(display, rasterSize),
+		foodContext(painter.calculateAvailableArea()) {
 }
 
 void GameContext::reset() {
@@ -15,8 +15,8 @@ int GameContext::getRasterSize() const {
 	return rasterSize;
 }
 
-const WorldMapPainter& GameContext::getWorldMap() const {
-	return worldMap;
+const WorldMapPainter& GameContext::getPainter() const {
+	return painter;
 }
 
 const SnakeContext& GameContext::getSnakeContext() const {
@@ -33,4 +33,8 @@ const FoodContext& GameContext::getFoodContext() const {
 
 FoodContext& GameContext::getFoodContext() {
 	return foodContext;
+}
+
+const WorldMapContext& GameContext::getWorldMapContext() const {
+	return worldMapContext;
 }

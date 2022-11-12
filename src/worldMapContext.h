@@ -8,6 +8,7 @@
 
 class WorldMapContext {
 public:
+	WorldMapContext();
 	const std::vector<Border>& getBorders() const;
 	bool isBorderHere(const Position& position) const;
 	const ALLEGRO_COLOR& getBorderColor() const;

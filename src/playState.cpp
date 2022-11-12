@@ -40,11 +40,11 @@ void PlayState::nextIteration() {
 }
 
 void PlayState::drawFrame() {
-	const auto& worldMap = gameContext.getWorldMap();
-	worldMap.drawMap();
-	worldMap.drawSnake(snakeContext);
-	worldMap.drawFood(foodContext);
-	worldMap.flushDisplay();
+	const auto& painter = gameContext.getPainter();
+	painter.drawMap(gameContext.getWorldMapContext());
+	painter.drawSnake(snakeContext);
+	painter.drawFood(foodContext);
+	painter.flushDisplay();
 }
 
 bool PlayState::moveSnake() {
@@ -58,7 +58,7 @@ bool PlayState::moveSnake() {
 		snakeContext.eraseTailSegment();
 	}
 
-	const auto& worldMap = gameContext.getWorldMap();
+	const auto& worldMap = gameContext.getWorldMapContext();
 	if (worldMap.isBorderHere(newHeadPosition)) {
 		playErrorSound();
 		return false;

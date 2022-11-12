@@ -4,6 +4,7 @@
 #include "basic_allegro.h"
 #include "snakeContext.h"
 #include "foodContext.h"
+#include "worldMapContext.h"
 #include "worldMapPainter.h"
 
 class GameContext {
@@ -12,17 +13,19 @@ public:
 
 	void reset();
 	int getRasterSize() const;
-	const WorldMapPainter& getWorldMap() const;
+	const WorldMapPainter& getPainter() const;
 	const SnakeContext& getSnakeContext() const;
 	SnakeContext& getSnakeContext();
 	const FoodContext& getFoodContext() const;
 	FoodContext& getFoodContext();
+	const WorldMapContext& getWorldMapContext() const;
 
 private:
 	int rasterSize;
-	WorldMapPainter worldMap;
+	WorldMapPainter painter;
 	SnakeContext snakeContext;
 	FoodContext foodContext;
+	WorldMapContext worldMapContext;
 };
 
 #endif /* SRC_GAMECONTEXT_H_ */

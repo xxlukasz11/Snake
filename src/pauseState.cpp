@@ -27,12 +27,12 @@ void PauseState::handleControlKey(int keyCode) {
 }
 
 void PauseState::drawFrame() {
-	const auto& worldMap = gameContext.getWorldMap();
-	worldMap.drawMap();
-	worldMap.drawFood(gameContext.getFoodContext());
-	worldMap.drawSnake(gameContext.getSnakeContext());
+	const auto& painter = gameContext.getPainter();
+	painter.drawMap(gameContext.getWorldMapContext());
+	painter.drawFood(gameContext.getFoodContext());
+	painter.drawSnake(gameContext.getSnakeContext());
 	displayPauseInformation();
-	worldMap.flushDisplay();
+	painter.flushDisplay();
 }
 
 void PauseState::displayPauseInformation() {
