@@ -6,7 +6,7 @@
 #include "gameContext.h"
 #include "snakeContext.h"
 #include "appContext.h"
-#include "worldMapPainter.h"
+#include "worldPainter.h"
 
 class StartupState : public StateBase {
 public:
@@ -19,7 +19,7 @@ private:
 	void handleKeyDown(int keyCode);
 
 	AppContext& appContext;
-	const WorldMapPainter& painter;
+	const WorldPainter& painter;
 	SnakeContext& snakeContext;
 	GameContext& gameContext;
 };

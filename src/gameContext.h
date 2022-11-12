@@ -5,7 +5,7 @@
 #include "snakeContext.h"
 #include "foodContext.h"
 #include "worldMapContext.h"
-#include "worldMapPainter.h"
+#include "worldPainter.h"
 
 class GameContext {
 public:
@@ -13,7 +13,7 @@ public:
 
 	void reset();
 	int getRasterSize() const;
-	const WorldMapPainter& getPainter() const;
+	const WorldPainter& getPainter() const;
 	const SnakeContext& getSnakeContext() const;
 	SnakeContext& getSnakeContext();
 	const FoodContext& getFoodContext() const;
@@ -22,7 +22,7 @@ public:
 
 private:
 	int rasterSize;
-	WorldMapPainter painter;
+	WorldPainter painter;
 	SnakeContext snakeContext;
 	FoodContext foodContext;
 	WorldMapContext worldMapContext;

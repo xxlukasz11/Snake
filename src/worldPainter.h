@@ -1,5 +1,5 @@
-#ifndef SRC_WORLDMAPPAINTER_H_
-#define SRC_WORLDMAPPAINTER_H_
+#ifndef SRC_WORLDPAINTER_H_
+#define SRC_WORLDPAINTER_H_
 
 #include "basic_allegro.h"
 #include "snakeContext.h"
@@ -8,9 +8,9 @@
 
 class FoodContext;
 
-class WorldMapPainter {
+class WorldPainter {
 public:
-	WorldMapPainter(const Display& display, double rasterSize);
+	WorldPainter(const Display& display, double rasterSize);
 	void drawMap(const WorldMapContext& worldMapContext) const;
 	void drawFood(const FoodContext& foodContext) const;
 	void drawSnake(const SnakeContext& snake) const;
@@ -31,4 +31,4 @@ private:
 	const double borderSize;
 };
 
-#endif /* SRC_WORLDMAPPAINTER_H_ */
+#endif /* SRC_WORLDPAINTER_H_ */

@@ -1,4 +1,4 @@
-#include "worldMapPainter.h"
+#include "worldPainter.h"
 
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
@@ -10,13 +10,13 @@ static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
 static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
 
-WorldMapPainter::WorldMapPainter(const Display& display, double rasterSize) :
+WorldPainter::WorldPainter(const Display& display, double rasterSize) :
 		display(display),
 		rasterSize(rasterSize),
 		borderSize(rasterSize * BORDER_RASTERS) {
 }
 
-void WorldMapPainter::drawMap(const WorldMapContext& worldMapContext) const {
+void WorldPainter::drawMap(const WorldMapContext& worldMapContext) const {
 	al_clear_to_color(BACKGROUND_COLOR);
 	const auto& borderColor = worldMapContext.getBorderColor();
 	for (const auto& border : worldMapContext.getBorders()) {
@@ -26,21 +26,21 @@ void WorldMapPainter::drawMap(const WorldMapContext& worldMapContext) const {
 	}
 }
 
-void WorldMapPainter::drawFood(const FoodContext& foodContext) const {
+void WorldPainter::drawFood(const FoodContext& foodContext) const {
 	const auto& foodPosition = foodContext.getFoodPositon();
 	if (foodPosition.has_value()) {
 		drawFoodAt(foodPosition.value());
 	}
 }
 
-void WorldMapPainter::drawFoodAt(const Position& position) const {
+void WorldPainter::drawFoodAt(const Position& position) const {
 	const double circleRadius = rasterSize / 2.2;
 	const auto xOffset = position.x * rasterSize + circleRadius;
 	const auto yOffset = position.y * rasterSize + circleRadius;
 	al_draw_filled_circle(xOffset, yOffset, circleRadius, FOOD_COLOR);
 }
 
-void WorldMapPainter::drawSnake(const SnakeContext& snake) const {
+void WorldPainter::drawSnake(const SnakeContext& snake) const {
 	const auto& body = snake.getBody();
 	if (body.empty()) {
 		return;
@@ -49,7 +49,7 @@ void WorldMapPainter::drawSnake(const SnakeContext& snake) const {
 	drawSnakeBody(body, snake.getBodyColor());
 }
 
-void WorldMapPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
+void WorldPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
 	const auto& head = bodySegments[0];
 	if (bodySegments.size() > 1) {
 		drawRoundedSegment(head, bodySegments[1], color);
@@ -58,7 +58,7 @@ void WorldMapPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const
 	}
 }
 
-void WorldMapPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
+void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
 	const auto bodySize = bodySegments.size();
 	for (size_t i = 1; i < bodySize; ++i) {
 		const auto& segment = bodySegments[i];
@@ -70,7 +70,7 @@ void WorldMapPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const
 	}
 }
 
-void WorldMapPainter::drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos,
+void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos,
 		const ALLEGRO_COLOR& color) const {
 	const auto xOffset = tailPos.x * rasterSize;
 	const auto yOffset = tailPos.y * rasterSize;
@@ -91,17 +91,17 @@ void WorldMapPainter::drawRoundedSegment(const Position& tailPos, const Position
 	al_draw_filled_circle(xCenter, yCenter, radius, color);
 }
 
-void WorldMapPainter::drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const {
+void WorldPainter::drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const {
 	const auto xOffset = segmentPos.x * rasterSize;
 	const auto yOffset = segmentPos.y * rasterSize;
 	al_draw_filled_rectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
 }
 
-void WorldMapPainter::flushDisplay() const {
+void WorldPainter::flushDisplay() const {
 	al_flip_display();
 }
 
-Area WorldMapPainter::calculateAvailableArea() const {
+Area WorldPainter::calculateAvailableArea() const {
 	int horizontalRasters = display.width / rasterSize;
 	int verticalRasters = display.height / rasterSize;
 	Position topLeft{ BORDER_RASTERS, BORDER_RASTERS };
@@ -109,6 +109,6 @@ Area WorldMapPainter::calculateAvailableArea() const {
 	return Area{ topLeft, bottomRight };
 }
 
-double WorldMapPainter::getRasterSize() const {
+double WorldPainter::getRasterSize() const {
 	return rasterSize;
 }

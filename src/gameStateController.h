@@ -7,7 +7,7 @@
 #include "state.h"
 #include "stateMachine.h"
 #include "gameContext.h"
-#include "worldMapPainter.h"
+#include "worldPainter.h"
 
 class GameStateController : public StateMachine {
 public:
