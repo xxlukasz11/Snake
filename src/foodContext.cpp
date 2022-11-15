@@ -3,15 +3,9 @@
 #include "snakeContext.h"
 
 namespace {
-bool containsXPos(const SnakeContext::Body& body, int value) {
-	auto found = std::find_if(body.cbegin(), body.cend(), [value](auto&& position) {
-		return position.x == value;
-	});
-	return found != body.cend();
-}
-bool containsYPos(const SnakeContext::Body& body, int value) {
-	auto found = std::find_if(body.cbegin(), body.cend(), [value](auto&& position) {
-		return position.y == value;
+bool containsPos(const SnakeContext::Body& body, const Position& pos) {
+	auto found = std::find_if(body.cbegin(), body.cend(), [pos](auto&& position) {
+		return position == pos;
 	});
 	return found != body.cend();
 }
@@ -28,17 +22,13 @@ void FoodContext::reset() {
 void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
 	const auto& forbiddenCoords = snakeContext.getBody();
 
-	int x{ };
+	Position newFoodPosition;
 	do {
-		x = generator.ramdomX();
-	} while (containsXPos(forbiddenCoords, x));
+		newFoodPosition.x = generator.ramdomX();
+		newFoodPosition.y = generator.randomY();
+	} while (containsPos(forbiddenCoords, newFoodPosition));
 
-	int y{ };
-	do {
-		y = generator.randomY();
-	} while (containsYPos(forbiddenCoords, y));
-
-	foodPosition = Position{ x, y };
+	foodPosition = newFoodPosition;
 }
 
 bool FoodContext::isFoodHere(const Position position) const {
