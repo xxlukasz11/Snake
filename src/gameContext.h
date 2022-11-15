@@ -22,8 +22,8 @@ public:
 private:
 	WorldPainter painter;
 	SnakeContext snakeContext;
-	FoodContext foodContext;
 	WorldMapContext worldMapContext;
+	FoodContext foodContext;
 };
 
 #endif /* SRC_GAMECONTEXT_H_ */

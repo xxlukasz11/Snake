@@ -13,8 +13,8 @@ WorldMapContext createWorldMap(const Display& display) {
 
 GameContext::GameContext(const Display& display) :
 		painter(display),
-		foodContext(painter.calculateAvailableArea()),
-		worldMapContext(createWorldMap(display)) {
+		worldMapContext(createWorldMap(display)),
+		foodContext(worldMapContext) {
 }
 
 void GameContext::reset() {

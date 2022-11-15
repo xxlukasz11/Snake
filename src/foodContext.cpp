@@ -12,16 +12,16 @@ bool containsPos(const SnakeContext::Body& body, const Position& pos) {
 }
 }
 
-FoodContext::FoodContext(const Area& availableArea) :
-		generator(availableArea) {
+FoodContext::FoodContext(const WorldMapContext& worldMapContext) :
+		worldMapContext(worldMapContext),
+		generator(worldMapContext.getFoodArea()) {
 }
 
 void FoodContext::reset() {
 	foodPosition.reset();
 }
 
-void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext,
-		const WorldMapContext& worldMapContext) {
+void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
 	const auto& forbiddenCoords = snakeContext.getBody();
 
 	Position newFoodPosition;

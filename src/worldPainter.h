@@ -15,7 +15,6 @@ public:
 	void drawFood(const FoodContext& foodContext) const;
 	void drawSnake(const SnakeContext& snake) const;
 	void flushDisplay() const;
-	Area calculateAvailableArea() const;
 	double getRasterSize() const;
 
 private:
@@ -28,7 +27,6 @@ private:
 
 	const Display& display;
 	const double rasterSize;
-	const double borderSize;
 };
 
 #endif /* SRC_WORLDPAINTER_H_ */

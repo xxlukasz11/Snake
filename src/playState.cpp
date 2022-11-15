@@ -12,7 +12,7 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& g
 
 void PlayState::onEnter() {
 	if (!foodContext.isFoodPlanted()) {
-		foodContext.placeFoodOnAvailableSquares(snakeContext, gameContext.getWorldMapContext());
+		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	}
 	app.startFrameRateUpdates();
 }
@@ -54,7 +54,7 @@ bool PlayState::moveSnake() {
 	snakeContext.appendHeadSegment(newHeadPosition);
 
 	if (foodContext.isFoodHere(newHeadPosition)) {
-		foodContext.placeFoodOnAvailableSquares(snakeContext, gameContext.getWorldMapContext());
+		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	} else {
 		snakeContext.eraseTailSegment();
 	}

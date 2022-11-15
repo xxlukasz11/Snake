@@ -20,6 +20,7 @@ WorldMapFrameBuilder& WorldMapFrameBuilder::setFrameColor(const ALLEGRO_COLOR& f
 WorldMapContext WorldMapFrameBuilder::build() const {
 	auto builder = constructFrame();
 	builder.setBorderColor(frameColor);
+	builder.setFoodArea(calculateFoodArea());
 	return builder.build();
 }
 
@@ -49,4 +50,11 @@ WorldMapContext::Builder WorldMapFrameBuilder::constructFrame() const {
 	builder.addBorder(right);
 
 	return builder;
+}
+
+Area WorldMapFrameBuilder::calculateFoodArea() const {
+	Position innerTopLeft = { frameArea.topLeft.x + frameThickness, frameArea.topLeft.y + frameThickness };
+	Position innerBottomRight = { frameArea.bottomRight.x - frameThickness, frameArea.bottomRight.y - frameThickness };
+	Area foodArea = { innerTopLeft, innerBottomRight };
+	return foodArea;
 }

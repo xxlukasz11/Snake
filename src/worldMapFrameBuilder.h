@@ -15,6 +15,7 @@ public:
 private:
 	WorldMapFrameBuilder(const Area& frameArea);
 	WorldMapContext::Builder constructFrame() const;
+	Area calculateFoodArea() const;
 
 	Area frameArea;
 	int frameThickness;

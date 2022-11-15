@@ -5,14 +5,12 @@
 #include "snakeContext.h"
 #include "foodContext.h"
 
-constexpr int BORDER_RASTERS = 1;
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
 static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
 
 WorldPainter::WorldPainter(const Display& display) :
 		display(display),
-		rasterSize(display.rasterSize),
-		borderSize(display.rasterSize * BORDER_RASTERS) {
+		rasterSize(display.rasterSize) {
 }
 
 void WorldPainter::drawMap(const WorldMapContext& worldMapContext) const {
@@ -99,14 +97,6 @@ void WorldPainter::drawBodySegment(const Position& segmentPos, const ALLEGRO_COL
 
 void WorldPainter::flushDisplay() const {
 	al_flip_display();
-}
-
-Area WorldPainter::calculateAvailableArea() const {
-	int horizontalRasters = display.width / rasterSize;
-	int verticalRasters = display.height / rasterSize;
-	Position topLeft{ BORDER_RASTERS, BORDER_RASTERS };
-	Position bottomRight{ horizontalRasters - BORDER_RASTERS - 1, verticalRasters - BORDER_RASTERS - 1 };
-	return Area{ topLeft, bottomRight };
 }
 
 double WorldPainter::getRasterSize() const {
