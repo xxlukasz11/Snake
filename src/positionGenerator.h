@@ -7,7 +7,7 @@
 class PositionGenerator {
 public:
 	PositionGenerator(const Area& area);
-	int ramdomX();
+	int randomX();
 	int randomY();
 
 private:

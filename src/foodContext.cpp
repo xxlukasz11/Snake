@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "foodContext.h"
 #include "snakeContext.h"
+#include "worldMapContext.h"
 
 namespace {
 bool containsPos(const SnakeContext::Body& body, const Position& pos) {
@@ -19,14 +20,15 @@ void FoodContext::reset() {
 	foodPosition.reset();
 }
 
-void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
+void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext,
+		const WorldMapContext& worldMapContext) {
 	const auto& forbiddenCoords = snakeContext.getBody();
 
 	Position newFoodPosition;
 	do {
-		newFoodPosition.x = generator.ramdomX();
+		newFoodPosition.x = generator.randomX();
 		newFoodPosition.y = generator.randomY();
-	} while (containsPos(forbiddenCoords, newFoodPosition));
+	} while (containsPos(forbiddenCoords, newFoodPosition) || worldMapContext.isBorderHere(newFoodPosition));
 
 	foodPosition = newFoodPosition;
 }

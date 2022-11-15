@@ -6,7 +6,7 @@ PositionGenerator::PositionGenerator(const Area& area) :
 		yDistrib(area.topLeft.y, area.bottomRight.y) {
 }
 
-int PositionGenerator::ramdomX() {
+int PositionGenerator::randomX() {
 	return xDistrib(generator);
 }
 
