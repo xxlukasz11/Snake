@@ -6,14 +6,13 @@
 #include "foodContext.h"
 
 constexpr int BORDER_RASTERS = 1;
-static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
 static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
 static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
 
-WorldPainter::WorldPainter(const Display& display, double rasterSize) :
+WorldPainter::WorldPainter(const Display& display) :
 		display(display),
-		rasterSize(rasterSize),
-		borderSize(rasterSize * BORDER_RASTERS) {
+		rasterSize(display.rasterSize),
+		borderSize(display.rasterSize * BORDER_RASTERS) {
 }
 
 void WorldPainter::drawMap(const WorldMapContext& worldMapContext) const {

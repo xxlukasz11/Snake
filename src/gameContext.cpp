@@ -1,18 +1,25 @@
 #include "gameContext.h"
+#include "worldMapFrameBuilder.h"
+#include "utils.h"
 
-GameContext::GameContext(const Display& display, int rasterSize) :
-		rasterSize(rasterSize),
-		painter(display, rasterSize),
-		foodContext(painter.calculateAvailableArea()) {
+namespace {
+
+WorldMapContext createWorldMap(const Display& display) {
+	Area screenArea = { { 0, 0 }, { display.widthRasters, display.heightRasters } };
+	return WorldMapFrameBuilder::instance(screenArea).setFrameThickness(1).build();
+}
+
+} // namespace
+
+GameContext::GameContext(const Display& display) :
+		painter(display),
+		foodContext(painter.calculateAvailableArea()),
+		worldMapContext(createWorldMap(display)) {
 }
 
 void GameContext::reset() {
 	snakeContext.reset();
 	foodContext.reset();
-}
-
-int GameContext::getRasterSize() const {
-	return rasterSize;
 }
 
 const WorldPainter& GameContext::getPainter() const {

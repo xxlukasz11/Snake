@@ -7,11 +7,14 @@
 
 class Display {
 public:
-	ALLEGRO_DISPLAY * ptr{ nullptr };
+	ALLEGRO_DISPLAY* ptr{ nullptr };
 	int width{ 0 };
 	int height{ 0 };
+	int widthRasters;
+	int heightRasters;
+	int rasterSize;
 	~Display();
-	bool init(int _width, int _height, const char* _name = "Unnamed display");
+	bool init(int widthRasters, int heightRasters, int rasterSize, const char* _name = "Unnamed display");
 	void destroy();
 };
 
@@ -36,7 +39,7 @@ public:
 
 class Timer {
 public:
-	ALLEGRO_TIMER * ptr{ nullptr };
+	ALLEGRO_TIMER* ptr{ nullptr };
 	double interval{ 0 };
 	~Timer();
 	bool init(double _seconds);

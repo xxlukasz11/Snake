@@ -9,10 +9,9 @@
 
 class GameContext {
 public:
-	GameContext(const Display& display, int rasterSize);
+	GameContext(const Display& display);
 
 	void reset();
-	int getRasterSize() const;
 	const WorldPainter& getPainter() const;
 	const SnakeContext& getSnakeContext() const;
 	SnakeContext& getSnakeContext();
@@ -21,7 +20,6 @@ public:
 	const WorldMapContext& getWorldMapContext() const;
 
 private:
-	int rasterSize;
 	WorldPainter painter;
 	SnakeContext snakeContext;
 	FoodContext foodContext;

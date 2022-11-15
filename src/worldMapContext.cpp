@@ -1,19 +1,7 @@
 #include "worldMapContext.h"
 #include <algorithm>
 
-static const ALLEGRO_COLOR BORDER_COLOR = al_map_rgb(35, 121, 22);
-constexpr int WIDTH = 54;
-constexpr int HEIGHT = 34;
-constexpr int BORDER_WIDTH = 1;
-static const Border TOP = Area{ { 0, 0 }, { WIDTH, BORDER_WIDTH } };
-static const Border BOTTOM = Area{ { 0, HEIGHT - BORDER_WIDTH }, { WIDTH, HEIGHT } };
-static const Border LEFT = Area{ { 0, BORDER_WIDTH }, { BORDER_WIDTH, HEIGHT - BORDER_WIDTH } };
-static const Border RIGHT = Area{ { WIDTH - BORDER_WIDTH, BORDER_WIDTH }, { WIDTH, HEIGHT - BORDER_WIDTH } };
-
-WorldMapContext::WorldMapContext() :
-		// TODO: Implement WorldMapBuilder
-		borders({ TOP, BOTTOM, LEFT, RIGHT }) {
-}
+static const ALLEGRO_COLOR DEFAULT_BORDER_COLOR = al_map_rgb(35, 121, 22);
 
 const std::vector<Border>& WorldMapContext::getBorders() const {
 	return borders;
@@ -25,5 +13,31 @@ bool WorldMapContext::isBorderHere(const Position& position) const {
 }
 
 const ALLEGRO_COLOR& WorldMapContext::getBorderColor() const {
-	return BORDER_COLOR;
+	return borderColor;
+}
+
+WorldMapContext::Builder::Builder() :
+		borderColor(DEFAULT_BORDER_COLOR) {
+}
+
+WorldMapContext::Builder WorldMapContext::Builder::instance() {
+	return Builder{ };
+
+}
+
+WorldMapContext::Builder& WorldMapContext::Builder::addBorder(const Border& border) {
+	this->borders.push_back(border);
+	return *this;
+}
+
+WorldMapContext::Builder& WorldMapContext::Builder::setBorderColor(const ALLEGRO_COLOR& borderColor) {
+	this->borderColor = borderColor;
+	return *this;
+}
+
+WorldMapContext WorldMapContext::Builder::build() const {
+	auto worldMap = WorldMapContext{ };
+	worldMap.borders = borders;
+	worldMap.borderColor = borderColor;
+	return worldMap;
 }

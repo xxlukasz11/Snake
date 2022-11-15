@@ -5,11 +5,9 @@
 #include "pauseState.h"
 #include "gameOverState.h"
 
-constexpr int RASTER_SIZE = 15;
-
 GameStateController::GameStateController(AppContext& appContext) :
 		appContext(appContext),
-		gameContext(appContext.getDisplay(), RASTER_SIZE),
+		gameContext(appContext.getDisplay()),
 		startupState(std::make_shared<StartupState>(*this, appContext, gameContext)),
 		playState(std::make_shared<PlayState>(*this, appContext, gameContext)),
 		pauseState(std::make_shared<PauseState>(*this, appContext, gameContext)),

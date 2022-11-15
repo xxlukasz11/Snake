@@ -9,8 +9,9 @@
 #include <memory>
 #include "errMsg.hpp"
 
-constexpr int DISPLAY_WIDTH = 810;
-constexpr int DISPLAY_HEIGHT = 510;
+constexpr int DISPLAY_WIDTH_RASTERS = 54;
+constexpr int DISPLAY_HEIGHT_RASTERS = 34;
+constexpr int RASTER_SIZE = 15;
 constexpr int MAIN_FONT_SIZE = 24;
 constexpr double FRAME_RATE_INTERVAL_SECONDS = 0.06;
 constexpr const char* DISPLAY_NAME = "Snake";
@@ -49,7 +50,7 @@ bool AppContext::initialize() {
 }
 
 bool AppContext::initDisplay() {
-	bool initResult = display.init(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_NAME);
+	bool initResult = display.init(DISPLAY_WIDTH_RASTERS, DISPLAY_HEIGHT_RASTERS, RASTER_SIZE, DISPLAY_NAME);
 	if (!initResult) {
 		return initResult;
 	}

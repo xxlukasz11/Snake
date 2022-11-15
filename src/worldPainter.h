@@ -10,7 +10,7 @@ class FoodContext;
 
 class WorldPainter {
 public:
-	WorldPainter(const Display& display, double rasterSize);
+	WorldPainter(const Display& display);
 	void drawMap(const WorldMapContext& worldMapContext) const;
 	void drawFood(const FoodContext& foodContext) const;
 	void drawSnake(const SnakeContext& snake) const;
