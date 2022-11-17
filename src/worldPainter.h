@@ -5,6 +5,7 @@
 #include "snakeContext.h"
 #include "worldMapContext.h"
 #include "utils.h"
+#include "screenPainter.h"
 
 class FoodContext;
 
@@ -27,6 +28,7 @@ private:
 
 	const Display& display;
 	const double rasterSize;
+	ScreenPainter screenPainter;
 };
 
 #endif /* SRC_WORLDPAINTER_H_ */

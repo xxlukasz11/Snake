@@ -1,6 +1,5 @@
 #include "worldPainter.h"
 
-#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
 #include "snakeContext.h"
 #include "foodContext.h"
@@ -10,16 +9,16 @@ static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
 
 WorldPainter::WorldPainter(const Display& display) :
 		display(display),
-		rasterSize(display.rasterSize) {
+		rasterSize(display.rasterSize),
+		screenPainter() {
 }
 
 void WorldPainter::drawMap(const WorldMapContext& worldMapContext) const {
-	// TODO: make this class independent from allegro -> create primitives painter
-	al_clear_to_color(BACKGROUND_COLOR);
+	screenPainter.clearScreen(BACKGROUND_COLOR);
 	const auto& borderColor = worldMapContext.getBorderColor();
 	for (const auto& border : worldMapContext.getBorders()) {
 		const auto& area = border.getArea();
-		al_draw_filled_rectangle(area.topLeft.x * rasterSize, area.topLeft.y * rasterSize,
+		screenPainter.drawFilledRectangle(area.topLeft.x * rasterSize, area.topLeft.y * rasterSize,
 				area.bottomRight.x * rasterSize, area.bottomRight.y * rasterSize, borderColor);
 	}
 }
@@ -35,7 +34,7 @@ void WorldPainter::drawFoodAt(const Position& position) const {
 	const double circleRadius = rasterSize / 2.2;
 	const auto xOffset = position.x * rasterSize + circleRadius;
 	const auto yOffset = position.y * rasterSize + circleRadius;
-	al_draw_filled_circle(xOffset, yOffset, circleRadius, FOOD_COLOR);
+	screenPainter.drawFilledCircle(xOffset, yOffset, circleRadius, FOOD_COLOR);
 }
 
 void WorldPainter::drawSnake(const SnakeContext& snake) const {
@@ -78,25 +77,25 @@ void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& a
 
 	const auto direction = SpeedVector{ adjacentSegmentPos.x - tailPos.x, adjacentSegmentPos.y - tailPos.y };
 	if (direction.x > 0) {
-		al_draw_filled_rectangle(xCenter, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(xCenter, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
 	} else if (direction.x < 0) {
-		al_draw_filled_rectangle(xOffset, yOffset, xCenter, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(xOffset, yOffset, xCenter, yOffset + rasterSize, color);
 	} else if (direction.y > 0) {
-		al_draw_filled_rectangle(xOffset, yCenter, xOffset + rasterSize, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(xOffset, yCenter, xOffset + rasterSize, yOffset + rasterSize, color);
 	} else if (direction.y < 0) {
-		al_draw_filled_rectangle(xOffset, yOffset, xOffset + rasterSize, yCenter, color);
+		screenPainter.drawFilledRectangle(xOffset, yOffset, xOffset + rasterSize, yCenter, color);
 	}
-	al_draw_filled_circle(xCenter, yCenter, radius, color);
+	screenPainter.drawFilledCircle(xCenter, yCenter, radius, color);
 }
 
 void WorldPainter::drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const {
 	const auto xOffset = segmentPos.x * rasterSize;
 	const auto yOffset = segmentPos.y * rasterSize;
-	al_draw_filled_rectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
+	screenPainter.drawFilledRectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
 }
 
 void WorldPainter::flushDisplay() const {
-	al_flip_display();
+	screenPainter.flushBuffer();
 }
 
 double WorldPainter::getRasterSize() const {
