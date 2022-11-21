@@ -88,7 +88,7 @@ void AppContext::registerEventSources() {
 }
 
 void AppContext::flushEventQueue() {
-	al_flush_event_queue(queue.ptr);
+	queue.flushEvents();
 }
 
 void AppContext::startFrameRateUpdates() {
@@ -124,7 +124,7 @@ const AudioSample& AppContext::getErrorAudioSample() const {
 }
 
 void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
-	al_wait_for_event(queue.ptr, &event);
+	queue.waitForEvent(event);
 }
 
 bool app_init_alllegro_modules() {

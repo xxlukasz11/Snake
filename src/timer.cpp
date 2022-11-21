@@ -15,7 +15,7 @@ void Timer::stop() {
 }
 
 void Timer::registerAsEventSourceIn(EventQueue& queue) {
-	al_register_event_source(queue.ptr, al_get_timer_event_source(allegroTimer.get()));
+	al_register_event_source(queue.getAllegroQueuePtr(), al_get_timer_event_source(allegroTimer.get()));
 }
 
 void Timer::deleteTimer(ALLEGRO_TIMER* timer) {

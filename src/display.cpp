@@ -23,7 +23,7 @@ void Display::placeAtScreenCenter() {
 }
 
 void Display::registerAsEventSourceIn(EventQueue& queue) {
-	al_register_event_source(queue.ptr, al_get_display_event_source(allegroDisplay.get()));
+	al_register_event_source(queue.getAllegroQueuePtr(), al_get_display_event_source(allegroDisplay.get()));
 }
 
 int Display::getRasterSize() const {
