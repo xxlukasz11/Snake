@@ -1,34 +1,58 @@
 #include "display.h"
-#include <iostream>
+#include "basic_allegro.h"
 
-Display::~Display() {
-	if (ptr) {
-		al_destroy_display(ptr);
-		ptr = nullptr;
-	}
+void Display::destroyDisplay(ALLEGRO_DISPLAY* display) {
+	al_destroy_display(display);
 }
 
-bool Display::init(int widthRasters, int heightRasters, int rasterSize, const char* _name) {
-	this->rasterSize = rasterSize;
-	this->widthRasters = widthRasters;
-	this->heightRasters = heightRasters;
-	width = widthRasters * rasterSize;
-	height = heightRasters * rasterSize;
-
-	ptr = al_create_display(width, height);
-	al_set_window_title(ptr, _name);
-	if (ptr) {
-		return true;
-	}
-	std::cerr << "Failed to create display: " << _name << std::endl;
-	return false;
+Display::Display(AllegroDisplayPtr allegrodisplay, const DisplayInitParams& displayInitParams) :
+		allegroDisplay(std::move(allegrodisplay)),
+		rasterSize(displayInitParams.rasterSizePixels),
+		widthRasters(displayInitParams.numHorizontalRasters),
+		heightRasters(displayInitParams.numVerticalRasters),
+		widthPixels(widthRasters * rasterSize),
+		heightPixels(heightRasters * rasterSize) {
 }
 
-void Display::destroy() {
-	if (ptr) {
-		al_destroy_display(ptr);
-		ptr = nullptr;
-		width = 0;
-		height = 0;
+void Display::placeAtScreenCenter() {
+	ALLEGRO_MONITOR_INFO monitor;
+	al_get_monitor_info(0, &monitor);
+	al_set_window_position(allegroDisplay.get(), (monitor.x2 - monitor.x1 - widthPixels) / 2,
+			(monitor.y2 - monitor.y1 - heightPixels) / 2);
+}
+
+void Display::registerAsEventSourceIn(Queue& queue) {
+	al_register_event_source(queue.ptr, al_get_display_event_source(allegroDisplay.get()));
+}
+
+int Display::getRasterSize() const {
+	return rasterSize;
+}
+
+int Display::getWidthPixels() const {
+	return widthPixels;
+}
+
+int Display::getHeightPixels() const {
+	return heightPixels;
+}
+
+int Display::getWidthRasters() const {
+	return widthRasters;
+}
+
+int Display::getHeightRasters() const {
+	return heightRasters;
+}
+
+std::unique_ptr<Display> Display::create(const DisplayInitParams& displayInitParams) {
+	auto widthPixels = displayInitParams.numHorizontalRasters * displayInitParams.rasterSizePixels;
+	auto heightPixels = displayInitParams.numVerticalRasters * displayInitParams.rasterSizePixels;
+
+	AllegroDisplayPtr displayPtr{ al_create_display(widthPixels, heightPixels), destroyDisplay };
+	if (!displayPtr) {
+		return nullptr;
 	}
+	al_set_window_title(displayPtr.get(), displayInitParams.windowName.c_str());
+	return std::unique_ptr<Display>(new Display(std::move(displayPtr), displayInitParams));
 }

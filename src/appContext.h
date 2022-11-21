@@ -30,7 +30,7 @@ private:
 	void registerEventSources();
 
 	bool runningFlag{ true };
-	Display display;
+	std::unique_ptr<Display> display;
 	Font font;
 	Queue queue;
 	std::unique_ptr<Timer> timer;

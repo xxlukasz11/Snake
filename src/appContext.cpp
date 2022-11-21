@@ -50,15 +50,17 @@ bool AppContext::initialize() {
 }
 
 bool AppContext::initDisplay() {
-	bool initResult = display.init(DISPLAY_WIDTH_RASTERS, DISPLAY_HEIGHT_RASTERS, RASTER_SIZE, DISPLAY_NAME);
-	if (!initResult) {
-		return initResult;
-	}
+	DisplayInitParams displayParams;
+	displayParams.rasterSizePixels = RASTER_SIZE;
+	displayParams.numHorizontalRasters = DISPLAY_WIDTH_RASTERS;
+	displayParams.numVerticalRasters = DISPLAY_HEIGHT_RASTERS;
+	displayParams.windowName = DISPLAY_NAME;
 
-	ALLEGRO_MONITOR_INFO monitor;
-	al_get_monitor_info(0, &monitor);
-	al_set_window_position(display.ptr, (monitor.x2 - monitor.x1 - display.width) / 2,
-			(monitor.y2 - monitor.y1 - display.height) / 2);
+	display = Display::create(displayParams);
+	if (!display) {
+		return false;
+	}
+	display->placeAtScreenCenter();
 	return true;
 }
 
@@ -81,7 +83,7 @@ bool AppContext::loadAudioSamples() {
 
 void AppContext::registerEventSources() {
 	queue.register_keyboard();
-	queue.register_source(display.ptr);
+	display->registerAsEventSourceIn(queue);
 	timer->registerAsEventSourceIn(queue);
 }
 
@@ -114,7 +116,7 @@ float AppContext::getFrameRateIntervalSeconds() const {
 }
 
 const Display& AppContext::getDisplay() const {
-	return display;
+	return *display;
 }
 
 const AudioSample& AppContext::getErrorAudioSample() const {

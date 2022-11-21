@@ -11,12 +11,12 @@ TextWriter::TextWriter(const Display& display, ALLEGRO_FONT* font) :
 }
 
 void TextWriter::writeCenter(const std::string& text) {
-	write(display.width / 2, display.height / 2, text);
+	write(display.getWidthPixels() / 2, display.getHeightPixels() / 2, text);
 }
 
 void TextWriter::writeCenterAtLine(int lineIndex, const std::string& text) {
 	auto offset = LINE_HEIGHT * lineIndex;
-	write(display.width / 2, display.height / 2 + offset, text);
+	write(display.getWidthPixels() / 2, display.getHeightPixels() / 2 + offset, text);
 }
 
 void TextWriter::write(int x, int y, const std::string& text) {

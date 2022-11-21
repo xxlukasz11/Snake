@@ -5,7 +5,7 @@
 namespace {
 
 WorldMapContext createWorldMap(const Display& display) {
-	Area screenArea = { { 0, 0 }, { display.widthRasters, display.heightRasters } };
+	Area screenArea = { { 0, 0 }, { display.getWidthRasters(), display.getHeightRasters() } };
 	return WorldMapFrameBuilder::instance(screenArea).setFrameThickness(1).build();
 }
 

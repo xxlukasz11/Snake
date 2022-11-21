@@ -9,7 +9,7 @@ static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
 
 WorldPainter::WorldPainter(const Display& display) :
 		display(display),
-		rasterSize(display.rasterSize),
+		rasterSize(display.getRasterSize()),
 		screenPainter() {
 }
 
