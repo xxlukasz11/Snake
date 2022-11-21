@@ -5,6 +5,7 @@
 #include <memory>
 #include "basic_allegro.h"
 #include "timer.h"
+#include "display.h"
 
 class AppContext {
 public:

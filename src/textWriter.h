@@ -3,7 +3,7 @@
 
 #include <allegro5/allegro_font.h>
 #include <string>
-#include "basic_allegro.h"
+#include "display.h"
 
 class TextWriter {
 public:

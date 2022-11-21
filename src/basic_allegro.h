@@ -5,19 +5,6 @@
 #include <string>
 #include <allegro5/allegro_font.h>
 
-class Display {
-public:
-	ALLEGRO_DISPLAY* ptr{ nullptr };
-	int width{ 0 };
-	int height{ 0 };
-	int widthRasters;
-	int heightRasters;
-	int rasterSize;
-	~Display();
-	bool init(int widthRasters, int heightRasters, int rasterSize, const char* _name = "Unnamed display");
-	void destroy();
-};
-
 class Font {
 public:
 	std::map<std::string, ALLEGRO_FONT*> font_array;

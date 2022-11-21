@@ -1,7 +1,7 @@
 #ifndef SRC_WORLDPAINTER_H_
 #define SRC_WORLDPAINTER_H_
 
-#include "basic_allegro.h"
+#include "display.h"
 #include "snakeContext.h"
 #include "worldMapContext.h"
 #include "utils.h"
