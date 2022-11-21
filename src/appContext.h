@@ -3,10 +3,10 @@
 
 #include "audioSample.h"
 #include <memory>
-#include "basic_allegro.h"
 #include "timer.h"
 #include "display.h"
 #include "eventQueue.h"
+#include "font.h"
 
 class AppContext {
 public:
@@ -31,9 +31,9 @@ private:
 	void registerEventSources();
 
 	bool runningFlag{ true };
-	std::unique_ptr<Display> display;
 	Font font;
 	EventQueue queue;
+	std::unique_ptr<Display> display;
 	std::unique_ptr<Timer> timer;
 	std::unique_ptr<AudioSample> errorSample;
 };
