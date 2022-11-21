@@ -6,6 +6,7 @@
 #include "basic_allegro.h"
 #include "timer.h"
 #include "display.h"
+#include "eventQueue.h"
 
 class AppContext {
 public:
@@ -32,7 +33,7 @@ private:
 	bool runningFlag{ true };
 	std::unique_ptr<Display> display;
 	Font font;
-	Queue queue;
+	EventQueue queue;
 	std::unique_ptr<Timer> timer;
 	std::unique_ptr<AudioSample> errorSample;
 };

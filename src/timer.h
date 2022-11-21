@@ -4,13 +4,13 @@
 #include "allegro5/allegro.h"
 #include <memory>
 
-class Queue;
+class EventQueue;
 
 class Timer {
 public:
 	void start();
 	void stop();
-	void registerAsEventSourceIn(Queue& queue);
+	void registerAsEventSourceIn(EventQueue& queue);
 	static std::unique_ptr<Timer> create(double timeoutSeconds);
 
 private:

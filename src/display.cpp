@@ -1,5 +1,6 @@
 #include "display.h"
-#include "basic_allegro.h"
+
+#include "eventQueue.h"
 
 void Display::destroyDisplay(ALLEGRO_DISPLAY* display) {
 	al_destroy_display(display);
@@ -21,7 +22,7 @@ void Display::placeAtScreenCenter() {
 			(monitor.y2 - monitor.y1 - heightPixels) / 2);
 }
 
-void Display::registerAsEventSourceIn(Queue& queue) {
+void Display::registerAsEventSourceIn(EventQueue& queue) {
 	al_register_event_source(queue.ptr, al_get_display_event_source(allegroDisplay.get()));
 }
 

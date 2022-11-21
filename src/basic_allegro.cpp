@@ -30,30 +30,6 @@ ALLEGRO_FONT* Font::operator[](const std::string& _name) const {
 	return nullptr;
 }
 
-Queue::Queue() {
-	ptr = al_create_event_queue();
-}
-
-Queue::~Queue() {
-	if (ptr) {
-		al_destroy_event_queue(ptr);
-	}
-	ptr = nullptr;
-}
-
-void Queue::register_source(ALLEGRO_DISPLAY* _display) {
-	al_register_event_source(ptr, al_get_display_event_source(_display));
-}
-void Queue::register_source(ALLEGRO_TIMER* _timer) {
-	al_register_event_source(ptr, al_get_timer_event_source(_timer));
-}
-void Queue::register_keyboard() {
-	al_register_event_source(ptr, al_get_keyboard_event_source());
-}
-void Queue::register_mouse() {
-	al_register_event_source(ptr, al_get_mouse_event_source());
-}
-
 void wait_for_any_key() {
 	auto tmp_q = al_create_event_queue();
 	al_register_event_source(tmp_q, al_get_keyboard_event_source());

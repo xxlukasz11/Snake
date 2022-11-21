@@ -1,5 +1,6 @@
 #include "timer.h"
-#include "basic_allegro.h"
+
+#include "eventQueue.h"
 
 Timer::Timer(AllegroTimerPtr timerPtr) :
 		allegroTimer(std::move(timerPtr)) {
@@ -13,7 +14,7 @@ void Timer::stop() {
 	al_stop_timer(allegroTimer.get());
 }
 
-void Timer::registerAsEventSourceIn(Queue& queue) {
+void Timer::registerAsEventSourceIn(EventQueue& queue) {
 	al_register_event_source(queue.ptr, al_get_timer_event_source(allegroTimer.get()));
 }
 

@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-class Queue;
+class EventQueue;
 
 struct DisplayInitParams {
 	int rasterSizePixels;
@@ -17,7 +17,7 @@ struct DisplayInitParams {
 class Display {
 public:
 	void placeAtScreenCenter();
-	void registerAsEventSourceIn(Queue& queue);
+	void registerAsEventSourceIn(EventQueue& queue);
 	int getRasterSize() const;
 	int getWidthPixels() const;
 	int getHeightPixels() const;
