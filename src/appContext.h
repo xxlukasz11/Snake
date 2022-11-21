@@ -4,6 +4,7 @@
 #include "audioSample.h"
 #include <memory>
 #include "basic_allegro.h"
+#include "timer.h"
 
 class AppContext {
 public:

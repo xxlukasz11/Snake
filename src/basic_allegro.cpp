@@ -86,21 +86,6 @@ void Queue::register_mouse() {
 	al_register_event_source(ptr, al_get_mouse_event_source());
 }
 
-Timer::~Timer() {
-	if (ptr) {
-		al_destroy_timer(ptr);
-	}
-}
-
-bool Timer::init(double _seconds) {
-	ptr = al_create_timer(_seconds);
-	if (ptr) {
-		interval = _seconds;
-		return true;
-	}
-	return false;
-}
-
 void wait_for_any_key() {
 	auto tmp_q = al_create_event_queue();
 	al_register_event_source(tmp_q, al_get_keyboard_event_source());

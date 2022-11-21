@@ -67,7 +67,7 @@ bool AppContext::loadMainFont() {
 }
 
 bool AppContext::initFrameRateTimer() {
-	return timer.init(FRAME_RATE_INTERVAL_SECONDS);
+	return timer.setTimeout(FRAME_RATE_INTERVAL_SECONDS);
 }
 
 bool AppContext::loadAudioSamples() {
@@ -85,7 +85,7 @@ bool AppContext::loadAudioSamples() {
 void AppContext::registerEventSources() {
 	queue.register_keyboard();
 	queue.register_source(display.ptr);
-	queue.register_source(timer.ptr);
+	timer.registerAsEventSourceIn(queue);
 }
 
 void AppContext::flushEventQueue() {
@@ -93,11 +93,11 @@ void AppContext::flushEventQueue() {
 }
 
 void AppContext::startFrameRateUpdates() {
-	al_start_timer(timer.ptr);
+	timer.start();
 }
 
 void AppContext::stopFrameRateUpdates() {
-	al_stop_timer(timer.ptr);
+	timer.stop();
 }
 
 void AppContext::stopApp() {

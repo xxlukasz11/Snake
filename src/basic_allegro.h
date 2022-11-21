@@ -37,14 +37,6 @@ public:
 	void register_mouse();
 };
 
-class Timer {
-public:
-	ALLEGRO_TIMER* ptr{ nullptr };
-	double interval{ 0 };
-	~Timer();
-	bool init(double _seconds);
-};
-
 void wait_for_any_key();
 
 #endif
