@@ -74,11 +74,10 @@ bool AppContext::loadAudioSamples() {
 	if (!al_reserve_samples(1)) {
 		return false;
 	}
-	ALLEGRO_SAMPLE* samplePtr = al_load_sample(AUDIO_SAMPLE_FILE);
-	if (!samplePtr) {
+	errorSample = AudioSample::loadFromFile(AUDIO_SAMPLE_FILE);
+	if (!errorSample) {
 		return false;
 	}
-	errorSample = std::make_unique<AudioSample>(samplePtr);
 	return true;
 }
 

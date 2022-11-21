@@ -6,14 +6,17 @@
 
 class AudioSample {
 public:
-	AudioSample(ALLEGRO_SAMPLE* sample);
+	AudioSample();
 	void play() const;
+	static std::unique_ptr<AudioSample> loadFromFile(const char* filePath);
 
 private:
-	using SampleDeleter = void(*)(ALLEGRO_SAMPLE*);
+	using AllegroSampleDeleter = void(*)(ALLEGRO_SAMPLE*);
+
+	AudioSample(std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> sample);
 	static void destroySample(ALLEGRO_SAMPLE* sample);
 
-	std::unique_ptr<ALLEGRO_SAMPLE, SampleDeleter> sample;
+	std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> sample;
 };
 
 #endif /* SRC_AUDIOSAMPLE_H_ */

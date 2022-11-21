@@ -1,7 +1,11 @@
 #include "audioSample.h"
 
-AudioSample::AudioSample(ALLEGRO_SAMPLE* sample) :
-		sample(sample, destroySample) {
+AudioSample::AudioSample() :
+		sample(nullptr, destroySample) {
+}
+
+AudioSample::AudioSample(std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> sample) :
+		sample(std::move(sample)) {
 }
 
 void AudioSample::play() const {
@@ -10,4 +14,12 @@ void AudioSample::play() const {
 
 void AudioSample::destroySample(ALLEGRO_SAMPLE* sample) {
 	al_destroy_sample(sample);
+}
+
+std::unique_ptr<AudioSample> AudioSample::loadFromFile(const char* filePath) {
+	std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> samplePtr(al_load_sample(filePath), destroySample);
+	if (!samplePtr) {
+		return nullptr;
+	}
+	return std::unique_ptr<AudioSample>(new AudioSample(std::move(samplePtr)));
 }
