@@ -1,8 +1,8 @@
 #ifndef SRC_APPCONTEXT_H_
 #define SRC_APPCONTEXT_H_
 
-#include "audioSample.h"
 #include <memory>
+#include "audioSample.h"
 #include "timer.h"
 #include "display.h"
 #include "eventQueue.h"
@@ -17,7 +17,7 @@ public:
 	void stopApp();
 
 	bool getRunningFlag() const;
-	ALLEGRO_FONT* getMainFont() const;
+	const Font& getMainFont() const;
 	float getFrameRateIntervalSeconds() const;
 	const Display& getDisplay() const;
 	const AudioSample& getErrorAudioSample() const;
@@ -31,8 +31,8 @@ private:
 	void registerEventSources();
 
 	bool runningFlag{ true };
-	Font font;
 	EventQueue queue;
+	std::unique_ptr<Font> font;
 	std::unique_ptr<Display> display;
 	std::unique_ptr<Timer> timer;
 	std::unique_ptr<AudioSample> errorSample;

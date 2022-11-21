@@ -1,30 +1,24 @@
 #include <iostream>
-#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "font.h"
 
-Font::~Font() {
-	for (const auto& ob : fontArray) {
-		al_destroy_font(ob.second);
-	}
+Font::Font(AllegroFontPtr fontPtr) :
+		allegroFont(std::move(fontPtr)) {
 }
 
-bool Font::add(const char* _name, int _size, const char* _filename) {
-	ALLEGRO_FONT* f = nullptr;
-	f = al_load_ttf_font(_filename, _size, 0);
-	if (!f) {
-		return false;
-	}
-	fontArray.insert(std::make_pair(_name, f));
-	return true;
+void Font::destroyFont(ALLEGRO_FONT* font) {
+	al_destroy_font(font);
 }
 
-ALLEGRO_FONT* Font::operator[](const std::string& _name) const {
-	auto itr = fontArray.find(_name);
-	if (itr != fontArray.end()) {
-		return itr->second;
+std::unique_ptr<Font> Font::loadFromFile(const char* filename, int fontSize) {
+	AllegroFontPtr fontPtr{ al_load_ttf_font(filename, fontSize, 0), destroyFont };
+	if (!fontPtr) {
+		return nullptr;
 	}
-	std::cerr << "Font not found: " << _name << std::endl;
-	return nullptr;
+	return std::unique_ptr<Font>(new Font(std::move(fontPtr)));
+}
+
+ALLEGRO_FONT* Font::getAllegroFontPtr() const {
+	return allegroFont.get();
 }

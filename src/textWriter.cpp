@@ -5,7 +5,7 @@
 constexpr int LINE_HEIGHT = 30;
 static const ALLEGRO_COLOR COLOR_BLACK = al_map_rgb(0, 0, 0);
 
-TextWriter::TextWriter(const Display& display, ALLEGRO_FONT* font) :
+TextWriter::TextWriter(const Display& display, const Font& font) :
 		display(display),
 		font(font) {
 }
@@ -20,5 +20,5 @@ void TextWriter::writeCenterAtLine(int lineIndex, const std::string& text) {
 }
 
 void TextWriter::write(int x, int y, const std::string& text) {
-	al_draw_text(font, COLOR_BLACK, x, y, ALLEGRO_ALIGN_CENTRE, text.c_str());
+	al_draw_text(font.getAllegroFontPtr(), COLOR_BLACK, x, y, ALLEGRO_ALIGN_CENTRE, text.c_str());
 }

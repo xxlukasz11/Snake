@@ -65,7 +65,8 @@ bool AppContext::initDisplay() {
 }
 
 bool AppContext::loadMainFont() {
-	return font.add(MAIN_FONT_NAME, MAIN_FONT_SIZE, MAIN_FONT_FILE_NAME);
+	font = Font::loadFromFile(MAIN_FONT_FILE_NAME, MAIN_FONT_SIZE);
+	return font.operator bool();
 }
 
 bool AppContext::initFrameRateTimer() {
@@ -107,8 +108,8 @@ bool AppContext::getRunningFlag() const {
 	return runningFlag;
 }
 
-ALLEGRO_FONT* AppContext::getMainFont() const {
-	return font[MAIN_FONT_NAME];
+const Font& AppContext::getMainFont() const {
+	return *font;
 }
 
 float AppContext::getFrameRateIntervalSeconds() const {
