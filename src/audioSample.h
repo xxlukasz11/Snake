@@ -12,11 +12,12 @@ public:
 
 private:
 	using AllegroSampleDeleter = void(*)(ALLEGRO_SAMPLE*);
+	using AllegroAudioSamplePtr = std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter>;
 
-	AudioSample(std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> sample);
+	AudioSample(AllegroAudioSamplePtr sample);
 	static void destroySample(ALLEGRO_SAMPLE* sample);
 
-	std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> sample;
+	AllegroAudioSamplePtr sample;
 };
 
 #endif /* SRC_AUDIOSAMPLE_H_ */

@@ -4,7 +4,7 @@ AudioSample::AudioSample() :
 		sample(nullptr, destroySample) {
 }
 
-AudioSample::AudioSample(std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> sample) :
+AudioSample::AudioSample(AllegroAudioSamplePtr sample) :
 		sample(std::move(sample)) {
 }
 
@@ -17,7 +17,7 @@ void AudioSample::destroySample(ALLEGRO_SAMPLE* sample) {
 }
 
 std::unique_ptr<AudioSample> AudioSample::loadFromFile(const char* filePath) {
-	std::unique_ptr<ALLEGRO_SAMPLE, AllegroSampleDeleter> samplePtr(al_load_sample(filePath), destroySample);
+	AllegroAudioSamplePtr samplePtr(al_load_sample(filePath), destroySample);
 	if (!samplePtr) {
 		return nullptr;
 	}

@@ -1,18 +1,8 @@
 #include "timer.h"
 #include "basic_allegro.h"
 
-Timer::Timer() :
-		allegroTimer(nullptr, deleteTimer) {
-}
-
-bool Timer::setTimeout(double timeoutSeconds) {
-	allegroTimer = { al_create_timer(timeoutSeconds), deleteTimer };
-	if (allegroTimer) {
-		timeout = timeoutSeconds;
-		return true;
-	}
-	timeout = 0;
-	return false;
+Timer::Timer(AllegroTimerPtr timerPtr) :
+		allegroTimer(std::move(timerPtr)) {
 }
 
 void Timer::start() {
@@ -29,4 +19,12 @@ void Timer::registerAsEventSourceIn(Queue& queue) {
 
 void Timer::deleteTimer(ALLEGRO_TIMER* timer) {
 	al_destroy_timer(timer);
+}
+
+std::unique_ptr<Timer> Timer::create(double timeoutSeconds) {
+	AllegroTimerPtr timerPtr{ al_create_timer(timeoutSeconds), deleteTimer };
+	if (!timerPtr) {
+		return nullptr;
+	}
+	return std::unique_ptr<Timer>(new Timer(std::move(timerPtr)));
 }

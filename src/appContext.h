@@ -32,7 +32,7 @@ private:
 	Display display;
 	Font font;
 	Queue queue;
-	Timer timer;
+	std::unique_ptr<Timer> timer;
 	std::unique_ptr<AudioSample> errorSample;
 };
 
