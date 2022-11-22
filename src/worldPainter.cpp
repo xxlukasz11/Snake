@@ -41,6 +41,8 @@ void WorldPainter::drawFoodAt(const Position& position) const {
 }
 
 void WorldPainter::drawSnake(const SnakeContext& snake) const {
+	// TODO: round snake body bends
+	// TODO: make snake body a little bit more narrow
 	const auto& body = snake.getBody();
 	if (body.empty()) {
 		return;
