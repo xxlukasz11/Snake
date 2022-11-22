@@ -56,7 +56,7 @@ void PlayState::drawFrame() {
 }
 
 bool PlayState::moveSnake() {
-	updateSnakeSpeed();
+	setSelectedSnakeDirection();
 	const auto newHeadPosition = calculateNewHeadPosition();
 	snakeContext.appendHeadSegment(newHeadPosition);
 
@@ -82,7 +82,7 @@ bool PlayState::moveSnake() {
 	return true;
 }
 
-void PlayState::updateSnakeSpeed() {
+void PlayState::setSelectedSnakeDirection() {
 	if (snakeSpeedForNextMove.has_value()) {
 		snakeContext.setSpeed(snakeSpeedForNextMove.value());
 		snakeSpeedForNextMove.reset();

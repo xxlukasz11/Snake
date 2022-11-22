@@ -27,7 +27,7 @@ private:
 	void changeSnakeDirection(int keyCode);
 	void handleControlKey(int keyCode);
 	void drawFrame();
-	void updateSnakeSpeed();
+	void setSelectedSnakeDirection();
 	Position calculateNewHeadPosition();
 
 	AppContext& app;
