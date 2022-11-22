@@ -1,5 +1,5 @@
-#ifndef SRC_TIMER_H_
-#define SRC_TIMER_H_
+#ifndef SRC_FRAMEWORK_TIMER_H_
+#define SRC_FRAMEWORK_TIMER_H_
 
 #include "allegro5/allegro.h"
 #include <memory>
@@ -24,4 +24,4 @@ private:
 	AllegroTimerPtr allegroTimer;
 };
 
-#endif /* SRC_TIMER_H_ */
+#endif /* SRC_FRAMEWORK_TIMER_H_ */

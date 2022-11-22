@@ -2,8 +2,9 @@
 #define SRC_TEXTWRITER_H_
 
 #include <string>
-#include "display.h"
-#include "font.h"
+
+#include "../framework/display.h"
+#include "../framework/font.h"
 
 class TextWriter {
 public:

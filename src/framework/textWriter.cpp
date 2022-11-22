@@ -1,6 +1,7 @@
+#include "../framework/textWriter.h"
+
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_color.h>
-#include "textWriter.h"
 
 constexpr int LINE_HEIGHT = 30;
 static const ALLEGRO_COLOR COLOR_BLACK = al_map_rgb(0, 0, 0);

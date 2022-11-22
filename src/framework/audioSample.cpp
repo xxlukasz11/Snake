@@ -1,4 +1,4 @@
-#include "audioSample.h"
+#include "../framework/audioSample.h"
 
 AudioSample::AudioSample() :
 		sample(nullptr, destroySample) {

@@ -1,4 +1,5 @@
-#include "screenPainter.h"
+#include "../framework/screenPainter.h"
+
 #include "color.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>

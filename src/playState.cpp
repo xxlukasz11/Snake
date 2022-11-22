@@ -42,7 +42,7 @@ void PlayState::nextMoveIteration() {
 	const auto successfullyMoved = moveSnake();
 	drawFrame();
 	if (!successfullyMoved) {
-		// TODO: display some animation -> make frame updates independent form snake movement
+		// TODO: display some animation -> make frame updates independent from snake movement
 		nextState(StateType::GAME_OVER);
 	}
 }

@@ -1,4 +1,4 @@
-#include "timer.h"
+#include "../framework/timer.h"
 
 Timer::Timer(AllegroTimerPtr timerPtr) :
 		allegroTimer(std::move(timerPtr)) {

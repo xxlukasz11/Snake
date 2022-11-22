@@ -1,6 +1,5 @@
-#include <allegro5/allegro_font.h>
 #include <optional>
-#include "textWriter.h"
+#include "framework/textWriter.h"
 #include "startupState.h"
 
 namespace {

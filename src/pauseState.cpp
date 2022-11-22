@@ -1,5 +1,5 @@
 #include "pauseState.h"
-#include "textWriter.h"
+#include "framework/textWriter.h"
 
 PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine),

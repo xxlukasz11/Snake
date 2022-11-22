@@ -2,11 +2,11 @@
 #define SRC_APPCONTEXT_H_
 
 #include <memory>
-#include "audioSample.h"
-#include "timer.h"
-#include "display.h"
-#include "eventQueue.h"
-#include "font.h"
+#include "framework/audioSample.h"
+#include "framework/timer.h"
+#include "framework/display.h"
+#include "framework/eventQueue.h"
+#include "framework/font.h"
 
 class AppContext {
 public:

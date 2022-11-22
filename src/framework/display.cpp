@@ -1,4 +1,4 @@
-#include "display.h"
+#include "../framework/display.h"
 
 void Display::destroyDisplay(ALLEGRO_DISPLAY* display) {
 	al_destroy_display(display);

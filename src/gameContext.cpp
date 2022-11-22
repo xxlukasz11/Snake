@@ -1,6 +1,7 @@
 #include "gameContext.h"
 #include "worldMapFrameBuilder.h"
 #include "utils.h"
+#include "framework/display.h"
 
 namespace {
 

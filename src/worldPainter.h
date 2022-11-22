@@ -1,11 +1,11 @@
 #ifndef SRC_WORLDPAINTER_H_
 #define SRC_WORLDPAINTER_H_
 
-#include "display.h"
+#include "framework/display.h"
+#include "framework/screenPainter.h"
 #include "snakeContext.h"
 #include "worldMapContext.h"
 #include "utils.h"
-#include "screenPainter.h"
 
 class FoodContext;
 class Color;

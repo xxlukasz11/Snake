@@ -1,6 +1,7 @@
-#include "eventQueue.h"
-#include "timer.h"
-#include "display.h"
+#include "../framework/eventQueue.h"
+
+#include "../framework/display.h"
+#include "../framework/timer.h"
 
 EventQueue::EventQueue() :
 		allegroEventQueue(al_create_event_queue(), destroyEventQueue) {

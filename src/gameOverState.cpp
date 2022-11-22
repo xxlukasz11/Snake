@@ -1,6 +1,6 @@
 #include <fstream>
 #include "gameOverState.h"
-#include "textWriter.h"
+#include "framework/textWriter.h"
 
 constexpr const char* HIGHSCORES_FILE_NAME = "snake_results.dat";
 
