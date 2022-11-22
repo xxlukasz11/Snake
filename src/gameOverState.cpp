@@ -71,7 +71,7 @@ void GameOverState::drawInstructions(int snakeSize, int highestScore) const {
 	if (snakeSize == highestScore) {
 		writer.writeCenterAtLine(-3, "EXCELLENT! YOU MATCHED THE RECORD!");
 	} else if (snakeSize > highestScore) {
-		writer.writeCenterAtLine(-3, "EXCELLENT! THAT IS HIGHEST SCORE!");
+		writer.writeCenterAtLine(-3, "EXCELLENT! THAT IS THE HIGHEST SCORE!");
 	} else {
 		writer.writeCenterAtLine(-3, "GAME OVER");
 	}
