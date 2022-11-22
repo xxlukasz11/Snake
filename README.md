@@ -1,9 +1,9 @@
 # Snake
 Snake game written in Allegro 5
 
+# Building and running
 To run the game, Allegro5 installation is required.
 
-# Building and running
     mkdir build
     cd build
     cmake ..
