@@ -8,7 +8,7 @@
 class Font {
 public:
 	ALLEGRO_FONT* getAllegroFontPtr() const;
-	static std::unique_ptr<Font> loadFromFile(const char* filename, int fontSize);
+	static std::unique_ptr<Font> loadFromTtfFile(const char* filename, int fontSize);
 
 private:
 	using AllegroFontDeleter = void(*)(ALLEGRO_FONT*);

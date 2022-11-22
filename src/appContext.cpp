@@ -65,7 +65,7 @@ bool AppContext::initDisplay() {
 }
 
 bool AppContext::loadMainFont() {
-	font = Font::loadFromFile(MAIN_FONT_FILE_NAME, MAIN_FONT_SIZE);
+	font = Font::loadFromTtfFile(MAIN_FONT_FILE_NAME, MAIN_FONT_SIZE);
 	return font.operator bool();
 }
 

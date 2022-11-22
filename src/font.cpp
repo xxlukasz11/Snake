@@ -11,7 +11,7 @@ void Font::destroyFont(ALLEGRO_FONT* font) {
 	al_destroy_font(font);
 }
 
-std::unique_ptr<Font> Font::loadFromFile(const char* filename, int fontSize) {
+std::unique_ptr<Font> Font::loadFromTtfFile(const char* filename, int fontSize) {
 	AllegroFontPtr fontPtr{ al_load_ttf_font(filename, fontSize, 0), destroyFont };
 	if (!fontPtr) {
 		return nullptr;
