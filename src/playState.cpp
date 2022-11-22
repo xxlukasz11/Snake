@@ -15,7 +15,7 @@ void PlayState::onEnter() {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	}
 	auto& snakeMovementTimer = app.getSnakeMovementTimer();
-	snakeMovementTimer.stop();
+	snakeMovementTimer.start();
 }
 
 void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
