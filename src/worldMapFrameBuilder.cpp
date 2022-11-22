@@ -1,7 +1,7 @@
 #include "worldMapFrameBuilder.h"
 
 constexpr int DEFAULT_FRAME_THICKNESS = 1;
-static const ALLEGRO_COLOR DEFAULT_FRAME_COLOR = al_map_rgb(35, 121, 22);
+static const Color DEFAULT_FRAME_COLOR = Color::rgb(35, 121, 22);
 
 WorldMapFrameBuilder WorldMapFrameBuilder::instance(const Area& frameArea) {
 	return WorldMapFrameBuilder{ frameArea };
@@ -12,7 +12,7 @@ WorldMapFrameBuilder& WorldMapFrameBuilder::setFrameThickness(int frameThickness
 	return *this;
 }
 
-WorldMapFrameBuilder& WorldMapFrameBuilder::setFrameColor(const ALLEGRO_COLOR& frameColor) {
+WorldMapFrameBuilder& WorldMapFrameBuilder::setFrameColor(const Color& frameColor) {
 	this->frameColor = frameColor;
 	return *this;
 }

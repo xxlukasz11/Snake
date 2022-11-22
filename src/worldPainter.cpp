@@ -1,11 +1,11 @@
 #include "worldPainter.h"
 
-#include <allegro5/allegro_color.h>
+#include "color.h"
 #include "snakeContext.h"
 #include "foodContext.h"
 
-static const ALLEGRO_COLOR BACKGROUND_COLOR = al_map_rgb(238, 230, 165);
-static const ALLEGRO_COLOR FOOD_COLOR = al_map_rgb(0, 0, 0);
+static const Color BACKGROUND_COLOR = Color::rgb(238, 230, 165);
+static const Color FOOD_COLOR = Color::rgb(0, 0, 0);
 
 WorldPainter::WorldPainter(const Display& display) :
 		display(display),
@@ -46,7 +46,7 @@ void WorldPainter::drawSnake(const SnakeContext& snake) const {
 	drawSnakeBody(body, snake.getBodyColor());
 }
 
-void WorldPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
+void WorldPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const Color& color) const {
 	const auto& head = bodySegments[0];
 	if (bodySegments.size() > 1) {
 		drawRoundedSegment(head, bodySegments[1], color);
@@ -55,7 +55,7 @@ void WorldPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const AL
 	}
 }
 
-void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const {
+void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const Color& color) const {
 	const auto bodySize = bodySegments.size();
 	for (size_t i = 1; i < bodySize; ++i) {
 		const auto& segment = bodySegments[i];
@@ -68,7 +68,7 @@ void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const AL
 }
 
 void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos,
-		const ALLEGRO_COLOR& color) const {
+		const Color& color) const {
 	const auto xOffset = tailPos.x * rasterSize;
 	const auto yOffset = tailPos.y * rasterSize;
 	const auto radius = rasterSize / 2;
@@ -88,7 +88,7 @@ void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& a
 	screenPainter.drawFilledCircle(xCenter, yCenter, radius, color);
 }
 
-void WorldPainter::drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const {
+void WorldPainter::drawBodySegment(const Position& segmentPos, const Color& color) const {
 	const auto xOffset = segmentPos.x * rasterSize;
 	const auto yOffset = segmentPos.y * rasterSize;
 	screenPainter.drawFilledRectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);

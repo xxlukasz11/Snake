@@ -8,6 +8,7 @@
 #include "screenPainter.h"
 
 class FoodContext;
+class Color;
 
 class WorldPainter {
 public:
@@ -20,11 +21,10 @@ public:
 
 private:
 	void drawFoodAt(const Position& position) const;
-	void drawSnakeHead(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const;
-	void drawSnakeBody(const SnakeContext::Body bodySegments, const ALLEGRO_COLOR& color) const;
-	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos,
-			const ALLEGRO_COLOR& color) const;
-	void drawBodySegment(const Position& segmentPos, const ALLEGRO_COLOR& color) const;
+	void drawSnakeHead(const SnakeContext::Body bodySegments, const Color& color) const;
+	void drawSnakeBody(const SnakeContext::Body bodySegments, const Color& color) const;
+	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos, const Color& color) const;
+	void drawBodySegment(const Position& segmentPos, const Color& color) const;
 
 	const Display& display;
 	const double rasterSize;

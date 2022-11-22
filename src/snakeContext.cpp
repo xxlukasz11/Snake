@@ -1,18 +1,18 @@
 #include "snakeContext.h"
 
-static const ALLEGRO_COLOR HEAD_COLOR = al_map_rgb(255, 0, 0);
-static const ALLEGRO_COLOR BODY_COLOR = al_map_rgb(68, 136, 170);
+static const Color HEAD_COLOR = Color::rgb(255, 0, 0);
+static const Color BODY_COLOR = Color::rgb(68, 136, 170);
 
 void SnakeContext::reset() {
 	body.clear();
 	speed = { 0, 0 };
 }
 
-const ALLEGRO_COLOR& SnakeContext::getHeadColor() const {
+const Color& SnakeContext::getHeadColor() const {
 	return HEAD_COLOR;
 }
 
-const ALLEGRO_COLOR& SnakeContext::getBodyColor() const {
+const Color& SnakeContext::getBodyColor() const {
 	return BODY_COLOR;
 }
 

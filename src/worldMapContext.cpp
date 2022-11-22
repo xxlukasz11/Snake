@@ -1,7 +1,7 @@
 #include "worldMapContext.h"
 #include <algorithm>
 
-static const ALLEGRO_COLOR DEFAULT_BORDER_COLOR = al_map_rgb(35, 121, 22);
+static const Color DEFAULT_BORDER_COLOR = Color::rgb(35, 121, 22);
 static const Area DEFAULT_FOOD_AREA = Area{ { 0, 0 }, { 1, 1 } };
 
 const std::vector<Border>& WorldMapContext::getBorders() const {
@@ -13,7 +13,7 @@ bool WorldMapContext::isBorderHere(const Position& position) const {
 	});
 }
 
-const ALLEGRO_COLOR& WorldMapContext::getBorderColor() const {
+const Color& WorldMapContext::getBorderColor() const {
 	return borderColor;
 }
 
@@ -36,7 +36,7 @@ WorldMapContext::Builder& WorldMapContext::Builder::addBorder(const Border& bord
 	return *this;
 }
 
-WorldMapContext::Builder& WorldMapContext::Builder::setBorderColor(const ALLEGRO_COLOR& borderColor) {
+WorldMapContext::Builder& WorldMapContext::Builder::setBorderColor(const Color& borderColor) {
 	this->borderColor = borderColor;
 	return *this;
 }

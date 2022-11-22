@@ -2,8 +2,7 @@
 #define SRC_SNAKECONTEXT_H_
 
 #include <deque>
-#include <allegro5/allegro_color.h>
-
+#include "color.h"
 #include "utils.h"
 
 struct SpeedVector {
@@ -16,8 +15,8 @@ public:
 	using Body = std::deque<Position>;
 
 	void reset();
-	const ALLEGRO_COLOR& getHeadColor() const;
-	const ALLEGRO_COLOR& getBodyColor() const;
+	const Color& getHeadColor() const;
+	const Color& getBodyColor() const;
 	const Body& getBody() const;
 	const SpeedVector& getSpeed() const;
 	int getSnakeSize() const;

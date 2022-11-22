@@ -1,15 +1,15 @@
 #ifndef SRC_WORLDMAPFRAMEBUILDER_H_
 #define SRC_WORLDMAPFRAMEBUILDER_H_
 
-#include <allegro5/allegro_color.h>
 #include "worldMapContext.h"
 #include "utils.h"
+#include "color.h"
 
 class WorldMapFrameBuilder {
 public:
 	static WorldMapFrameBuilder instance(const Area& frameArea);
 	WorldMapFrameBuilder& setFrameThickness(int frameThickness);
-	WorldMapFrameBuilder& setFrameColor(const ALLEGRO_COLOR& frameColor);
+	WorldMapFrameBuilder& setFrameColor(const Color& frameColor);
 	WorldMapContext build() const;
 
 private:
@@ -19,8 +19,7 @@ private:
 
 	Area frameArea;
 	int frameThickness;
-	ALLEGRO_COLOR frameColor;
-	// TODO: Create wrapper for ALLEGRO_COLOR to remove Allegro dependency
+	Color frameColor;
 };
 
 #endif /* SRC_WORLDMAPFRAMEBUILDER_H_ */
