@@ -8,7 +8,8 @@ PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameC
 }
 
 void PauseState::onEnter() {
-	appContext.stopFrameRateUpdates();
+	auto& snakeMovementTimer = appContext.getSnakeMovementTimer();
+	snakeMovementTimer.stop();
 	drawFrame();
 }
 

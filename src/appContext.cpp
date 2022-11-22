@@ -70,8 +70,8 @@ bool AppContext::loadMainFont() {
 }
 
 bool AppContext::initFrameRateTimer() {
-	timer = Timer::create(FRAME_RATE_INTERVAL_SECONDS);
-	return timer.operator bool();
+	snakeMovementTimer = Timer::create(FRAME_RATE_INTERVAL_SECONDS);
+	return snakeMovementTimer.operator bool();
 }
 
 bool AppContext::loadAudioSamples() {
@@ -84,20 +84,12 @@ bool AppContext::loadAudioSamples() {
 
 void AppContext::registerEventSources() {
 	queue.registerKeyboard();
-	queue.registerTimer(*timer);
+	queue.registerTimer(*snakeMovementTimer);
 	queue.registerDisplay(*display);
 }
 
-void AppContext::flushEventQueue() {
-	queue.flushEvents();
-}
-
-void AppContext::startFrameRateUpdates() {
-	timer->start();
-}
-
-void AppContext::stopFrameRateUpdates() {
-	timer->stop();
+Timer& AppContext::getSnakeMovementTimer() const {
+	return *snakeMovementTimer;
 }
 
 void AppContext::stopApp() {
@@ -110,10 +102,6 @@ bool AppContext::getRunningFlag() const {
 
 const Font& AppContext::getMainFont() const {
 	return *font;
-}
-
-float AppContext::getFrameRateIntervalSeconds() const {
-	return FRAME_RATE_INTERVAL_SECONDS;
 }
 
 const Display& AppContext::getDisplay() const {

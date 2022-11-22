@@ -14,7 +14,8 @@ void PlayState::onEnter() {
 	if (!foodContext.isFoodPlanted()) {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	}
-	app.startFrameRateUpdates();
+	auto& snakeMovementTimer = app.getSnakeMovementTimer();
+	snakeMovementTimer.stop();
 }
 
 void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {

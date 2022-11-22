@@ -33,7 +33,8 @@ GameOverState::GameOverState(StateMachine& stateMachine, AppContext& appContext,
 }
 
 void GameOverState::onEnter() {
-	appContext.stopFrameRateUpdates();
+	auto& snakeMovementTimer = appContext.getSnakeMovementTimer();
+	snakeMovementTimer.stop();
 	handleGameEnd();
 }
 

@@ -11,16 +11,13 @@
 class AppContext {
 public:
 	bool initialize();
-	void flushEventQueue();
-	void startFrameRateUpdates();
-	void stopFrameRateUpdates();
 	void stopApp();
 
 	bool getRunningFlag() const;
 	const Font& getMainFont() const;
-	float getFrameRateIntervalSeconds() const;
 	const Display& getDisplay() const;
 	const AudioSample& getErrorAudioSample() const;
+	Timer& getSnakeMovementTimer() const;
 	void waitForEvent(ALLEGRO_EVENT& event);
 
 private:
@@ -34,7 +31,7 @@ private:
 	EventQueue queue;
 	std::unique_ptr<Font> font;
 	std::unique_ptr<Display> display;
-	std::unique_ptr<Timer> timer;
+	std::unique_ptr<Timer> snakeMovementTimer;
 	std::unique_ptr<AudioSample> errorSample;
 };
 
