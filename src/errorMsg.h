@@ -3,11 +3,13 @@
 
 #include <string>
 
-class errMsg {
+class ErrorMsg {
 public:
+	ErrorMsg(const std::string& message);
+	void print(const std::string& filename);
+
+private:
 	std::string msg{ "" };
-	errMsg(std::string _m);
-	void print(const char* _filename);
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "appContext.h"
-#include "errMsg.hpp"
+
+#include "errorMsg.h"
 
 constexpr int DISPLAY_WIDTH_RASTERS = 54;
 constexpr int DISPLAY_HEIGHT_RASTERS = 34;
@@ -19,25 +20,25 @@ using framework::Display;
 
 bool AppContext::initialize() {
 	if (!initDisplay()) {
-		errMsg r("Failed to init display");
+		ErrorMsg r("Failed to init display");
 		r.print(ERROR_FILE);
 		return false;
 	}
 
 	if (!loadMainFont()) {
-		errMsg r("Failed to load main font");
+		ErrorMsg r("Failed to load main font");
 		r.print(ERROR_FILE);
 		return false;
 	}
 
 	if (!initFrameRateTimer()) {
-		errMsg r("Failed to init timer");
+		ErrorMsg r("Failed to init timer");
 		r.print(ERROR_FILE);
 		return false;
 	}
 
 	if (!loadAudioSamples()) {
-		errMsg r("Failed to load audio samples");
+		ErrorMsg r("Failed to load audio samples");
 		r.print(ERROR_FILE);
 		return false;
 	}
