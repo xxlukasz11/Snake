@@ -18,7 +18,6 @@ public:
 	void registerDisplay(const Display& display);
 	void flushEvents();
 	void waitForEvent(ALLEGRO_EVENT& outEvent);
-	ALLEGRO_EVENT_QUEUE* getAllegroQueuePtr();
 
 private:
 	using AllegroEventQueueDeleter = void(*)(ALLEGRO_EVENT_QUEUE* queue);

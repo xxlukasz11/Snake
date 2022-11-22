@@ -35,8 +35,4 @@ void EventQueue::registerDisplay(const Display& display) {
 	al_register_event_source(allegroEventQueue.get(), al_get_display_event_source(display.allegroDisplay.get()));
 }
 
-ALLEGRO_EVENT_QUEUE* EventQueue::getAllegroQueuePtr() {
-	return allegroEventQueue.get();
-}
-
 } // namespace framework

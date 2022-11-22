@@ -8,7 +8,6 @@ constexpr int RASTER_SIZE = 15;
 constexpr int MAIN_FONT_SIZE = 24;
 constexpr double FRAME_RATE_INTERVAL_SECONDS = 0.06;
 constexpr const char* DISPLAY_NAME = "Snake";
-constexpr const char* MAIN_FONT_NAME = "Arial";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
 constexpr const char* AUDIO_SAMPLE_FILE = "sample.wav";
