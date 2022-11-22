@@ -21,7 +21,7 @@ void PlayState::onEnter() {
 void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
 	switch (event.type) {
 	case ALLEGRO_EVENT_TIMER:
-		nextIteration();
+		handleTimerEvent(event);
 		break;
 	case ALLEGRO_EVENT_KEY_DOWN:
 		changeSnakeDirection(event.keyboard.keycode);
@@ -32,7 +32,14 @@ void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
 	}
 }
 
-void PlayState::nextIteration() {
+void PlayState::handleTimerEvent(const ALLEGRO_EVENT& event) {
+	const auto& snakeMovementTimer = app.getSnakeMovementTimer();
+	if (snakeMovementTimer.isSourceOf(event)) {
+		nextMoveIteration();
+	}
+}
+
+void PlayState::nextMoveIteration() {
 	const auto successfullyMoved = moveSnake();
 	drawFrame();
 	if (!successfullyMoved) {

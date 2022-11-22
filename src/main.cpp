@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
+	// TODO: create wrapper for Event, so that there is no dependency to Allegro
 	ALLEGRO_EVENT event;
 	GameStateController game(app);
 	game.initialize();

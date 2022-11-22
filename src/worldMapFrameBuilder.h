@@ -20,6 +20,7 @@ private:
 	Area frameArea;
 	int frameThickness;
 	ALLEGRO_COLOR frameColor;
+	// TODO: Create wrapper for ALLEGRO_COLOR to remove Allegro dependency
 };
 
 #endif /* SRC_WORLDMAPFRAMEBUILDER_H_ */

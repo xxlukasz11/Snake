@@ -16,7 +16,8 @@ public:
 	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
 private:
-	void nextIteration();
+	void handleTimerEvent(const ALLEGRO_EVENT& event);
+	void nextMoveIteration();
 	bool moveSnake();
 	void playErrorSound() const;
 	void changeSnakeDirection(int keyCode);

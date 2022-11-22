@@ -16,6 +16,10 @@ void Timer::deleteTimer(ALLEGRO_TIMER* timer) {
 	al_destroy_timer(timer);
 }
 
+bool Timer::isSourceOf(const ALLEGRO_EVENT& event) const {
+	return event.type == ALLEGRO_EVENT_TIMER && event.timer.source == allegroTimer.get();
+}
+
 std::unique_ptr<Timer> Timer::create(double timeoutSeconds) {
 	AllegroTimerPtr timerPtr{ al_create_timer(timeoutSeconds), deleteTimer };
 	if (!timerPtr) {
