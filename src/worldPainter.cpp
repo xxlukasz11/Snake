@@ -85,8 +85,8 @@ void WorldPainter::drawSnake(const SnakeContext& snake) const {
 	if (body.empty()) {
 		return;
 	}
-	drawSnakeHead(body, snake.getHeadColor());
 	drawSnakeBody(body, snake.getBodyColor());
+	drawSnakeHead(body, snake.getHeadColor());
 }
 
 void WorldPainter::drawSnakeHead(const SnakeContext::Body bodySegments, const Color& color) const {

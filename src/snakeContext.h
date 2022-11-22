@@ -20,6 +20,7 @@ public:
 	const Body& getBody() const;
 	const SpeedVector& getSpeed() const;
 	int getSnakeSize() const;
+	bool isHeadOverBodySegment() const;
 
 	void setSpeed(const SpeedVector& newSpeed);
 	void appendHeadSegment(const Position& headPosition);

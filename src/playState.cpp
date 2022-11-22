@@ -66,11 +66,19 @@ bool PlayState::moveSnake() {
 		snakeContext.eraseTailSegment();
 	}
 
+	// TODO: cut off tail instead of ending the game
+	// TODO: display animation for tail that was cut off
+	if (snakeContext.isHeadOverBodySegment()) {
+		playErrorSound();
+		return false;
+	}
+
 	const auto& worldMap = gameContext.getWorldMapContext();
 	if (worldMap.isBorderHere(newHeadPosition)) {
 		playErrorSound();
 		return false;
 	}
+
 	return true;
 }
 
