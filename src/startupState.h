@@ -15,6 +15,7 @@ public:
 	void handleStateEvent(const ALLEGRO_EVENT& event) override;
 
 private:
+	void initializeSnakeBody();
 	void writeInstructions() const;
 	void handleKeyDown(int keyCode);
 

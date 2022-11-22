@@ -3,8 +3,6 @@
 #include "startupState.h"
 
 namespace {
-// TODO: place head at the display center
-const Position INITIAL_SNAKE_POSITION = { 20, 20 };
 
 std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
 	switch (keyCode) {
@@ -35,11 +33,17 @@ StartupState::StartupState(StateMachine& stateMachine, AppContext& appContext, G
 }
 
 void StartupState::onEnter() {
-	snakeContext.appendHeadSegment(INITIAL_SNAKE_POSITION);
+	initializeSnakeBody();
 	painter.drawMap(gameContext.getWorldMapContext());
 	painter.drawSnake(snakeContext);
 	writeInstructions();
 	painter.flushDisplay();
+}
+
+void StartupState::initializeSnakeBody() {
+	const auto& display = appContext.getDisplay();
+	Position centerPosition{ display.getWidthRasters() / 2, static_cast<int>(display.getHeightRasters() / 1.5) };
+	snakeContext.appendHeadSegment(centerPosition);
 }
 
 void StartupState::writeInstructions() const {
