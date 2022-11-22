@@ -7,14 +7,14 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& g
 		app(app),
 		gameContext(gameContext),
 		snakeContext(gameContext.getSnakeContext()),
-		foodContext(gameContext.getFoodContext()) {
+		foodContext(gameContext.getFoodContext()),
+		snakeMovementTimer(app.getSnakeMovementTimer()) {
 }
 
 void PlayState::onEnter() {
 	if (!foodContext.isFoodPlanted()) {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	}
-	auto& snakeMovementTimer = app.getSnakeMovementTimer();
 	snakeMovementTimer.start();
 }
 
@@ -33,7 +33,6 @@ void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
 }
 
 void PlayState::handleTimerEvent(const ALLEGRO_EVENT& event) {
-	const auto& snakeMovementTimer = app.getSnakeMovementTimer();
 	if (snakeMovementTimer.isSourceOf(event)) {
 		nextMoveIteration();
 	}

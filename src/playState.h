@@ -30,6 +30,7 @@ private:
 	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
+	Timer& snakeMovementTimer;
 	std::optional<SpeedVector> snakeSpeedForNextMove;
 };
 
