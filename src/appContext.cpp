@@ -83,9 +83,9 @@ bool AppContext::loadAudioSamples() {
 }
 
 void AppContext::registerEventSources() {
-	queue.register_keyboard();
-	display->registerAsEventSourceIn(queue);
-	timer->registerAsEventSourceIn(queue);
+	queue.registerKeyboard();
+	queue.registerTimer(*timer);
+	queue.registerDisplay(*display);
 }
 
 void AppContext::flushEventQueue() {

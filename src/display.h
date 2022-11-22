@@ -15,9 +15,9 @@ struct DisplayInitParams {
 };
 
 class Display {
+	friend class EventQueue;
 public:
 	void placeAtScreenCenter();
-	void registerAsEventSourceIn(EventQueue& queue);
 	int getRasterSize() const;
 	int getWidthPixels() const;
 	int getHeightPixels() const;

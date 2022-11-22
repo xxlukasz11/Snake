@@ -7,10 +7,10 @@
 class EventQueue;
 
 class Timer {
+	friend class EventQueue;
 public:
 	void start();
 	void stop();
-	void registerAsEventSourceIn(EventQueue& queue);
 	static std::unique_ptr<Timer> create(double timeoutSeconds);
 
 private:

@@ -1,7 +1,5 @@
 #include "display.h"
 
-#include "eventQueue.h"
-
 void Display::destroyDisplay(ALLEGRO_DISPLAY* display) {
 	al_destroy_display(display);
 }
@@ -20,10 +18,6 @@ void Display::placeAtScreenCenter() {
 	al_get_monitor_info(0, &monitor);
 	al_set_window_position(allegroDisplay.get(), (monitor.x2 - monitor.x1 - widthPixels) / 2,
 			(monitor.y2 - monitor.y1 - heightPixels) / 2);
-}
-
-void Display::registerAsEventSourceIn(EventQueue& queue) {
-	al_register_event_source(queue.getAllegroQueuePtr(), al_get_display_event_source(allegroDisplay.get()));
 }
 
 int Display::getRasterSize() const {

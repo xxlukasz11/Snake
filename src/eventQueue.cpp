@@ -1,4 +1,6 @@
 #include "eventQueue.h"
+#include "timer.h"
+#include "display.h"
 
 EventQueue::EventQueue() :
 		allegroEventQueue(al_create_event_queue(), destroyEventQueue) {
@@ -16,12 +18,19 @@ void EventQueue::destroyEventQueue(ALLEGRO_EVENT_QUEUE* queue) {
 	al_destroy_event_queue(queue);
 }
 
-void EventQueue::register_keyboard() {
-	// TODO: unify event registration with timer and display
+void EventQueue::registerKeyboard() {
 	al_register_event_source(allegroEventQueue.get(), al_get_keyboard_event_source());
 }
-void EventQueue::register_mouse() {
+void EventQueue::registerMouse() {
 	al_register_event_source(allegroEventQueue.get(), al_get_mouse_event_source());
+}
+
+void EventQueue::registerTimer(const Timer& timer) {
+	al_register_event_source(allegroEventQueue.get(), al_get_timer_event_source(timer.allegroTimer.get()));
+}
+
+void EventQueue::registerDisplay(const Display& display) {
+	al_register_event_source(allegroEventQueue.get(), al_get_display_event_source(display.allegroDisplay.get()));
 }
 
 ALLEGRO_EVENT_QUEUE* EventQueue::getAllegroQueuePtr() {

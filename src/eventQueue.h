@@ -4,11 +4,16 @@
 #include <allegro5/allegro.h>
 #include <memory>
 
+class Timer;
+class Display;
+
 class EventQueue {
 public:
 	EventQueue();
-	void register_keyboard();
-	void register_mouse();
+	void registerKeyboard();
+	void registerMouse();
+	void registerTimer(const Timer& timer);
+	void registerDisplay(const Display& display);
 	void flushEvents();
 	void waitForEvent(ALLEGRO_EVENT& outEvent);
 	ALLEGRO_EVENT_QUEUE* getAllegroQueuePtr();
