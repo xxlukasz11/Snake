@@ -3,6 +3,7 @@
 #include "startupState.h"
 
 namespace {
+// TODO: place head at the display center
 const Position INITIAL_SNAKE_POSITION = { 20, 20 };
 
 std::optional<SpeedVector> tryCalculatingSpeed(int keyCode) {
