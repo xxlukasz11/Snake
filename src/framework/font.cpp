@@ -1,8 +1,10 @@
-#include "../framework/font.h"
+#include "framework/font.h"
 
 #include <iostream>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+
+namespace framework {
 
 Font::Font(AllegroFontPtr fontPtr) :
 		allegroFont(std::move(fontPtr)) {
@@ -23,3 +25,5 @@ std::unique_ptr<Font> Font::loadFromTtfFile(const char* filename, int fontSize) 
 ALLEGRO_FONT* Font::getAllegroFontPtr() const {
 	return allegroFont.get();
 }
+
+} // namespace framework

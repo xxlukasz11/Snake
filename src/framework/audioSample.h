@@ -4,6 +4,8 @@
 #include <allegro5/allegro_audio.h>
 #include <memory>
 
+namespace framework {
+
 class AudioSample {
 public:
 	AudioSample();
@@ -19,5 +21,7 @@ private:
 
 	AllegroAudioSamplePtr sample;
 };
+
+} // namespace framework
 
 #endif /* SRC_AUDIOSAMPLE_H_ */

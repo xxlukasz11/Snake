@@ -42,7 +42,7 @@ void StartupState::onEnter() {
 }
 
 void StartupState::writeInstructions() const {
-	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	framework::TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
 	writer.writeCenter("Press any arrow to start the game");
 }
 

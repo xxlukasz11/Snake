@@ -3,8 +3,10 @@
 
 #include <string>
 
-#include "../framework/display.h"
-#include "../framework/font.h"
+namespace framework {
+
+class Display;
+class Font;
 
 class TextWriter {
 public:
@@ -18,5 +20,7 @@ private:
 	const Display& display;
 	const Font& font;
 };
+
+} // namespace framework
 
 #endif /* SRC_TEXTWRITER_H_ */

@@ -1,18 +1,21 @@
 #ifndef SRC_WORLDPAINTER_H_
 #define SRC_WORLDPAINTER_H_
 
-#include "framework/display.h"
 #include "framework/screenPainter.h"
 #include "snakeContext.h"
 #include "worldMapContext.h"
 #include "utils.h"
+
+namespace framework {
+class Display;
+}
 
 class FoodContext;
 class Color;
 
 class WorldPainter {
 public:
-	WorldPainter(const Display& display);
+	WorldPainter(const framework::Display& display);
 	void drawMap(const WorldMapContext& worldMapContext) const;
 	void drawFood(const FoodContext& foodContext) const;
 	void drawSnake(const SnakeContext& snake) const;
@@ -26,9 +29,9 @@ private:
 	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos, const Color& color) const;
 	void drawBodySegment(const Position& segmentPos, const Color& color) const;
 
-	const Display& display;
+	const framework::Display& display;
 	const double rasterSize;
-	ScreenPainter screenPainter;
+	framework::ScreenPainter screenPainter;
 };
 
 #endif /* SRC_WORLDPAINTER_H_ */

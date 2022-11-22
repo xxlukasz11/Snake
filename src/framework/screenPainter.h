@@ -5,6 +5,8 @@
 
 class Color;
 
+namespace framework {
+
 class ScreenPainter {
 public:
 	void drawFilledRectangle(double topLeftX, double topLeftY, double bottomRightX, double bottomRightY,
@@ -13,5 +15,7 @@ public:
 	void clearScreen(const Color& screenColor) const;
 	void flushBuffer() const;
 };
+
+} // namespace framework
 
 #endif /* SRC_SCREENPAINTER_H_ */

@@ -1,4 +1,6 @@
-#include "../framework/audioSample.h"
+#include "framework/audioSample.h"
+
+namespace framework {
 
 AudioSample::AudioSample() :
 		sample(nullptr, destroySample) {
@@ -23,3 +25,5 @@ std::unique_ptr<AudioSample> AudioSample::loadFromFile(const char* filePath) {
 	}
 	return std::unique_ptr<AudioSample>(new AudioSample(std::move(samplePtr)));
 }
+
+} // namespace framework

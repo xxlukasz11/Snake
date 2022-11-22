@@ -1,10 +1,15 @@
-#include "../framework/textWriter.h"
+#include "framework/textWriter.h"
 
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_color.h>
 
+#include "framework/display.h"
+#include "framework/font.h"
+
 constexpr int LINE_HEIGHT = 30;
 static const ALLEGRO_COLOR COLOR_BLACK = al_map_rgb(0, 0, 0);
+
+namespace framework {
 
 TextWriter::TextWriter(const Display& display, const Font& font) :
 		display(display),
@@ -23,3 +28,5 @@ void TextWriter::writeCenterAtLine(int lineIndex, const std::string& text) {
 void TextWriter::write(int x, int y, const std::string& text) {
 	al_draw_text(font.getAllegroFontPtr(), COLOR_BLACK, x, y, ALLEGRO_ALIGN_CENTRE, text.c_str());
 }
+
+} // namespace framework

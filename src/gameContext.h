@@ -6,11 +6,13 @@
 #include "worldMapContext.h"
 #include "worldPainter.h"
 
+namespace framework {
 class Display;
+}
 
 class GameContext {
 public:
-	GameContext(const Display& display);
+	GameContext(const framework::Display& display);
 
 	void reset();
 	const WorldPainter& getPainter() const;

@@ -67,7 +67,7 @@ void GameOverState::drawEndingScreen(int snakeSize, int highestScore) const {
 }
 
 void GameOverState::drawInstructions(int snakeSize, int highestScore) const {
-	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	framework::TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
 	if (snakeSize == highestScore) {
 		writer.writeCenterAtLine(-3, "EXCELLENT! YOU MATCHED THE RECORD!");
 	} else if (snakeSize > highestScore) {

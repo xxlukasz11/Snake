@@ -9,6 +9,10 @@
 #include "foodContext.h"
 #include "worldPainter.h"
 
+namespace framework {
+class Timer;
+}
+
 class PlayState : public StateBase {
 public:
 	PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext);
@@ -30,7 +34,7 @@ private:
 	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
-	Timer& snakeMovementTimer;
+	framework::Timer& snakeMovementTimer;
 	std::optional<SpeedVector> snakeSpeedForNextMove;
 };
 

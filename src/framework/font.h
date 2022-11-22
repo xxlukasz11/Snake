@@ -5,6 +5,8 @@
 #include <string>
 #include <allegro5/allegro_font.h>
 
+namespace framework {
+
 class Font {
 public:
 	ALLEGRO_FONT* getAllegroFontPtr() const;
@@ -19,5 +21,7 @@ private:
 
 	AllegroFontPtr allegroFont;
 };
+
+} // namespace framework
 
 #endif // SRC_FONT_H_

@@ -14,10 +14,10 @@ public:
 	void stopApp();
 
 	bool getRunningFlag() const;
-	const Font& getMainFont() const;
-	const Display& getDisplay() const;
-	const AudioSample& getErrorAudioSample() const;
-	Timer& getSnakeMovementTimer() const;
+	const framework::Font& getMainFont() const;
+	const framework::Display& getDisplay() const;
+	const framework::AudioSample& getErrorAudioSample() const;
+	framework::Timer& getSnakeMovementTimer() const;
 	void waitForEvent(ALLEGRO_EVENT& event);
 
 private:
@@ -28,11 +28,11 @@ private:
 	void registerEventSources();
 
 	bool runningFlag{ true };
-	EventQueue queue;
-	std::unique_ptr<Font> font;
-	std::unique_ptr<Display> display;
-	std::unique_ptr<Timer> snakeMovementTimer;
-	std::unique_ptr<AudioSample> errorSample;
+	framework::EventQueue queue;
+	std::unique_ptr<framework::Font> font;
+	std::unique_ptr<framework::Display> display;
+	std::unique_ptr<framework::Timer> snakeMovementTimer;
+	std::unique_ptr<framework::AudioSample> errorSample;
 };
 
 bool app_init_alllegro_modules();

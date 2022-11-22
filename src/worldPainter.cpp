@@ -3,6 +3,9 @@
 #include "color.h"
 #include "snakeContext.h"
 #include "foodContext.h"
+#include "framework/display.h"
+
+using framework::Display;
 
 static const Color BACKGROUND_COLOR = Color::rgb(238, 230, 165);
 static const Color FOOD_COLOR = Color::rgb(0, 0, 0);

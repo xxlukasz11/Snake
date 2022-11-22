@@ -1,7 +1,8 @@
-#include "../framework/eventQueue.h"
+#include "framework/eventQueue.h"
+#include "framework/display.h"
+#include "framework/timer.h"
 
-#include "../framework/display.h"
-#include "../framework/timer.h"
+namespace framework {
 
 EventQueue::EventQueue() :
 		allegroEventQueue(al_create_event_queue(), destroyEventQueue) {
@@ -37,3 +38,5 @@ void EventQueue::registerDisplay(const Display& display) {
 ALLEGRO_EVENT_QUEUE* EventQueue::getAllegroQueuePtr() {
 	return allegroEventQueue.get();
 }
+
+} // namespace framework

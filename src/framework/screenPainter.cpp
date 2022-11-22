@@ -1,8 +1,10 @@
-#include "../framework/screenPainter.h"
+#include "framework/screenPainter.h"
 
 #include "color.h"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
+
+namespace framework {
 
 namespace {
 
@@ -28,3 +30,5 @@ void ScreenPainter::clearScreen(const Color& screenColor) const {
 void ScreenPainter::flushBuffer() const {
 	al_flip_display();
 }
+
+} // namespace framework

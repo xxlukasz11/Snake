@@ -4,6 +4,8 @@
 #include "allegro5/allegro.h"
 #include <memory>
 
+namespace framework {
+
 class EventQueue;
 
 class Timer {
@@ -23,5 +25,7 @@ private:
 
 	AllegroTimerPtr allegroTimer;
 };
+
+} // namespace framework
 
 #endif /* SRC_FRAMEWORK_TIMER_H_ */

@@ -5,6 +5,8 @@
 #include <string>
 #include <memory>
 
+namespace framework {
+
 class EventQueue;
 
 struct DisplayInitParams {
@@ -40,5 +42,7 @@ private:
 	int widthPixels;
 	int heightPixels;
 };
+
+} // namespace framework
 
 #endif /* SRC_DISPLAY_H_ */

@@ -3,6 +3,8 @@
 #include "utils.h"
 #include "framework/display.h"
 
+using framework::Display;
+
 namespace {
 
 WorldMapContext createWorldMap(const Display& display) {

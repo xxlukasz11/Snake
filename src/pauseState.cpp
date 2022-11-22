@@ -37,6 +37,6 @@ void PauseState::drawFrame() {
 }
 
 void PauseState::displayPauseInformation() {
-	TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	framework::TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
 	writer.writeCenter("PAUSED");
 }

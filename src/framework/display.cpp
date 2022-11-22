@@ -1,4 +1,6 @@
-#include "../framework/display.h"
+#include "framework/display.h"
+
+namespace framework {
 
 void Display::destroyDisplay(ALLEGRO_DISPLAY* display) {
 	al_destroy_display(display);
@@ -51,3 +53,5 @@ std::unique_ptr<Display> Display::create(const DisplayInitParams& displayInitPar
 	al_set_window_title(displayPtr.get(), displayInitParams.windowName.c_str());
 	return std::unique_ptr<Display>(new Display(std::move(displayPtr), displayInitParams));
 }
+
+} // namespace framework

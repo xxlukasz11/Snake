@@ -20,6 +20,11 @@ constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
 constexpr const char* AUDIO_SAMPLE_FILE = "sample.wav";
 
+using framework::AudioSample;
+using framework::Timer;
+using framework::Font;
+using framework::Display;
+
 bool AppContext::initialize() {
 	if (!initDisplay()) {
 		errMsg r("Failed to init display");
@@ -50,7 +55,7 @@ bool AppContext::initialize() {
 }
 
 bool AppContext::initDisplay() {
-	DisplayInitParams displayParams;
+	framework::DisplayInitParams displayParams;
 	displayParams.rasterSizePixels = RASTER_SIZE;
 	displayParams.numHorizontalRasters = DISPLAY_WIDTH_RASTERS;
 	displayParams.numVerticalRasters = DISPLAY_HEIGHT_RASTERS;

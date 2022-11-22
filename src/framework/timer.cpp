@@ -1,4 +1,6 @@
-#include "../framework/timer.h"
+#include "framework/timer.h"
+
+namespace framework {
 
 Timer::Timer(AllegroTimerPtr timerPtr) :
 		allegroTimer(std::move(timerPtr)) {
@@ -27,3 +29,5 @@ std::unique_ptr<Timer> Timer::create(double timeoutSeconds) {
 	}
 	return std::unique_ptr<Timer>(new Timer(std::move(timerPtr)));
 }
+
+} // namespace framework
