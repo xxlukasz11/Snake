@@ -1,9 +1,12 @@
-#include <allegro5/allegro.h>
+#include <iostream>
 #include "appContext.h"
 #include "gameStateController.h"
+#include "framework/allegro_init.h"
 
 int main(int argc, char** argv) {
-	if (!app_init_alllegro_modules()) {
+	auto [status, errorMessage] = framework::init_allegro();
+	if (status != framework::AllegroInitStatus::SUCCESS) {
+		std::cerr << "Cannot start application. Reason: " << errorMessage << std::endl;
 		return -1;
 	}
 

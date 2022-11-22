@@ -35,6 +35,4 @@ private:
 	std::unique_ptr<framework::AudioSample> errorSample;
 };
 
-bool app_init_alllegro_modules();
-
 #endif /* SRC_APPCONTEXT_H_ */

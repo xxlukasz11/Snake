@@ -1,12 +1,4 @@
 #include "appContext.h"
-
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include <memory>
 #include "errMsg.hpp"
 
 constexpr int DISPLAY_WIDTH_RASTERS = 54;
@@ -119,38 +111,4 @@ const AudioSample& AppContext::getErrorAudioSample() const {
 
 void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
 	queue.waitForEvent(event);
-}
-
-bool app_init_alllegro_modules() {
-	try {
-		if (!al_init()) {
-			throw errMsg("Failed to initialize allegro");
-		}
-		if (!al_install_audio()) {
-			throw errMsg("Failed to install audio");
-		}
-		if (!al_init_acodec_addon()) {
-			throw errMsg("Failed to initialize acodec addon");
-		}
-		if (!al_init_primitives_addon()) {
-			throw errMsg("Failed to initialize primitives addon");
-		}
-		if (!al_install_keyboard()) {
-			throw errMsg("Failed to install keyboard");
-		}
-
-		al_init_font_addon();
-		if (!al_init_ttf_addon()) {
-			throw errMsg("Failed to initialize ttf addon");
-		}
-	} catch (errMsg& r) {
-		r.print(ERROR_FILE);
-		return false;
-	}
-
-	ALLEGRO_PATH* path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-	al_append_path_component(path, "../resources");
-	al_change_directory(al_path_cstr(path, '/'));
-	al_destroy_path(path);
-	return true;
 }
