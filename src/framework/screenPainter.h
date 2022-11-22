@@ -12,6 +12,8 @@ public:
 	void drawFilledRectangle(double topLeftX, double topLeftY, double bottomRightX, double bottomRightY,
 			const Color& fillColor) const;
 	void drawFilledCircle(double centerX, double centerY, double radius, const Color& fillColor) const;
+	void drawFilledCircle(double centerX, double centerY, double radius, double initialTheta, double deltaTheta,
+			const Color& fillColor) const;
 	void clearScreen(const Color& screenColor) const;
 	void flushBuffer() const;
 };

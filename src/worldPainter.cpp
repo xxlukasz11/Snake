@@ -1,5 +1,5 @@
+#include <cmath>
 #include "worldPainter.h"
-
 #include "color.h"
 #include "snakeContext.h"
 #include "foodContext.h"
@@ -9,6 +9,45 @@ using framework::Display;
 
 static const Color BACKGROUND_COLOR = Color::rgb(238, 230, 165);
 static const Color FOOD_COLOR = Color::rgb(0, 0, 0);
+
+namespace {
+
+bool areSegmentsInLine(const Position& firstSegment, const Position& secondSegment) {
+	return firstSegment.x == secondSegment.x || firstSegment.y == secondSegment.y;
+}
+
+SpeedVector calculateVector(const Position& from, const Position& to) {
+	return {to.x - from.x, to.y - from.y};
+}
+
+/*
+ * Calculate vector pointing inside snake body bend
+ */
+SpeedVector calculateBendVector(const Position& prevPos, const Position& middlePos, const Position& nextPos) {
+	auto prevDir = calculateVector(middlePos, prevPos);
+	auto nextDir = calculateVector(middlePos, nextPos);
+	return {prevDir.x + nextDir.x, prevDir.y + nextDir.y};
+}
+
+/*
+ * Calculate starting angle for the arc at the snake body bend
+ */
+double calculateInitialTheta(const SpeedVector& bendVector) {
+	if (bendVector.x > 0 && bendVector.y < 0) {
+		// Top-right bend
+		return M_PI_2;
+	} else if (bendVector.x > 0 && bendVector.y > 0) {
+		// Bottom-right bend
+		return M_PI;
+	} else if (bendVector.x < 0 && bendVector.y > 0) {
+		// Bottom-left bend
+		return M_PI + M_PI_2;
+	}
+	// Top-left bend
+	return 0.0;
+}
+
+} // namespace
 
 WorldPainter::WorldPainter(const Display& display) :
 		display(display),
@@ -41,7 +80,6 @@ void WorldPainter::drawFoodAt(const Position& position) const {
 }
 
 void WorldPainter::drawSnake(const SnakeContext& snake) const {
-	// TODO: round snake body bends
 	// TODO: make snake body a little bit more narrow
 	const auto& body = snake.getBody();
 	if (body.empty()) {
@@ -66,8 +104,10 @@ void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const Co
 		const auto& segment = bodySegments[i];
 		if (i == bodySize - 1) {
 			drawRoundedSegment(segment, bodySegments[i - 1], color);
-		} else {
+		} else if (areSegmentsInLine(bodySegments[i - 1], bodySegments[i + 1])) {
 			drawBodySegment(segment, color);
+		} else {
+			drawBendSegment(segment, bodySegments[i - 1], bodySegments[i + 1], color);
 		}
 	}
 }
@@ -80,7 +120,7 @@ void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& a
 	const auto xCenter = xOffset + radius;
 	const auto yCenter = yOffset + radius;
 
-	const auto direction = SpeedVector{ adjacentSegmentPos.x - tailPos.x, adjacentSegmentPos.y - tailPos.y };
+	const auto direction = calculateVector(tailPos, adjacentSegmentPos);
 	if (direction.x > 0) {
 		screenPainter.drawFilledRectangle(xCenter, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
 	} else if (direction.x < 0) {
@@ -91,6 +131,19 @@ void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& a
 		screenPainter.drawFilledRectangle(xOffset, yOffset, xOffset + rasterSize, yCenter, color);
 	}
 	screenPainter.drawFilledCircle(xCenter, yCenter, radius, color);
+}
+
+void WorldPainter::drawBendSegment(const Position& segmentPos, const Position& previousSegmentPos,
+		const Position& nextSegmentPos, const Color& color) const {
+	auto bendVector = calculateBendVector(previousSegmentPos, segmentPos, nextSegmentPos);
+	auto initialTheta = calculateInitialTheta(bendVector);
+
+	auto arcCenter = segmentPos;
+	arcCenter.x += (bendVector.x > 0);
+	arcCenter.y += (bendVector.y > 0);
+
+	screenPainter.drawFilledCircle(arcCenter.x * rasterSize, arcCenter.y * rasterSize, rasterSize, initialTheta, M_PI_2,
+			color);
 }
 
 void WorldPainter::drawBodySegment(const Position& segmentPos, const Color& color) const {
