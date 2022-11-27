@@ -13,9 +13,6 @@ GameStateController::GameStateController(AppContext& appContext) :
 		pauseState(std::make_shared<PauseState>(*this, appContext, gameContext)),
 		gameOverState(std::make_shared<GameOverState>(*this, appContext, gameContext)),
 		currentStateType(StateType::NONE) {
-}
-
-void GameStateController::initialize() {
 	setState(StateType::STARTUP);
 }
 

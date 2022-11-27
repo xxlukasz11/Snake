@@ -13,7 +13,6 @@ class GameStateController : public StateMachine {
 public:
 	GameStateController(AppContext& appContext);
 	void setState(StateType stateType) override;
-	void initialize();
 	void terminate() override;
 	void handleEvent(const ALLEGRO_EVENT& event);
 

@@ -18,7 +18,6 @@ int main(int argc, char** argv) {
 	// TODO: create wrapper for Event, so that there is no dependency to Allegro
 	ALLEGRO_EVENT event;
 	GameStateController game(app);
-	game.initialize();
 	while (app.getRunningFlag()) {
 		app.waitForEvent(event);
 		game.handleEvent(event);
