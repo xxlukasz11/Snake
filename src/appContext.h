@@ -15,7 +15,7 @@ public:
 	bool initialize();
 	void stopApp();
 
-	bool getRunningFlag() const;
+	bool shouldBeRunning() const;
 	const framework::Display& getDisplay() const;
 	const framework::AudioSample& getErrorAudioSample() const;
 	framework::Timer& getSnakeMovementTimer() const;

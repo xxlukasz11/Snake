@@ -100,7 +100,7 @@ void AppContext::stopApp() {
 	runningFlag = false;
 }
 
-bool AppContext::getRunningFlag() const {
+bool AppContext::shouldBeRunning() const {
 	return runningFlag;
 }
 
