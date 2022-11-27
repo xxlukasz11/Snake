@@ -5,6 +5,7 @@
 
 namespace framework {
 
+// TODO: Implement getKeyCode() method
 enum class KeyboardKey {
 	KEY_UP, KEY_LEFT, KEY_RIGHT, KEY_DOWN, KEY_ESCAPE, KEY_Y, KEY_N
 };
