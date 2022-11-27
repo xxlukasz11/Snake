@@ -12,10 +12,10 @@ public:
 
 protected:
 	virtual void handleStateEvent(const ALLEGRO_EVENT& event) = 0;
-	void exitGame();
 	void nextState(StateType stateType);
 
 private:
+	void exitGame();
 	void handleEvent(const ALLEGRO_EVENT& event) override;
 
 	StateMachine& stateMachine;
