@@ -28,6 +28,11 @@ void ScreenPainter::drawFilledCircle(double centerX, double centerY, double radi
 	al_draw_filled_pieslice(centerX, centerY, radius, initialTheta, deltaTheta, allegroColor(fillColor));
 }
 
+void ScreenPainter::drawArc(double centerX, double centerY, double radius, double initialTheta, double deltaTheta,
+		double thickness, const Color& fillColor) const {
+	al_draw_arc(centerX, centerY, radius, initialTheta, deltaTheta, allegroColor(fillColor), thickness);
+}
+
 void ScreenPainter::clearScreen(const Color& screenColor) const {
 	al_clear_to_color(allegroColor(screenColor));
 }

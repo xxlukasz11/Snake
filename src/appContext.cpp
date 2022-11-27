@@ -2,9 +2,9 @@
 
 #include "errorMsg.h"
 
-constexpr int DISPLAY_WIDTH_RASTERS = 54;
-constexpr int DISPLAY_HEIGHT_RASTERS = 34;
-constexpr int RASTER_SIZE = 15;
+constexpr int DISPLAY_WIDTH_RASTERS = 40;
+constexpr int DISPLAY_HEIGHT_RASTERS = 25;
+constexpr int RASTER_SIZE = 30;
 constexpr int MAIN_FONT_SIZE = 24;
 constexpr double FRAME_RATE_INTERVAL_SECONDS = 0.06;
 constexpr const char* DISPLAY_NAME = "Snake";

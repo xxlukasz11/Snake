@@ -7,6 +7,7 @@
 
 using framework::Display;
 
+constexpr double SNAKE_BODY_OFFSET = 3.0;
 static const Color BACKGROUND_COLOR = Color::rgb(238, 230, 165);
 static const Color FOOD_COLOR = Color::rgb(0, 0, 0);
 
@@ -52,6 +53,7 @@ double calculateInitialTheta(const SpeedVector& bendVector) {
 WorldPainter::WorldPainter(const Display& display) :
 		display(display),
 		rasterSize(display.getRasterSize()),
+		snakeWidth(rasterSize - 2 * SNAKE_BODY_OFFSET),
 		screenPainter() {
 }
 
@@ -80,7 +82,6 @@ void WorldPainter::drawFoodAt(const Position& position) const {
 }
 
 void WorldPainter::drawSnake(const SnakeContext& snake) const {
-	// TODO: make snake body a little bit more narrow
 	const auto& body = snake.getBody();
 	if (body.empty()) {
 		return;
@@ -105,51 +106,64 @@ void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const Co
 		if (i == bodySize - 1) {
 			drawRoundedSegment(segment, bodySegments[i - 1], color);
 		} else if (areSegmentsInLine(bodySegments[i - 1], bodySegments[i + 1])) {
-			drawBodySegment(segment, color);
+			drawBodySegment(segment, bodySegments[i + 1], color);
 		} else {
 			drawBendSegment(segment, bodySegments[i - 1], bodySegments[i + 1], color);
 		}
 	}
 }
 
-void WorldPainter::drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos,
+void WorldPainter::drawRoundedSegment(const Position& segmentPos, const Position& adjacentSegmentPos,
 		const Color& color) const {
-	const auto xOffset = tailPos.x * rasterSize;
-	const auto yOffset = tailPos.y * rasterSize;
-	const auto radius = rasterSize / 2;
-	const auto xCenter = xOffset + radius;
-	const auto yCenter = yOffset + radius;
+	const auto xOffset = segmentPos.x * rasterSize;
+	const auto yOffset = segmentPos.y * rasterSize;
+	const auto radius = snakeWidth / 2.0;
+	const auto xCenter = xOffset + rasterSize / 2.0;
+	const auto yCenter = yOffset + rasterSize / 2.0;
+	const auto yBodyOffset = yOffset + SNAKE_BODY_OFFSET;
+	const auto xBodyOffset = xOffset + SNAKE_BODY_OFFSET;
 
-	const auto direction = calculateVector(tailPos, adjacentSegmentPos);
+	const auto direction = calculateVector(segmentPos, adjacentSegmentPos);
 	if (direction.x > 0) {
-		screenPainter.drawFilledRectangle(xCenter, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(xCenter, yBodyOffset, xOffset + rasterSize, yBodyOffset + snakeWidth, color);
 	} else if (direction.x < 0) {
-		screenPainter.drawFilledRectangle(xOffset, yOffset, xCenter, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(xOffset, yBodyOffset, xCenter, yBodyOffset + snakeWidth, color);
 	} else if (direction.y > 0) {
-		screenPainter.drawFilledRectangle(xOffset, yCenter, xOffset + rasterSize, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(xBodyOffset, yCenter, xBodyOffset + snakeWidth, yOffset + rasterSize, color);
 	} else if (direction.y < 0) {
-		screenPainter.drawFilledRectangle(xOffset, yOffset, xOffset + rasterSize, yCenter, color);
+		screenPainter.drawFilledRectangle(xBodyOffset, yOffset, xBodyOffset + snakeWidth, yCenter, color);
 	}
 	screenPainter.drawFilledCircle(xCenter, yCenter, radius, color);
 }
 
 void WorldPainter::drawBendSegment(const Position& segmentPos, const Position& previousSegmentPos,
 		const Position& nextSegmentPos, const Color& color) const {
-	auto bendVector = calculateBendVector(previousSegmentPos, segmentPos, nextSegmentPos);
-	auto initialTheta = calculateInitialTheta(bendVector);
+	const auto bendVector = calculateBendVector(previousSegmentPos, segmentPos, nextSegmentPos);
+	const auto initialTheta = calculateInitialTheta(bendVector);
+	const auto radius = rasterSize / 2.0;
+	const auto arcThickness = snakeWidth;
 
 	auto arcCenter = segmentPos;
 	arcCenter.x += (bendVector.x > 0);
 	arcCenter.y += (bendVector.y > 0);
 
-	screenPainter.drawFilledCircle(arcCenter.x * rasterSize, arcCenter.y * rasterSize, rasterSize, initialTheta, M_PI_2,
-			color);
+	screenPainter.drawArc(arcCenter.x * rasterSize, arcCenter.y * rasterSize, radius, initialTheta, M_PI_2,
+			arcThickness, color);
 }
 
-void WorldPainter::drawBodySegment(const Position& segmentPos, const Color& color) const {
+void WorldPainter::drawBodySegment(const Position& segmentPos, const Position& adjacentSegmentPos,
+		const Color& color) const {
+	const auto direction = calculateVector(segmentPos, adjacentSegmentPos);
 	const auto xOffset = segmentPos.x * rasterSize;
 	const auto yOffset = segmentPos.y * rasterSize;
-	screenPainter.drawFilledRectangle(xOffset, yOffset, xOffset + rasterSize, yOffset + rasterSize, color);
+	if (direction.x != 0) {
+		const auto yBodyOffset = yOffset + SNAKE_BODY_OFFSET;
+		screenPainter.drawFilledRectangle(xOffset, yBodyOffset, xOffset + rasterSize, yBodyOffset + snakeWidth, color);
+	} else {
+		const auto xBodyOffset = xOffset + SNAKE_BODY_OFFSET;
+		screenPainter.drawFilledRectangle(xBodyOffset, yOffset, xBodyOffset + snakeWidth, yOffset + rasterSize, color);
+	}
+
 }
 
 void WorldPainter::flushDisplay() const {
