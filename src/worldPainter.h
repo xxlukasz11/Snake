@@ -34,6 +34,7 @@ private:
 	const framework::Display& display;
 	const double rasterSize;
 	const double snakeWidth;
+	const double foodRadius;
 	framework::ScreenPainter screenPainter;
 };
 

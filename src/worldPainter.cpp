@@ -8,6 +8,7 @@
 using framework::Display;
 
 constexpr double SNAKE_BODY_OFFSET = 3.0;
+constexpr double FOOD_RADIUS_FACTOR = 0.3;
 static const Color BACKGROUND_COLOR = Color::rgb(238, 230, 165);
 static const Color FOOD_COLOR = Color::rgb(0, 0, 0);
 
@@ -54,6 +55,7 @@ WorldPainter::WorldPainter(const Display& display) :
 		display(display),
 		rasterSize(display.getRasterSize()),
 		snakeWidth(rasterSize - 2 * SNAKE_BODY_OFFSET),
+		foodRadius(rasterSize * FOOD_RADIUS_FACTOR),
 		screenPainter() {
 }
 
@@ -75,10 +77,9 @@ void WorldPainter::drawFood(const FoodContext& foodContext) const {
 }
 
 void WorldPainter::drawFoodAt(const Position& position) const {
-	const double circleRadius = rasterSize / 2.2;
-	const auto xOffset = position.x * rasterSize + circleRadius;
-	const auto yOffset = position.y * rasterSize + circleRadius;
-	screenPainter.drawFilledCircle(xOffset, yOffset, circleRadius, FOOD_COLOR);
+	const auto xOffset = position.x * rasterSize + foodRadius;
+	const auto yOffset = position.y * rasterSize + foodRadius;
+	screenPainter.drawFilledCircle(xOffset, yOffset, foodRadius, FOOD_COLOR);
 }
 
 void WorldPainter::drawSnake(const SnakeContext& snake) const {
@@ -163,7 +164,6 @@ void WorldPainter::drawBodySegment(const Position& segmentPos, const Position& a
 		const auto xBodyOffset = xOffset + SNAKE_BODY_OFFSET;
 		screenPainter.drawFilledRectangle(xBodyOffset, yOffset, xBodyOffset + snakeWidth, yOffset + rasterSize, color);
 	}
-
 }
 
 void WorldPainter::flushDisplay() const {

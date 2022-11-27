@@ -2,6 +2,7 @@
 
 #include "errorMsg.h"
 
+// TODO: read these values from configuration file
 constexpr int DISPLAY_WIDTH_RASTERS = 40;
 constexpr int DISPLAY_HEIGHT_RASTERS = 25;
 constexpr int RASTER_SIZE = 30;
