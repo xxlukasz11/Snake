@@ -1,5 +1,4 @@
 #include "pauseState.h"
-#include "framework/textWriter.h"
 
 PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine),
@@ -37,6 +36,6 @@ void PauseState::drawFrame() {
 }
 
 void PauseState::displayPauseInformation() {
-	framework::TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	auto& writer = appContext.getTextWriter();
 	writer.writeCenter("PAUSED");
 }

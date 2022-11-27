@@ -1,5 +1,4 @@
 #include <optional>
-#include "framework/textWriter.h"
 #include "startupState.h"
 
 namespace {
@@ -47,7 +46,7 @@ void StartupState::initializeSnakeBody() {
 }
 
 void StartupState::writeInstructions() const {
-	framework::TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	auto& writer = appContext.getTextWriter();
 	writer.writeCenter("Press any arrow to start the game");
 }
 

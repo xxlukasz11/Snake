@@ -17,6 +17,7 @@ using framework::AudioSample;
 using framework::Timer;
 using framework::Font;
 using framework::Display;
+using framework::TextWriter;
 
 bool AppContext::initialize() {
 	if (!initDisplay()) {
@@ -43,6 +44,7 @@ bool AppContext::initialize() {
 		return false;
 	}
 
+	textWriter = std::make_unique<TextWriter>(*display, *font);
 	registerEventSources();
 	return true;
 }
@@ -90,16 +92,16 @@ Timer& AppContext::getSnakeMovementTimer() const {
 	return *snakeMovementTimer;
 }
 
+TextWriter& AppContext::getTextWriter() const {
+	return *textWriter;
+}
+
 void AppContext::stopApp() {
 	runningFlag = false;
 }
 
 bool AppContext::getRunningFlag() const {
 	return runningFlag;
-}
-
-const Font& AppContext::getMainFont() const {
-	return *font;
 }
 
 const Display& AppContext::getDisplay() const {

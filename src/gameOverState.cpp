@@ -1,6 +1,5 @@
 #include <fstream>
 #include "gameOverState.h"
-#include "framework/textWriter.h"
 
 constexpr const char* HIGHSCORES_FILE_NAME = "snake_results.dat";
 
@@ -67,7 +66,7 @@ void GameOverState::drawEndingScreen(int snakeSize, int highestScore) const {
 }
 
 void GameOverState::drawInstructions(int snakeSize, int highestScore) const {
-	framework::TextWriter writer(appContext.getDisplay(), appContext.getMainFont());
+	auto& writer = appContext.getTextWriter();
 	if (snakeSize == highestScore) {
 		writer.writeCenterAtLine(-3, "EXCELLENT! YOU MATCHED THE RECORD!");
 	} else if (snakeSize > highestScore) {
