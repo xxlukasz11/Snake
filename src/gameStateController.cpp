@@ -1,5 +1,4 @@
 #include "gameStateController.h"
-
 #include "startupState.h"
 #include "playState.h"
 #include "pauseState.h"
@@ -45,6 +44,6 @@ void GameStateController::setState(StateType stateType) {
 	currentState->onEnter();
 }
 
-void GameStateController::handleEvent(const ALLEGRO_EVENT& event) {
+void GameStateController::handleEvent(const framework::Event& event) {
 	currentState->handleEvent(event);
 }

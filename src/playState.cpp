@@ -1,6 +1,7 @@
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_audio.h>
 #include "playState.h"
+
+using framework::Event;
+using framework::KeyboardKey;
 
 PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext) :
 		StateBase(stateMachine),
@@ -18,22 +19,25 @@ void PlayState::onEnter() {
 	snakeMovementTimer.start();
 }
 
-void PlayState::handleStateEvent(const ALLEGRO_EVENT& event) {
-	switch (event.type) {
-	case ALLEGRO_EVENT_TIMER:
+void PlayState::handleStateEvent(const Event& event) {
+	if (event.isTimerEvent()) {
 		handleTimerEvent(event);
-		break;
-	case ALLEGRO_EVENT_KEY_DOWN:
-		changeSnakeDirection(event.keyboard.keycode);
-		break;
-	case ALLEGRO_EVENT_KEY_UP:
-		handleControlKey(event.keyboard.keycode);
-		break;
+		return;
+	}
+
+	if (event.isKeyPressed()) {
+		changeSnakeDirection(event);
+		return;
+	}
+
+	if (event.isKeyReleased()) {
+		handleControlKey(event);
+		return;
 	}
 }
 
-void PlayState::handleTimerEvent(const ALLEGRO_EVENT& event) {
-	if (snakeMovementTimer.isSourceOf(event)) {
+void PlayState::handleTimerEvent(const Event& event) {
+	if (event.isEventSource(snakeMovementTimer)) {
 		nextMoveIteration();
 	}
 }
@@ -66,8 +70,8 @@ bool PlayState::moveSnake() {
 		snakeContext.eraseTailSegment();
 	}
 
-	// TODO: cut off tail instead of ending the game
-	// TODO: display animation for tail that was cut off
+// TODO: cut off tail instead of ending the game
+// TODO: display animation for tail that was cut off
 	if (snakeContext.isHeadOverBodySegment()) {
 		playErrorSound();
 		return false;
@@ -101,31 +105,31 @@ void PlayState::playErrorSound() const {
 	sample.play();
 }
 
-void PlayState::changeSnakeDirection(int keyCode) {
+void PlayState::changeSnakeDirection(const framework::Event& event) {
 	const auto currentSpeed = snakeContext.getSpeed();
-	if (keyCode == ALLEGRO_KEY_UP && currentSpeed.y == 0) {
+	if (event.isKeyPressed(KeyboardKey::KEY_UP) && currentSpeed.y == 0) {
 		snakeSpeedForNextMove = SpeedVector{ 0, -1 };
 		return;
 	}
 
-	if (keyCode == ALLEGRO_KEY_DOWN && currentSpeed.y == 0) {
+	if (event.isKeyPressed(KeyboardKey::KEY_DOWN) && currentSpeed.y == 0) {
 		snakeSpeedForNextMove = SpeedVector{ 0, 1 };
 		return;
 	}
 
-	if (keyCode == ALLEGRO_KEY_LEFT && currentSpeed.x == 0) {
+	if (event.isKeyPressed(KeyboardKey::KEY_LEFT) && currentSpeed.x == 0) {
 		snakeSpeedForNextMove = SpeedVector{ -1, 0 };
 		return;
 	}
 
-	if (keyCode == ALLEGRO_KEY_RIGHT && currentSpeed.x == 0) {
+	if (event.isKeyPressed(KeyboardKey::KEY_RIGHT) && currentSpeed.x == 0) {
 		snakeSpeedForNextMove = SpeedVector{ 1, 0 };
 		return;
 	}
 }
 
-void PlayState::handleControlKey(int keyCode) {
-	if (keyCode == ALLEGRO_KEY_ESCAPE) {
+void PlayState::handleControlKey(const framework::Event& event) {
+	if (event.isKeyReleased(KeyboardKey::KEY_ESCAPE)) {
 		nextState(StateType::PAUSE);
 	}
 }

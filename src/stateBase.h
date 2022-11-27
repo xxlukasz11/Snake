@@ -1,8 +1,6 @@
 #ifndef SRC_STATEBASE_H_
 #define SRC_STATEBASE_H_
 
-#include <allegro5/allegro.h>
-
 #include "state.h"
 #include "stateMachine.h"
 
@@ -11,12 +9,12 @@ public:
 	StateBase(StateMachine& stateMachine);
 
 protected:
-	virtual void handleStateEvent(const ALLEGRO_EVENT& event) = 0;
+	virtual void handleStateEvent(const framework::Event& event) = 0;
 	void nextState(StateType stateType);
 
 private:
 	void exitGame();
-	void handleEvent(const ALLEGRO_EVENT& event) override;
+	void handleEvent(const framework::Event& event) override;
 
 	StateMachine& stateMachine;
 };

@@ -17,15 +17,15 @@ class PlayState : public StateBase {
 public:
 	PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext);
 	void onEnter() override;
-	void handleStateEvent(const ALLEGRO_EVENT& event) override;
+	void handleStateEvent(const framework::Event& event) override;
 
 private:
-	void handleTimerEvent(const ALLEGRO_EVENT& event);
+	void handleTimerEvent(const framework::Event& event);
 	void nextMoveIteration();
 	bool moveSnake();
 	void playErrorSound() const;
-	void changeSnakeDirection(int keyCode);
-	void handleControlKey(int keyCode);
+	void changeSnakeDirection(const framework::Event& event);
+	void handleControlKey(const framework::Event& event);
 	void drawFrame();
 	void setSelectedSnakeDirection();
 	Position calculateNewHeadPosition();

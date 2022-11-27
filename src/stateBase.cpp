@@ -1,11 +1,14 @@
 #include "stateBase.h"
 
+using framework::Event;
+using framework::DisplayEvent;
+
 StateBase::StateBase(StateMachine& stateMachine) :
 		stateMachine(stateMachine) {
 }
 
-void StateBase::handleEvent(const ALLEGRO_EVENT& event) {
-	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+void StateBase::handleEvent(const Event& event) {
+	if (event.isDisplayEvent(DisplayEvent::CLOSE)) {
 		exitGame();
 		return;
 	}

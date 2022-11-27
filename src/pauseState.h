@@ -10,10 +10,9 @@ class PauseState : public StateBase {
 public:
 	PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
 	void onEnter() override;
-	void handleStateEvent(const ALLEGRO_EVENT& event) override;
+	void handleStateEvent(const framework::Event& event) override;
 
 private:
-	void handleControlKey(int keyCode);
 	void drawFrame();
 	void displayPauseInformation();
 

@@ -10,7 +10,7 @@ class GameOverState : public StateBase {
 public:
 	GameOverState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
 	void onEnter() override;
-	void handleStateEvent(const ALLEGRO_EVENT& event) override;
+	void handleStateEvent(const framework::Event& event) override;
 
 private:
 	void handleGameEnd();

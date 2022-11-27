@@ -12,8 +12,10 @@ void EventQueue::flushEvents() {
 	al_flush_event_queue(allegroEventQueue.get());
 }
 
-void EventQueue::waitForEvent(ALLEGRO_EVENT& outEvent) {
-	al_wait_for_event(allegroEventQueue.get(), &outEvent);
+Event EventQueue::waitForEvent() {
+	ALLEGRO_EVENT event;
+	al_wait_for_event(allegroEventQueue.get(), &event);
+	return Event{ event };
 }
 
 void EventQueue::destroyEventQueue(ALLEGRO_EVENT_QUEUE* queue) {

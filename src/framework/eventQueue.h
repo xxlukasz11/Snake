@@ -3,6 +3,7 @@
 
 #include <allegro5/allegro.h>
 #include <memory>
+#include "event.h"
 
 namespace framework {
 
@@ -17,7 +18,7 @@ public:
 	void registerTimer(const Timer& timer);
 	void registerDisplay(const Display& display);
 	void flushEvents();
-	void waitForEvent(ALLEGRO_EVENT& outEvent);
+	Event waitForEvent();
 
 private:
 	using AllegroEventQueueDeleter = void(*)(ALLEGRO_EVENT_QUEUE* queue);

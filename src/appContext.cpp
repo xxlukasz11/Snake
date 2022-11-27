@@ -1,5 +1,4 @@
 #include "appContext.h"
-
 #include "errorMsg.h"
 
 // TODO: read these values from configuration file
@@ -18,6 +17,7 @@ using framework::Timer;
 using framework::Font;
 using framework::Display;
 using framework::TextWriter;
+using framework::Event;
 
 bool AppContext::initialize() {
 	if (!initDisplay()) {
@@ -112,6 +112,6 @@ const AudioSample& AppContext::getErrorAudioSample() const {
 	return *errorSample;
 }
 
-void AppContext::waitForEvent(ALLEGRO_EVENT& event) {
-	queue.waitForEvent(event);
+Event AppContext::waitForEvent() {
+	return queue.waitForEvent();
 }

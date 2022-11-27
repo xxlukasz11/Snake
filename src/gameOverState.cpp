@@ -3,6 +3,9 @@
 
 constexpr const char* HIGHSCORES_FILE_NAME = "snake_results.dat";
 
+using framework::Event;
+using framework::KeyboardKey;
+
 namespace {
 
 int getHighestScoreSoFar() {
@@ -37,12 +40,12 @@ void GameOverState::onEnter() {
 	handleGameEnd();
 }
 
-void GameOverState::handleStateEvent(const ALLEGRO_EVENT& event) {
-	if (event.type == ALLEGRO_EVENT_KEY_UP && event.keyboard.keycode == ALLEGRO_KEY_Y) {
+void GameOverState::handleStateEvent(const Event& event) {
+	if (event.isKeyReleased(KeyboardKey::KEY_Y)) {
 		handleYesResponse();
 		return;
 	}
-	if (event.type == ALLEGRO_EVENT_KEY_UP && event.keyboard.keycode == ALLEGRO_KEY_N) {
+	if (event.isKeyReleased(KeyboardKey::KEY_N)) {
 		handleNoResponse();
 		return;
 	}

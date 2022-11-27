@@ -8,6 +8,7 @@
 #include "framework/eventQueue.h"
 #include "framework/font.h"
 #include "framework/textWriter.h"
+#include "framework/event.h"
 
 class AppContext {
 public:
@@ -19,7 +20,7 @@ public:
 	const framework::AudioSample& getErrorAudioSample() const;
 	framework::Timer& getSnakeMovementTimer() const;
 	framework::TextWriter& getTextWriter() const;
-	void waitForEvent(ALLEGRO_EVENT& event);
+	framework::Event waitForEvent();
 
 private:
 	bool initDisplay();

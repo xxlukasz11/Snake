@@ -12,12 +12,11 @@ class StartupState : public StateBase {
 public:
 	StartupState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
 	void onEnter() override;
-	void handleStateEvent(const ALLEGRO_EVENT& event) override;
+	void handleStateEvent(const framework::Event& event) override;
 
 private:
 	void initializeSnakeBody();
 	void writeInstructions() const;
-	void handleKeyDown(int keyCode);
 
 	AppContext& appContext;
 	const WorldPainter& painter;

@@ -1,5 +1,8 @@
 #include "pauseState.h"
 
+using framework::Event;
+using framework::KeyboardKey;
+
 PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine),
 		appContext(appContext),
@@ -12,16 +15,8 @@ void PauseState::onEnter() {
 	drawFrame();
 }
 
-void PauseState::handleStateEvent(const ALLEGRO_EVENT& event) {
-	switch (event.type) {
-	case ALLEGRO_EVENT_KEY_UP:
-		handleControlKey(event.keyboard.keycode);
-		break;
-	}
-}
-
-void PauseState::handleControlKey(int keyCode) {
-	if (keyCode == ALLEGRO_KEY_ESCAPE) {
+void PauseState::handleStateEvent(const Event& event) {
+	if (event.isKeyReleased(KeyboardKey::KEY_ESCAPE)) {
 		nextState(StateType::PLAY);
 	}
 }

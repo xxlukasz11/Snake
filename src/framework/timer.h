@@ -10,10 +10,10 @@ class EventQueue;
 
 class Timer {
 	friend class EventQueue;
+	friend class Event;
 public:
 	void start();
 	void stop();
-	bool isSourceOf(const ALLEGRO_EVENT& event) const;
 	static std::unique_ptr<Timer> create(double timeoutSeconds);
 
 private:
