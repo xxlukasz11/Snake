@@ -7,6 +7,16 @@ SnakeMovementHandler::SnakeMovementHandler(GameContext& gameContext) :
 		worldMap(gameContext.getWorldMapContext()) {
 }
 
+void SnakeMovementHandler::setSnakeSpeedIfValid(const SpeedVector& speed) {
+	if (snakeSpeed.x != 0 && speed.x == -snakeSpeed.x) {
+		return;
+	}
+	if (snakeSpeed.y != 0 && speed.y == -snakeSpeed.y) {
+		return;
+	}
+	snakeSpeed = speed;
+}
+
 void SnakeMovementHandler::moveSnake() {
 	const auto newHeadPosition = moveSnakeHead();
 	moveSnakeTailIfNecessary(newHeadPosition);
@@ -36,8 +46,11 @@ void SnakeMovementHandler::moveSnakeTailIfNecessary(const Position& newHeadPosit
 }
 
 Position SnakeMovementHandler::calculateNewHeadPosition() {
-	const auto& speed = snakeContext.getSpeed();
 	const auto& body = snakeContext.getBody();
 	const auto& headPosition = body.at(0);
-	return {headPosition.x + speed.x, headPosition.y + speed.y};
+	return {headPosition.x + snakeSpeed.x, headPosition.y + snakeSpeed.y};
+}
+
+void SnakeMovementHandler::reset() {
+	snakeSpeed = { 0, 0 };
 }

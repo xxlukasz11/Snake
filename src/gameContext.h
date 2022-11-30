@@ -5,6 +5,7 @@
 #include "foodContext.h"
 #include "worldMapContext.h"
 #include "worldPainter.h"
+#include "snakeMovementHandler.h"
 
 namespace framework {
 class Display;
@@ -21,12 +22,14 @@ public:
 	const FoodContext& getFoodContext() const;
 	FoodContext& getFoodContext();
 	const WorldMapContext& getWorldMapContext() const;
+	SnakeMovementHandler& getSnakeMovementHandler();
 
 private:
 	WorldPainter painter;
 	SnakeContext snakeContext;
 	WorldMapContext worldMapContext;
 	FoodContext foodContext;
+	SnakeMovementHandler snakeMovementHandler;
 };
 
 #endif /* SRC_GAMECONTEXT_H_ */

@@ -10,9 +10,10 @@ class GameContext;
 class SnakeMovementHandler {
 public:
 	SnakeMovementHandler(GameContext& gameContext);
-	// TODO: void updateSnakeSpeed()
+	void setSnakeSpeedIfValid(const SpeedVector& snakeSpeed);
 	void moveSnake();
 	bool gameEnded() const;
+	void reset();
 
 private:
 	Position moveSnakeHead();
@@ -23,6 +24,7 @@ private:
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 	const WorldMapContext& worldMap;
+	SpeedVector snakeSpeed;
 };
 
 #endif /* SRC_SNAKEMOVEMENTHANDLER_H_ */

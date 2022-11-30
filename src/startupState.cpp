@@ -61,6 +61,11 @@ void StartupState::handleStateEvent(const Event& event) {
 		return;
 	}
 
-	snakeContext.setSpeed(speed.value());
+	setInitialSnakeSpeed(speed.value());
 	nextState(StateType::PLAY);
+}
+
+void StartupState::setInitialSnakeSpeed(const SpeedVector& speed) {
+	auto& snakeMovementhandler = gameContext.getSnakeMovementHandler();
+	snakeMovementhandler.setSnakeSpeedIfValid(speed);
 }

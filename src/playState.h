@@ -33,8 +33,8 @@ private:
 	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
+	SnakeMovementHandler& snakeMovementHandler;
 	framework::Timer& snakeMovementTimer;
-	SnakeMovementHandler snakeMovementHandler;
 	std::optional<SpeedVector> snakeSpeedForNextMove;
 };
 

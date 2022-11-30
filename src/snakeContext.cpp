@@ -6,7 +6,6 @@ static const Color BODY_COLOR = Color::rgb(68, 136, 170);
 
 void SnakeContext::reset() {
 	body.clear();
-	speed = { 0, 0 };
 }
 
 const Color& SnakeContext::getHeadColor() const {
@@ -21,16 +20,8 @@ const SnakeContext::Body& SnakeContext::getBody() const {
 	return body;
 }
 
-const SpeedVector& SnakeContext::getSpeed() const {
-	return speed;
-}
-
 int SnakeContext::getSnakeSize() const {
 	return body.size();
-}
-
-void SnakeContext::setSpeed(const SpeedVector& newSpeed) {
-	speed = newSpeed;
 }
 
 void SnakeContext::appendHeadSegment(const Position& headPosition) {

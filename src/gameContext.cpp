@@ -17,12 +17,14 @@ WorldMapContext createWorldMap(const Display& display) {
 GameContext::GameContext(const Display& display) :
 		painter(display),
 		worldMapContext(createWorldMap(display)),
-		foodContext(worldMapContext) {
+		foodContext(worldMapContext),
+		snakeMovementHandler(*this) {
 }
 
 void GameContext::reset() {
 	snakeContext.reset();
 	foodContext.reset();
+	snakeMovementHandler.reset();
 }
 
 const WorldPainter& GameContext::getPainter() const {
@@ -47,4 +49,8 @@ FoodContext& GameContext::getFoodContext() {
 
 const WorldMapContext& GameContext::getWorldMapContext() const {
 	return worldMapContext;
+}
+
+SnakeMovementHandler& GameContext::getSnakeMovementHandler() {
+	return snakeMovementHandler;
 }

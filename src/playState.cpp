@@ -10,8 +10,8 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& g
 		gameContext(gameContext),
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
-		snakeMovementTimer(app.getSnakeMovementTimer()),
-		snakeMovementHandler(gameContext) {
+		snakeMovementHandler(gameContext.getSnakeMovementHandler()),
+		snakeMovementTimer(app.getSnakeMovementTimer()) {
 }
 
 void PlayState::onEnter() {
@@ -65,7 +65,7 @@ void PlayState::drawFrame() {
 
 void PlayState::setSelectedSnakeDirection() {
 	if (snakeSpeedForNextMove.has_value()) {
-		snakeContext.setSpeed(snakeSpeedForNextMove.value());
+		snakeMovementHandler.setSnakeSpeedIfValid(snakeSpeedForNextMove.value());
 		snakeSpeedForNextMove.reset();
 	}
 }
@@ -76,23 +76,22 @@ void PlayState::playErrorSound() const {
 }
 
 void PlayState::changeSnakeDirection(const framework::KeyboardKey& key) {
-	const auto currentSpeed = snakeContext.getSpeed();
-	if (KeyboardKey::KEY_UP == key && currentSpeed.y == 0) {
+	if (KeyboardKey::KEY_UP == key) {
 		snakeSpeedForNextMove = SpeedVector{ 0, -1 };
 		return;
 	}
 
-	if (KeyboardKey::KEY_DOWN == key && currentSpeed.y == 0) {
+	if (KeyboardKey::KEY_DOWN == key) {
 		snakeSpeedForNextMove = SpeedVector{ 0, 1 };
 		return;
 	}
 
-	if (KeyboardKey::KEY_LEFT == key && currentSpeed.x == 0) {
+	if (KeyboardKey::KEY_LEFT == key) {
 		snakeSpeedForNextMove = SpeedVector{ -1, 0 };
 		return;
 	}
 
-	if (KeyboardKey::KEY_RIGHT == key && currentSpeed.x == 0) {
+	if (KeyboardKey::KEY_RIGHT == key) {
 		snakeSpeedForNextMove = SpeedVector{ 1, 0 };
 		return;
 	}

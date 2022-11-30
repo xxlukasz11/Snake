@@ -6,6 +6,7 @@
 #include "color.h"
 #include "utils.h"
 
+// TODO: move it to different place
 struct SpeedVector {
 	int x;
 	int y;
@@ -19,16 +20,12 @@ public:
 	const Color& getHeadColor() const;
 	const Color& getBodyColor() const;
 	const Body& getBody() const;
-	const SpeedVector& getSpeed() const;
 	int getSnakeSize() const;
 	void cutOffTailIfHeadCollided();
-
-	void setSpeed(const SpeedVector& newSpeed);
 	void appendHeadSegment(const Position& headPosition);
 	void eraseTailSegment();
 
 private:
-	SpeedVector speed{ 0, 0 };
 	Body body;
 };
 
