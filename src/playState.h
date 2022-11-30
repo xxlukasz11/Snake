@@ -23,6 +23,9 @@ private:
 	void handleTimerEvent(const framework::Event& event);
 	void nextMoveIteration();
 	bool moveSnake();
+	Position moveSnakeHead();
+	void moveSnakeTailIfNecessary(const Position& newHeadPosition);
+	bool handleBorderCollision(const Position& newHeadPosition);
 	void playErrorSound() const;
 	void changeSnakeDirection(const framework::KeyboardKey& key);
 	void handleControlKey(const framework::KeyboardKey& key);

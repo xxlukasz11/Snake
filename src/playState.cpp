@@ -60,24 +60,34 @@ void PlayState::drawFrame() {
 }
 
 bool PlayState::moveSnake() {
+	const auto newHeadPosition = moveSnakeHead();
+	moveSnakeTailIfNecessary(newHeadPosition);
+	// TODO: display animation for tail that was cut off
+	snakeContext.cutOffTailIfHeadCollided();
+	return handleBorderCollision(newHeadPosition);
+}
+
+Position PlayState::moveSnakeHead() {
 	setSelectedSnakeDirection();
 	const auto newHeadPosition = calculateNewHeadPosition();
 	snakeContext.appendHeadSegment(newHeadPosition);
+	return newHeadPosition;
+}
 
+void PlayState::moveSnakeTailIfNecessary(const Position& newHeadPosition) {
 	if (foodContext.isFoodHere(newHeadPosition)) {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	} else {
 		snakeContext.eraseTailSegment();
 	}
+}
 
-// TODO: display animation for tail that was cut off
-	snakeContext.cutOffTailIfHeadCollided();
+bool PlayState::handleBorderCollision(const Position& newHeadPosition) {
 	const auto& worldMap = gameContext.getWorldMapContext();
 	if (worldMap.isBorderHere(newHeadPosition)) {
 		playErrorSound();
 		return false;
 	}
-
 	return true;
 }
 
