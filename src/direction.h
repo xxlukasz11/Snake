@@ -6,6 +6,8 @@
 class Direction {
 public:
 	Vector2D getSpeedVector() const;
+	bool isOppositeTo(const Direction& direction);
+
 	static Direction UP;
 	static Direction DOWN;
 	static Direction LEFT;

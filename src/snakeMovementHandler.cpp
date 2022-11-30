@@ -9,15 +9,9 @@ SnakeMovementHandler::SnakeMovementHandler(GameContext& gameContext) :
 }
 
 void SnakeMovementHandler::setSnakeDirectionIfValid(const Direction& direction) {
-	auto snakeSpeed = snakeDirection.getSpeedVector();
-	auto speed = direction.getSpeedVector();
-	if (snakeSpeed.x != 0 && speed.x == -snakeSpeed.x) {
-		return;
+	if (!snakeDirection.isOppositeTo(direction)) {
+		snakeDirection = direction;
 	}
-	if (snakeSpeed.y != 0 && speed.y == -snakeSpeed.y) {
-		return;
-	}
-	snakeDirection = direction;
 }
 
 void SnakeMovementHandler::moveSnake() {

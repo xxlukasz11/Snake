@@ -4,6 +4,11 @@ Direction::Direction(const Vector2D& speedVector) :
 		speedVector(speedVector) {
 }
 
+bool Direction::isOppositeTo(const Direction& direction) {
+	Vector2D oppositeVector{ -speedVector.x, -speedVector.y };
+	return oppositeVector == direction.speedVector;
+}
+
 Vector2D Direction::getSpeedVector() const {
 	return speedVector;
 }
