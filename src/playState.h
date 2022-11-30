@@ -8,6 +8,7 @@
 #include "snakeContext.h"
 #include "foodContext.h"
 #include "worldPainter.h"
+#include "snakeMovementHandler.h"
 
 namespace framework {
 class Timer;
@@ -22,22 +23,18 @@ public:
 private:
 	void handleTimerEvent(const framework::Event& event);
 	void nextMoveIteration();
-	bool moveSnake();
-	Position moveSnakeHead();
-	void moveSnakeTailIfNecessary(const Position& newHeadPosition);
-	bool handleBorderCollision(const Position& newHeadPosition);
 	void playErrorSound() const;
 	void changeSnakeDirection(const framework::KeyboardKey& key);
 	void handleControlKey(const framework::KeyboardKey& key);
 	void drawFrame();
 	void setSelectedSnakeDirection();
-	Position calculateNewHeadPosition();
 
 	AppContext& app;
 	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 	framework::Timer& snakeMovementTimer;
+	SnakeMovementHandler snakeMovementHandler;
 	std::optional<SpeedVector> snakeSpeedForNextMove;
 };
 

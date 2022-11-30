@@ -1,4 +1,5 @@
 #include "playState.h"
+#include "snakeMovementHandler.h"
 
 using framework::Event;
 using framework::KeyboardKey;
@@ -9,7 +10,8 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& g
 		gameContext(gameContext),
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
-		snakeMovementTimer(app.getSnakeMovementTimer()) {
+		snakeMovementTimer(app.getSnakeMovementTimer()),
+		snakeMovementHandler(gameContext) {
 }
 
 void PlayState::onEnter() {
@@ -43,10 +45,12 @@ void PlayState::handleTimerEvent(const Event& event) {
 }
 
 void PlayState::nextMoveIteration() {
-	const auto successfullyMoved = moveSnake();
+	setSelectedSnakeDirection();
+	snakeMovementHandler.moveSnake();
 	drawFrame();
-	if (!successfullyMoved) {
+	if (snakeMovementHandler.gameEnded()) {
 		// TODO: display some animation -> make frame updates independent from snake movement
+		playErrorSound();
 		nextState(StateType::GAME_OVER);
 	}
 }
@@ -59,50 +63,11 @@ void PlayState::drawFrame() {
 	painter.flushDisplay();
 }
 
-bool PlayState::moveSnake() {
-	const auto newHeadPosition = moveSnakeHead();
-	moveSnakeTailIfNecessary(newHeadPosition);
-	// TODO: display animation for tail that was cut off
-	snakeContext.cutOffTailIfHeadCollided();
-	return handleBorderCollision(newHeadPosition);
-}
-
-Position PlayState::moveSnakeHead() {
-	setSelectedSnakeDirection();
-	const auto newHeadPosition = calculateNewHeadPosition();
-	snakeContext.appendHeadSegment(newHeadPosition);
-	return newHeadPosition;
-}
-
-void PlayState::moveSnakeTailIfNecessary(const Position& newHeadPosition) {
-	if (foodContext.isFoodHere(newHeadPosition)) {
-		foodContext.placeFoodOnAvailableSquares(snakeContext);
-	} else {
-		snakeContext.eraseTailSegment();
-	}
-}
-
-bool PlayState::handleBorderCollision(const Position& newHeadPosition) {
-	const auto& worldMap = gameContext.getWorldMapContext();
-	if (worldMap.isBorderHere(newHeadPosition)) {
-		playErrorSound();
-		return false;
-	}
-	return true;
-}
-
 void PlayState::setSelectedSnakeDirection() {
 	if (snakeSpeedForNextMove.has_value()) {
 		snakeContext.setSpeed(snakeSpeedForNextMove.value());
 		snakeSpeedForNextMove.reset();
 	}
-}
-
-Position PlayState::calculateNewHeadPosition() {
-	const auto& speed = snakeContext.getSpeed();
-	const auto& body = snakeContext.getBody();
-	const auto& headPosition = body.at(0);
-	return {headPosition.x + speed.x, headPosition.y + speed.y};
 }
 
 void PlayState::playErrorSound() const {
