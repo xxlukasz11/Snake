@@ -41,13 +41,19 @@ void SnakeContext::eraseTailSegment() {
 	body.pop_back();
 }
 
-bool SnakeContext::isHeadOverBodySegment() const {
+void SnakeContext::cutOffTailIfHeadCollided() {
 	if (body.size() < 4) {
-		return false;
+		return;
 	}
 
 	const auto& headPos = body.cbegin();
-	return std::any_of(std::next(headPos), body.cend(), [&headPos](auto&& pos) {
+	auto found = std::find_if(std::next(headPos), body.cend(), [&headPos](auto&& pos) {
 		return pos == *headPos;
 	});
+
+	if (found == body.cend()) {
+		return;
+	}
+
+	body.resize(std::distance(body.cbegin(), found));
 }

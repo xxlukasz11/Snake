@@ -2,6 +2,7 @@
 #define SRC_SNAKECONTEXT_H_
 
 #include <deque>
+#include <optional>
 #include "color.h"
 #include "utils.h"
 
@@ -20,7 +21,7 @@ public:
 	const Body& getBody() const;
 	const SpeedVector& getSpeed() const;
 	int getSnakeSize() const;
-	bool isHeadOverBodySegment() const;
+	void cutOffTailIfHeadCollided();
 
 	void setSpeed(const SpeedVector& newSpeed);
 	void appendHeadSegment(const Position& headPosition);
