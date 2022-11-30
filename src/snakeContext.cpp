@@ -20,6 +20,10 @@ const SnakeContext::Body& SnakeContext::getBody() const {
 	return body;
 }
 
+const Vector2D& SnakeContext::getHead() const {
+	return body.at(0);
+}
+
 int SnakeContext::getSnakeSize() const {
 	return body.size();
 }

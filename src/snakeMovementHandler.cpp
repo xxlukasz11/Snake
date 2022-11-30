@@ -22,7 +22,7 @@ void SnakeMovementHandler::moveSnake() {
 }
 
 bool SnakeMovementHandler::gameEnded() const {
-	if (worldMap.isBorderHere(snakeContext.getBody()[0])) {
+	if (worldMap.isBorderHere(snakeContext.getHead())) {
 		return true;
 	}
 	return false;

@@ -14,6 +14,7 @@ public:
 	const Color& getHeadColor() const;
 	const Color& getBodyColor() const;
 	const Body& getBody() const;
+	const Vector2D& getHead() const;
 	int getSnakeSize() const;
 	void cutOffTailIfHeadCollided();
 	void appendHeadSegment(const Vector2D& headPosition);
