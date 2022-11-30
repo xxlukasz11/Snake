@@ -13,14 +13,14 @@ public:
 	FoodContext(const WorldMapContext& worldMapContext);
 	void reset();
 	void placeFoodOnAvailableSquares(const SnakeContext& snakeContext);
-	bool isFoodHere(const Position position) const;
-	const std::optional<Position>& getFoodPositon() const;
+	bool isFoodHere(const Vector2D position) const;
+	const std::optional<Vector2D>& getFoodPositon() const;
 	bool isFoodPlanted() const;
 
 private:
 	const WorldMapContext& worldMapContext;
 	PositionGenerator generator;
-	std::optional<Position> foodPosition;
+	std::optional<Vector2D> foodPosition;
 };
 
 #endif /* SRC_FOODCONTEXT_H_ */

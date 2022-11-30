@@ -6,15 +6,9 @@
 #include "color.h"
 #include "utils.h"
 
-// TODO: move it to different place
-struct SpeedVector {
-	int x;
-	int y;
-};
-
 class SnakeContext {
 public:
-	using Body = std::deque<Position>;
+	using Body = std::deque<Vector2D>;
 
 	void reset();
 	const Color& getHeadColor() const;
@@ -22,7 +16,7 @@ public:
 	const Body& getBody() const;
 	int getSnakeSize() const;
 	void cutOffTailIfHeadCollided();
-	void appendHeadSegment(const Position& headPosition);
+	void appendHeadSegment(const Vector2D& headPosition);
 	void eraseTailSegment();
 
 private:

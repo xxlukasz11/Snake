@@ -7,7 +7,7 @@ static const Area DEFAULT_FOOD_AREA = Area{ { 0, 0 }, { 1, 1 } };
 const std::vector<Border>& WorldMapContext::getBorders() const {
 	return borders;
 }
-bool WorldMapContext::isBorderHere(const Position& position) const {
+bool WorldMapContext::isBorderHere(const Vector2D& position) const {
 	return std::any_of(borders.cbegin(), borders.cend(), [&position](auto&& border) {
 		return border.isPartOfTheBorder(position);
 	});

@@ -23,13 +23,13 @@ public:
 	double getRasterSize() const;
 
 private:
-	void drawFoodAt(const Position& position) const;
+	void drawFoodAt(const Vector2D& position) const;
 	void drawSnakeHead(const SnakeContext::Body bodySegments, const Color& color) const;
 	void drawSnakeBody(const SnakeContext::Body bodySegments, const Color& color) const;
-	void drawRoundedSegment(const Position& tailPos, const Position& adjacentSegmentPos, const Color& color) const;
-	void drawBendSegment(const Position& segmentPos, const Position& previousSegmentPos, const Position& nextSegmentPos,
+	void drawRoundedSegment(const Vector2D& tailPos, const Vector2D& adjacentSegmentPos, const Color& color) const;
+	void drawBendSegment(const Vector2D& segmentPos, const Vector2D& previousSegmentPos, const Vector2D& nextSegmentPos,
 			const Color& color) const;
-	void drawBodySegment(const Position& segmentPos, const Position& adjacentSegmentPos, const Color& color) const;
+	void drawBodySegment(const Vector2D& segmentPos, const Vector2D& adjacentSegmentPos, const Color& color) const;
 
 	const framework::Display& display;
 	const double rasterSize;

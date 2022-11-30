@@ -14,18 +14,18 @@ static const Color FOOD_COLOR = Color::rgb(0, 0, 0);
 
 namespace {
 
-bool areSegmentsInLine(const Position& firstSegment, const Position& secondSegment) {
+bool areSegmentsInLine(const Vector2D& firstSegment, const Vector2D& secondSegment) {
 	return firstSegment.x == secondSegment.x || firstSegment.y == secondSegment.y;
 }
 
-SpeedVector calculateVector(const Position& from, const Position& to) {
+Vector2D calculateVector(const Vector2D& from, const Vector2D& to) {
 	return {to.x - from.x, to.y - from.y};
 }
 
 /*
  * Calculate vector pointing inside snake body bend
  */
-SpeedVector calculateBendVector(const Position& prevPos, const Position& middlePos, const Position& nextPos) {
+Vector2D calculateBendVector(const Vector2D& prevPos, const Vector2D& middlePos, const Vector2D& nextPos) {
 	auto prevDir = calculateVector(middlePos, prevPos);
 	auto nextDir = calculateVector(middlePos, nextPos);
 	return {prevDir.x + nextDir.x, prevDir.y + nextDir.y};
@@ -34,7 +34,7 @@ SpeedVector calculateBendVector(const Position& prevPos, const Position& middleP
 /*
  * Calculate starting angle for the arc at the snake body bend
  */
-double calculateInitialTheta(const SpeedVector& bendVector) {
+double calculateInitialTheta(const Vector2D& bendVector) {
 	if (bendVector.x > 0 && bendVector.y < 0) {
 		// Top-right bend
 		return M_PI_2;
@@ -76,7 +76,7 @@ void WorldPainter::drawFood(const FoodContext& foodContext) const {
 	}
 }
 
-void WorldPainter::drawFoodAt(const Position& position) const {
+void WorldPainter::drawFoodAt(const Vector2D& position) const {
 	const auto xOffset = position.x * rasterSize + foodRadius;
 	const auto yOffset = position.y * rasterSize + foodRadius;
 	screenPainter.drawFilledCircle(xOffset, yOffset, foodRadius, FOOD_COLOR);
@@ -114,7 +114,7 @@ void WorldPainter::drawSnakeBody(const SnakeContext::Body bodySegments, const Co
 	}
 }
 
-void WorldPainter::drawRoundedSegment(const Position& segmentPos, const Position& adjacentSegmentPos,
+void WorldPainter::drawRoundedSegment(const Vector2D& segmentPos, const Vector2D& adjacentSegmentPos,
 		const Color& color) const {
 	const auto xOffset = segmentPos.x * rasterSize;
 	const auto yOffset = segmentPos.y * rasterSize;
@@ -137,8 +137,8 @@ void WorldPainter::drawRoundedSegment(const Position& segmentPos, const Position
 	screenPainter.drawFilledCircle(xCenter, yCenter, radius, color);
 }
 
-void WorldPainter::drawBendSegment(const Position& segmentPos, const Position& previousSegmentPos,
-		const Position& nextSegmentPos, const Color& color) const {
+void WorldPainter::drawBendSegment(const Vector2D& segmentPos, const Vector2D& previousSegmentPos,
+		const Vector2D& nextSegmentPos, const Color& color) const {
 	const auto bendVector = calculateBendVector(previousSegmentPos, segmentPos, nextSegmentPos);
 	const auto initialTheta = calculateInitialTheta(bendVector);
 	const auto radius = rasterSize / 2.0;
@@ -152,7 +152,7 @@ void WorldPainter::drawBendSegment(const Position& segmentPos, const Position& p
 			arcThickness, color);
 }
 
-void WorldPainter::drawBodySegment(const Position& segmentPos, const Position& adjacentSegmentPos,
+void WorldPainter::drawBodySegment(const Vector2D& segmentPos, const Vector2D& adjacentSegmentPos,
 		const Color& color) const {
 	const auto direction = calculateVector(segmentPos, adjacentSegmentPos);
 	const auto xOffset = segmentPos.x * rasterSize;

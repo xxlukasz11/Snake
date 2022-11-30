@@ -6,18 +6,18 @@ using framework::KeyboardKey;
 
 namespace {
 
-std::optional<SpeedVector> tryCalculatingSpeed(const KeyboardKey& key) {
+std::optional<Vector2D> tryCalculatingSpeed(const KeyboardKey& key) {
 	if (KeyboardKey::KEY_UP == key) {
-		return SpeedVector{ 0, -1 };
+		return Vector2D{ 0, -1 };
 	}
 	if (KeyboardKey::KEY_DOWN == key) {
-		return SpeedVector{ 0, 1 };
+		return Vector2D{ 0, 1 };
 	}
 	if (KeyboardKey::KEY_LEFT == key) {
-		return SpeedVector{ -1, 0 };
+		return Vector2D{ -1, 0 };
 	}
 	if (KeyboardKey::KEY_RIGHT == key) {
-		return SpeedVector{ 1, 0 };
+		return Vector2D{ 1, 0 };
 	}
 	return std::nullopt;
 }
@@ -42,7 +42,7 @@ void StartupState::onEnter() {
 
 void StartupState::initializeSnakeBody() {
 	const auto& display = appContext.getDisplay();
-	Position centerPosition{ display.getWidthRasters() / 2, static_cast<int>(display.getHeightRasters() / 1.5) };
+	Vector2D centerPosition{ display.getWidthRasters() / 2, static_cast<int>(display.getHeightRasters() / 1.5) };
 	snakeContext.appendHeadSegment(centerPosition);
 }
 
@@ -65,7 +65,7 @@ void StartupState::handleStateEvent(const Event& event) {
 	nextState(StateType::PLAY);
 }
 
-void StartupState::setInitialSnakeSpeed(const SpeedVector& speed) {
+void StartupState::setInitialSnakeSpeed(const Vector2D& speed) {
 	auto& snakeMovementhandler = gameContext.getSnakeMovementHandler();
 	snakeMovementhandler.setSnakeSpeedIfValid(speed);
 }

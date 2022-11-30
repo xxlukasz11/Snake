@@ -77,22 +77,22 @@ void PlayState::playErrorSound() const {
 
 void PlayState::changeSnakeDirection(const framework::KeyboardKey& key) {
 	if (KeyboardKey::KEY_UP == key) {
-		snakeSpeedForNextMove = SpeedVector{ 0, -1 };
+		snakeSpeedForNextMove = Vector2D{ 0, -1 };
 		return;
 	}
 
 	if (KeyboardKey::KEY_DOWN == key) {
-		snakeSpeedForNextMove = SpeedVector{ 0, 1 };
+		snakeSpeedForNextMove = Vector2D{ 0, 1 };
 		return;
 	}
 
 	if (KeyboardKey::KEY_LEFT == key) {
-		snakeSpeedForNextMove = SpeedVector{ -1, 0 };
+		snakeSpeedForNextMove = Vector2D{ -1, 0 };
 		return;
 	}
 
 	if (KeyboardKey::KEY_RIGHT == key) {
-		snakeSpeedForNextMove = SpeedVector{ 1, 0 };
+		snakeSpeedForNextMove = Vector2D{ 1, 0 };
 		return;
 	}
 }

@@ -24,7 +24,7 @@ int SnakeContext::getSnakeSize() const {
 	return body.size();
 }
 
-void SnakeContext::appendHeadSegment(const Position& headPosition) {
+void SnakeContext::appendHeadSegment(const Vector2D& headPosition) {
 	body.push_front(headPosition);
 }
 

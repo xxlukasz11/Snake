@@ -53,8 +53,8 @@ WorldMapContext::Builder WorldMapFrameBuilder::constructFrame() const {
 }
 
 Area WorldMapFrameBuilder::calculateFoodArea() const {
-	Position innerTopLeft = { frameArea.topLeft.x + frameThickness, frameArea.topLeft.y + frameThickness };
-	Position innerBottomRight = { frameArea.bottomRight.x - frameThickness, frameArea.bottomRight.y - frameThickness };
+	Vector2D innerTopLeft = { frameArea.topLeft.x + frameThickness, frameArea.topLeft.y + frameThickness };
+	Vector2D innerBottomRight = { frameArea.bottomRight.x - frameThickness, frameArea.bottomRight.y - frameThickness };
 	Area foodArea = { innerTopLeft, innerBottomRight };
 	return foodArea;
 }

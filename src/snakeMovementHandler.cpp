@@ -7,7 +7,7 @@ SnakeMovementHandler::SnakeMovementHandler(GameContext& gameContext) :
 		worldMap(gameContext.getWorldMapContext()) {
 }
 
-void SnakeMovementHandler::setSnakeSpeedIfValid(const SpeedVector& speed) {
+void SnakeMovementHandler::setSnakeSpeedIfValid(const Vector2D& speed) {
 	if (snakeSpeed.x != 0 && speed.x == -snakeSpeed.x) {
 		return;
 	}
@@ -31,13 +31,13 @@ bool SnakeMovementHandler::gameEnded() const {
 	return false;
 }
 
-Position SnakeMovementHandler::moveSnakeHead() {
+Vector2D SnakeMovementHandler::moveSnakeHead() {
 	const auto newHeadPosition = calculateNewHeadPosition();
 	snakeContext.appendHeadSegment(newHeadPosition);
 	return newHeadPosition;
 }
 
-void SnakeMovementHandler::moveSnakeTailIfNecessary(const Position& newHeadPosition) {
+void SnakeMovementHandler::moveSnakeTailIfNecessary(const Vector2D& newHeadPosition) {
 	if (foodContext.isFoodHere(newHeadPosition)) {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	} else {
@@ -45,7 +45,7 @@ void SnakeMovementHandler::moveSnakeTailIfNecessary(const Position& newHeadPosit
 	}
 }
 
-Position SnakeMovementHandler::calculateNewHeadPosition() {
+Vector2D SnakeMovementHandler::calculateNewHeadPosition() {
 	const auto& body = snakeContext.getBody();
 	const auto& headPosition = body.at(0);
 	return {headPosition.x + snakeSpeed.x, headPosition.y + snakeSpeed.y};

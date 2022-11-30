@@ -35,7 +35,7 @@ private:
 	FoodContext& foodContext;
 	SnakeMovementHandler& snakeMovementHandler;
 	framework::Timer& snakeMovementTimer;
-	std::optional<SpeedVector> snakeSpeedForNextMove;
+	std::optional<Vector2D> snakeSpeedForNextMove;
 };
 
 #endif /* SRC_PLAYSTATE_H_ */

@@ -4,7 +4,7 @@
 #include "worldMapContext.h"
 
 namespace {
-bool containsPos(const SnakeContext::Body& body, const Position& pos) {
+bool containsPos(const SnakeContext::Body& body, const Vector2D& pos) {
 	auto found = std::find_if(body.cbegin(), body.cend(), [pos](auto&& position) {
 		return position == pos;
 	});
@@ -24,7 +24,7 @@ void FoodContext::reset() {
 void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) {
 	const auto& forbiddenCoords = snakeContext.getBody();
 
-	Position newFoodPosition;
+	Vector2D newFoodPosition;
 	do {
 		newFoodPosition.x = generator.randomX();
 		newFoodPosition.y = generator.randomY();
@@ -33,14 +33,14 @@ void FoodContext::placeFoodOnAvailableSquares(const SnakeContext& snakeContext) 
 	foodPosition = newFoodPosition;
 }
 
-bool FoodContext::isFoodHere(const Position position) const {
+bool FoodContext::isFoodHere(const Vector2D position) const {
 	if (foodPosition.has_value()) {
 		return position == foodPosition.value();
 	}
 	return false;
 }
 
-const std::optional<Position>& FoodContext::getFoodPositon() const {
+const std::optional<Vector2D>& FoodContext::getFoodPositon() const {
 	return foodPosition;
 }
 

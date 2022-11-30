@@ -1,17 +1,17 @@
 #ifndef SRC_UTILS_H_
 #define SRC_UTILS_H_
 
-struct Position {
+struct Vector2D {
 	int x;
 	int y;
 };
 
 struct Area {
-	Position topLeft;
-	Position bottomRight;
+	Vector2D topLeft;
+	Vector2D bottomRight;
 };
 
-inline bool operator==(const Position& left, const Position& right) {
+inline bool operator==(const Vector2D& left, const Vector2D& right) {
 	return left.x == right.x && left.y == right.y;
 }
 

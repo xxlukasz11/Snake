@@ -6,7 +6,7 @@
 class Border {
 public:
 	Border(const Area& area);
-	bool isPartOfTheBorder(const Position& position) const;
+	bool isPartOfTheBorder(const Vector2D& position) const;
 	const Area& getArea() const;
 
 private:

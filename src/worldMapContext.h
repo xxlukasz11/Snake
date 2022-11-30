@@ -9,7 +9,7 @@
 class WorldMapContext {
 public:
 	const std::vector<Border>& getBorders() const;
-	bool isBorderHere(const Position& position) const;
+	bool isBorderHere(const Vector2D& position) const;
 	const Color& getBorderColor() const;
 	const Area& getFoodArea() const;
 

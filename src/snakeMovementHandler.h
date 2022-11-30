@@ -10,21 +10,21 @@ class GameContext;
 class SnakeMovementHandler {
 public:
 	SnakeMovementHandler(GameContext& gameContext);
-	void setSnakeSpeedIfValid(const SpeedVector& snakeSpeed);
+	void setSnakeSpeedIfValid(const Vector2D& snakeSpeed);
 	void moveSnake();
 	bool gameEnded() const;
 	void reset();
 
 private:
-	Position moveSnakeHead();
-	void moveSnakeTailIfNecessary(const Position& newHeadPosition);
-	bool handleBorderCollision(const Position& newHeadPosition);
-	Position calculateNewHeadPosition();
+	Vector2D moveSnakeHead();
+	void moveSnakeTailIfNecessary(const Vector2D& newHeadPosition);
+	bool handleBorderCollision(const Vector2D& newHeadPosition);
+	Vector2D calculateNewHeadPosition();
 
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 	const WorldMapContext& worldMap;
-	SpeedVector snakeSpeed;
+	Vector2D snakeSpeed;
 };
 
 #endif /* SRC_SNAKEMOVEMENTHANDLER_H_ */

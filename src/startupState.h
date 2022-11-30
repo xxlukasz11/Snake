@@ -17,7 +17,7 @@ public:
 private:
 	void initializeSnakeBody();
 	void writeInstructions() const;
-	void setInitialSnakeSpeed(const SpeedVector& speed);
+	void setInitialSnakeSpeed(const Vector2D& speed);
 
 	AppContext& appContext;
 	const WorldPainter& painter;
