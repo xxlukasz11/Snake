@@ -64,9 +64,9 @@ void PlayState::drawFrame() {
 }
 
 void PlayState::setSelectedSnakeDirection() {
-	if (snakeSpeedForNextMove.has_value()) {
-		snakeMovementHandler.setSnakeSpeedIfValid(snakeSpeedForNextMove.value());
-		snakeSpeedForNextMove.reset();
+	if (snakeDirectionForNextMove.has_value()) {
+		snakeMovementHandler.setSnakeDirectionIfValid(snakeDirectionForNextMove.value());
+		snakeDirectionForNextMove.reset();
 	}
 }
 
@@ -77,22 +77,22 @@ void PlayState::playErrorSound() const {
 
 void PlayState::changeSnakeDirection(const framework::KeyboardKey& key) {
 	if (KeyboardKey::KEY_UP == key) {
-		snakeSpeedForNextMove = Vector2D{ 0, -1 };
+		snakeDirectionForNextMove = Direction::UP;
 		return;
 	}
 
 	if (KeyboardKey::KEY_DOWN == key) {
-		snakeSpeedForNextMove = Vector2D{ 0, 1 };
+		snakeDirectionForNextMove = Direction::DOWN;
 		return;
 	}
 
 	if (KeyboardKey::KEY_LEFT == key) {
-		snakeSpeedForNextMove = Vector2D{ -1, 0 };
+		snakeDirectionForNextMove = Direction::LEFT;
 		return;
 	}
 
 	if (KeyboardKey::KEY_RIGHT == key) {
-		snakeSpeedForNextMove = Vector2D{ 1, 0 };
+		snakeDirectionForNextMove = Direction::RIGHT;
 		return;
 	}
 }

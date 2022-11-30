@@ -8,6 +8,8 @@
 #include "appContext.h"
 #include "worldPainter.h"
 
+class Direction;
+
 class StartupState : public StateBase {
 public:
 	StartupState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
@@ -17,7 +19,7 @@ public:
 private:
 	void initializeSnakeBody();
 	void writeInstructions() const;
-	void setInitialSnakeSpeed(const Vector2D& speed);
+	void setInitialSnakeDirection(const Direction& speed);
 
 	AppContext& appContext;
 	const WorldPainter& painter;

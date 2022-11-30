@@ -1,23 +1,24 @@
 #include <optional>
 #include "startupState.h"
+#include "direction.h"
 
 using framework::Event;
 using framework::KeyboardKey;
 
 namespace {
 
-std::optional<Vector2D> tryCalculatingSpeed(const KeyboardKey& key) {
+std::optional<Direction> tryCalculatingDirection(const KeyboardKey& key) {
 	if (KeyboardKey::KEY_UP == key) {
-		return Vector2D{ 0, -1 };
+		return Direction::UP;
 	}
 	if (KeyboardKey::KEY_DOWN == key) {
-		return Vector2D{ 0, 1 };
+		return Direction::DOWN;
 	}
 	if (KeyboardKey::KEY_LEFT == key) {
-		return Vector2D{ -1, 0 };
+		return Direction::LEFT;
 	}
 	if (KeyboardKey::KEY_RIGHT == key) {
-		return Vector2D{ 1, 0 };
+		return Direction::RIGHT;
 	}
 	return std::nullopt;
 }
@@ -56,16 +57,16 @@ void StartupState::handleStateEvent(const Event& event) {
 		return;
 	}
 
-	const auto speed = tryCalculatingSpeed(event.getKey());
-	if (!speed.has_value()) {
+	const auto direction = tryCalculatingDirection(event.getKey());
+	if (!direction.has_value()) {
 		return;
 	}
 
-	setInitialSnakeSpeed(speed.value());
+	setInitialSnakeDirection(direction.value());
 	nextState(StateType::PLAY);
 }
 
-void StartupState::setInitialSnakeSpeed(const Vector2D& speed) {
+void StartupState::setInitialSnakeDirection(const Direction& direction) {
 	auto& snakeMovementhandler = gameContext.getSnakeMovementHandler();
-	snakeMovementhandler.setSnakeSpeedIfValid(speed);
+	snakeMovementhandler.setSnakeDirectionIfValid(direction);
 }

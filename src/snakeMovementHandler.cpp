@@ -4,17 +4,20 @@
 SnakeMovementHandler::SnakeMovementHandler(GameContext& gameContext) :
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
-		worldMap(gameContext.getWorldMapContext()) {
+		worldMap(gameContext.getWorldMapContext()),
+		snakeDirection(Direction::NONE) {
 }
 
-void SnakeMovementHandler::setSnakeSpeedIfValid(const Vector2D& speed) {
+void SnakeMovementHandler::setSnakeDirectionIfValid(const Direction& direction) {
+	auto snakeSpeed = snakeDirection.getSpeedVector();
+	auto speed = direction.getSpeedVector();
 	if (snakeSpeed.x != 0 && speed.x == -snakeSpeed.x) {
 		return;
 	}
 	if (snakeSpeed.y != 0 && speed.y == -snakeSpeed.y) {
 		return;
 	}
-	snakeSpeed = speed;
+	snakeDirection = direction;
 }
 
 void SnakeMovementHandler::moveSnake() {
@@ -48,9 +51,10 @@ void SnakeMovementHandler::moveSnakeTailIfNecessary(const Vector2D& newHeadPosit
 Vector2D SnakeMovementHandler::calculateNewHeadPosition() {
 	const auto& body = snakeContext.getBody();
 	const auto& headPosition = body.at(0);
+	auto snakeSpeed = snakeDirection.getSpeedVector();
 	return {headPosition.x + snakeSpeed.x, headPosition.y + snakeSpeed.y};
 }
 
 void SnakeMovementHandler::reset() {
-	snakeSpeed = { 0, 0 };
+	snakeDirection = Direction::NONE;
 }

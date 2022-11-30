@@ -4,13 +4,14 @@
 #include "snakeContext.h"
 #include "worldMapContext.h"
 #include "foodContext.h"
+#include "direction.h"
 
 class GameContext;
 
 class SnakeMovementHandler {
 public:
 	SnakeMovementHandler(GameContext& gameContext);
-	void setSnakeSpeedIfValid(const Vector2D& snakeSpeed);
+	void setSnakeDirectionIfValid(const Direction& direction);
 	void moveSnake();
 	bool gameEnded() const;
 	void reset();
@@ -24,7 +25,7 @@ private:
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 	const WorldMapContext& worldMap;
-	Vector2D snakeSpeed;
+	Direction snakeDirection;
 };
 
 #endif /* SRC_SNAKEMOVEMENTHANDLER_H_ */

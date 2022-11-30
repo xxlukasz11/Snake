@@ -9,6 +9,7 @@
 #include "foodContext.h"
 #include "worldPainter.h"
 #include "snakeMovementHandler.h"
+#include "direction.h"
 
 namespace framework {
 class Timer;
@@ -35,7 +36,7 @@ private:
 	FoodContext& foodContext;
 	SnakeMovementHandler& snakeMovementHandler;
 	framework::Timer& snakeMovementTimer;
-	std::optional<Vector2D> snakeSpeedForNextMove;
+	std::optional<Direction> snakeDirectionForNextMove;
 };
 
 #endif /* SRC_PLAYSTATE_H_ */
