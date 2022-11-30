@@ -24,8 +24,8 @@ private:
 	void nextMoveIteration();
 	bool moveSnake();
 	void playErrorSound() const;
-	void changeSnakeDirection(const framework::Event& event);
-	void handleControlKey(const framework::Event& event);
+	void changeSnakeDirection(const framework::KeyboardKey& key);
+	void handleControlKey(const framework::KeyboardKey& key);
 	void drawFrame();
 	void setSelectedSnakeDirection();
 	Position calculateNewHeadPosition();

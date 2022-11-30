@@ -5,7 +5,6 @@
 
 namespace framework {
 
-// TODO: Implement getKeyCode() method
 enum class KeyboardKey {
 	KEY_UP, KEY_LEFT, KEY_RIGHT, KEY_DOWN, KEY_ESCAPE, KEY_Y, KEY_N
 };
@@ -26,9 +25,11 @@ public:
 	bool isKeyPressed(KeyboardKey key) const;
 	bool isKeyReleased() const;
 	bool isKeyPressed() const;
+	KeyboardKey getKey() const;
 
 private:
 	bool isKeyCodeMatching(KeyboardKey key) const;
+	const framework::KeyboardKey readKeyFromEvent() const;
 
 	ALLEGRO_EVENT event;
 };

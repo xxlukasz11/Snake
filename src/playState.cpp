@@ -26,12 +26,12 @@ void PlayState::handleStateEvent(const Event& event) {
 	}
 
 	if (event.isKeyPressed()) {
-		changeSnakeDirection(event);
+		changeSnakeDirection(event.getKey());
 		return;
 	}
 
 	if (event.isKeyReleased()) {
-		handleControlKey(event);
+		handleControlKey(event.getKey());
 		return;
 	}
 }
@@ -105,31 +105,31 @@ void PlayState::playErrorSound() const {
 	sample.play();
 }
 
-void PlayState::changeSnakeDirection(const framework::Event& event) {
+void PlayState::changeSnakeDirection(const framework::KeyboardKey& key) {
 	const auto currentSpeed = snakeContext.getSpeed();
-	if (event.isKeyPressed(KeyboardKey::KEY_UP) && currentSpeed.y == 0) {
+	if (KeyboardKey::KEY_UP == key && currentSpeed.y == 0) {
 		snakeSpeedForNextMove = SpeedVector{ 0, -1 };
 		return;
 	}
 
-	if (event.isKeyPressed(KeyboardKey::KEY_DOWN) && currentSpeed.y == 0) {
+	if (KeyboardKey::KEY_DOWN == key && currentSpeed.y == 0) {
 		snakeSpeedForNextMove = SpeedVector{ 0, 1 };
 		return;
 	}
 
-	if (event.isKeyPressed(KeyboardKey::KEY_LEFT) && currentSpeed.x == 0) {
+	if (KeyboardKey::KEY_LEFT == key && currentSpeed.x == 0) {
 		snakeSpeedForNextMove = SpeedVector{ -1, 0 };
 		return;
 	}
 
-	if (event.isKeyPressed(KeyboardKey::KEY_RIGHT) && currentSpeed.x == 0) {
+	if (KeyboardKey::KEY_RIGHT == key && currentSpeed.x == 0) {
 		snakeSpeedForNextMove = SpeedVector{ 1, 0 };
 		return;
 	}
 }
 
-void PlayState::handleControlKey(const framework::Event& event) {
-	if (event.isKeyReleased(KeyboardKey::KEY_ESCAPE)) {
+void PlayState::handleControlKey(const framework::KeyboardKey& key) {
+	if (key == KeyboardKey::KEY_ESCAPE) {
 		nextState(StateType::PAUSE);
 	}
 }

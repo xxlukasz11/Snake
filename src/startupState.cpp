@@ -6,17 +6,17 @@ using framework::KeyboardKey;
 
 namespace {
 
-std::optional<SpeedVector> tryCalculatingSpeed(const Event& event) {
-	if (event.isKeyPressed(KeyboardKey::KEY_UP)) {
+std::optional<SpeedVector> tryCalculatingSpeed(const KeyboardKey& key) {
+	if (KeyboardKey::KEY_UP == key) {
 		return SpeedVector{ 0, -1 };
 	}
-	if (event.isKeyPressed(KeyboardKey::KEY_DOWN)) {
+	if (KeyboardKey::KEY_DOWN == key) {
 		return SpeedVector{ 0, 1 };
 	}
-	if (event.isKeyPressed(KeyboardKey::KEY_LEFT)) {
+	if (KeyboardKey::KEY_LEFT == key) {
 		return SpeedVector{ -1, 0 };
 	}
-	if (event.isKeyPressed(KeyboardKey::KEY_RIGHT)) {
+	if (KeyboardKey::KEY_RIGHT == key) {
 		return SpeedVector{ 1, 0 };
 	}
 	return std::nullopt;
@@ -52,7 +52,11 @@ void StartupState::writeInstructions() const {
 }
 
 void StartupState::handleStateEvent(const Event& event) {
-	const auto speed = tryCalculatingSpeed(event);
+	if (!event.isKeyPressed()) {
+		return;
+	}
+
+	const auto speed = tryCalculatingSpeed(event.getKey());
 	if (!speed.has_value()) {
 		return;
 	}

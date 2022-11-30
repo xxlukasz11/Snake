@@ -9,14 +9,14 @@ static const std::unordered_map<DisplayEvent, ALLEGRO_EVENT_TYPE> displayEventMa
 		{ DisplayEvent::CLOSE, ALLEGRO_EVENT_DISPLAY_CLOSE }
 };
 
-static const std::unordered_map<KeyboardKey, int> keyboardMapping{
-		{ KeyboardKey::KEY_DOWN, ALLEGRO_KEY_DOWN },
-		{ KeyboardKey::KEY_UP, ALLEGRO_KEY_UP },
-		{ KeyboardKey::KEY_LEFT, ALLEGRO_KEY_LEFT },
-		{ KeyboardKey::KEY_RIGHT, ALLEGRO_KEY_RIGHT },
-		{ KeyboardKey::KEY_ESCAPE, ALLEGRO_KEY_ESCAPE },
-		{ KeyboardKey::KEY_Y, ALLEGRO_KEY_Y },
-		{ KeyboardKey::KEY_N, ALLEGRO_KEY_N }
+static const std::unordered_map<int, KeyboardKey> keyboardMapping{
+		{ ALLEGRO_KEY_DOWN, KeyboardKey::KEY_DOWN },
+		{ ALLEGRO_KEY_UP, KeyboardKey::KEY_UP },
+		{ ALLEGRO_KEY_LEFT, KeyboardKey::KEY_LEFT },
+		{ ALLEGRO_KEY_RIGHT, KeyboardKey::KEY_RIGHT },
+		{ ALLEGRO_KEY_ESCAPE, KeyboardKey::KEY_ESCAPE },
+		{ ALLEGRO_KEY_Y, KeyboardKey::KEY_Y },
+		{ ALLEGRO_KEY_N, KeyboardKey::KEY_N }
 };
 // @formatter:on
 
@@ -52,8 +52,16 @@ bool Event::isKeyPressed() const {
 	return event.type == ALLEGRO_EVENT_KEY_DOWN;
 }
 
+const framework::KeyboardKey Event::readKeyFromEvent() const {
+	return keyboardMapping.find(event.keyboard.keycode)->second;
+}
+
 bool Event::isKeyCodeMatching(KeyboardKey key) const {
-	return event.keyboard.keycode == keyboardMapping.find(key)->second;
+	return key == readKeyFromEvent();
+}
+
+KeyboardKey Event::getKey() const {
+	return readKeyFromEvent();
 }
 
 } // namespace framework
