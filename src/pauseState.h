@@ -11,7 +11,7 @@ public:
 	PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
 	void onEnter() override;
 	void handleStateEvent(const framework::Event& event) override;
-	void drawFrame() override;
+	void frameUpdate() override;
 
 private:
 	void displayPauseInformation();

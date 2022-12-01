@@ -16,7 +16,7 @@ void StateBase::handleEvent(const Event& event) {
 	}
 	handleStateEvent(event);
 	if (event.isTimerEvent()) {
-		drawFrame();
+		frameUpdate();
 	}
 }
 

@@ -34,6 +34,7 @@ void PlayState::handleStateEvent(const Event& event) {
 void PlayState::nextMoveIteration() {
 	setSelectedSnakeDirection();
 	snakeMovementHandler.moveSnake();
+	drawWorldMap();
 	if (isGameLost()) {
 		// TODO: display some animation -> make frame updates independent from snake movement
 		playErrorSound();
@@ -86,8 +87,11 @@ void PlayState::handleControlKey(const framework::KeyboardKey& key) {
 	}
 }
 
-void PlayState::drawFrame() {
+void PlayState::frameUpdate() {
 	nextMoveIteration();
+}
+
+void PlayState::drawWorldMap() {
 	const auto& painter = gameContext.getPainter();
 	painter.drawMap(gameContext.getWorldMapContext());
 	painter.drawSnake(snakeContext);

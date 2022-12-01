@@ -23,7 +23,7 @@ void PauseState::displayPauseInformation() {
 	writer.writeCenter("PAUSED");
 }
 
-void PauseState::drawFrame() {
+void PauseState::frameUpdate() {
 	const auto& painter = gameContext.getPainter();
 	painter.drawMap(gameContext.getWorldMapContext());
 	painter.drawFood(gameContext.getFoodContext());

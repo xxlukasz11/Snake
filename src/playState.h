@@ -16,7 +16,7 @@ public:
 	PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext);
 	void onEnter() override;
 	void handleStateEvent(const framework::Event& event) override;
-	void drawFrame() override;
+	void frameUpdate() override;
 
 private:
 	void nextMoveIteration();
@@ -25,6 +25,7 @@ private:
 	void handleControlKey(const framework::KeyboardKey& key);
 	void setSelectedSnakeDirection();
 	bool isGameLost();
+	void drawWorldMap();
 
 	AppContext& appContext;
 	GameContext& gameContext;

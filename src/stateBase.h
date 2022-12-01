@@ -12,7 +12,7 @@ public:
 
 protected:
 	virtual void handleStateEvent(const framework::Event& event) = 0;
-	virtual void drawFrame() = 0;
+	virtual void frameUpdate() = 0;
 	void nextState(StateType stateType);
 
 private:

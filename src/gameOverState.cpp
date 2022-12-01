@@ -90,7 +90,7 @@ void GameOverState::handleNoResponse() {
 	appContext.stopApp();
 }
 
-void GameOverState::drawFrame() {
+void GameOverState::frameUpdate() {
 	const auto& snakeContext = gameContext.getSnakeContext();
 	const auto& painter = gameContext.getPainter();
 	painter.drawMap(gameContext.getWorldMapContext());

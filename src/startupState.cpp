@@ -35,7 +35,7 @@ StartupState::StartupState(StateMachine& stateMachine, AppContext& appContext, G
 
 void StartupState::onEnter() {
 	initializeSnakeBody();
-	drawFrame();
+	frameUpdate();
 	appContext.startFrameRateUpdates();
 }
 
@@ -69,7 +69,7 @@ void StartupState::setInitialSnakeDirection(const Direction& direction) {
 	snakeMovementhandler.setSnakeDirectionIfValid(direction);
 }
 
-void StartupState::drawFrame() {
+void StartupState::frameUpdate() {
 	painter.drawMap(gameContext.getWorldMapContext());
 	painter.drawSnake(snakeContext);
 	writeInstructions();
