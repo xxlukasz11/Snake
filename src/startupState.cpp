@@ -26,7 +26,7 @@ std::optional<Direction> tryCalculatingDirection(const KeyboardKey& key) {
 } // namespace
 
 StartupState::StartupState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
-		StateBase(stateMachine),
+		StateBase(stateMachine, appContext),
 		appContext(appContext),
 		painter(gameContext.getPainter()),
 		snakeContext(gameContext.getSnakeContext()),

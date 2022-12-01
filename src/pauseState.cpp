@@ -4,7 +4,7 @@ using framework::Event;
 using framework::KeyboardKey;
 
 PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
-		StateBase(stateMachine),
+		StateBase(stateMachine, appContext),
 		appContext(appContext),
 		gameContext(gameContext) {
 }

@@ -3,10 +3,11 @@
 
 #include "state.h"
 #include "stateMachine.h"
+#include "appContext.h"
 
 class StateBase : public State {
 public:
-	StateBase(StateMachine& stateMachine);
+	StateBase(StateMachine& stateMachine, AppContext& appContext);
 
 protected:
 	virtual void handleStateEvent(const framework::Event& event) = 0;
@@ -17,6 +18,7 @@ private:
 	void handleEvent(const framework::Event& event) override;
 
 	StateMachine& stateMachine;
+	AppContext& appContext;
 };
 
 #endif /* SRC_STATEBASE_H_ */

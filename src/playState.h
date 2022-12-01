@@ -31,7 +31,7 @@ private:
 	void setSelectedSnakeDirection();
 	bool isGameLost();
 
-	AppContext& app;
+	AppContext& appContext;
 	GameContext& gameContext;
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;

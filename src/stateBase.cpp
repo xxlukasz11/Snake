@@ -3,8 +3,9 @@
 using framework::Event;
 using framework::DisplayEvent;
 
-StateBase::StateBase(StateMachine& stateMachine) :
-		stateMachine(stateMachine) {
+StateBase::StateBase(StateMachine& stateMachine, AppContext& appContext) :
+		stateMachine(stateMachine),
+		appContext(appContext) {
 }
 
 void StateBase::handleEvent(const Event& event) {
@@ -16,7 +17,7 @@ void StateBase::handleEvent(const Event& event) {
 }
 
 void StateBase::exitGame() {
-	stateMachine.terminate();
+	appContext.stopApp();
 }
 
 void StateBase::nextState(StateType stateType) {

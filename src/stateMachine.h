@@ -9,7 +9,6 @@ class StateMachine {
 public:
 	virtual ~StateMachine() = default;
 	virtual void setState(StateType stateType) = 0;
-	virtual void terminate() = 0;
 };
 
 #endif /* SRC_STATEMACHINE_H_ */

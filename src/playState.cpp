@@ -4,14 +4,14 @@
 using framework::Event;
 using framework::KeyboardKey;
 
-PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext) :
-		StateBase(stateMachine),
-		app(app),
+PlayState::PlayState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
+		StateBase(stateMachine, appContext),
+		appContext(appContext),
 		gameContext(gameContext),
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
 		snakeMovementHandler(gameContext.getSnakeMovementHandler()),
-		frameRateTimer(app.getFrameRateTimer()) {
+		frameRateTimer(appContext.getFrameRateTimer()) {
 }
 
 void PlayState::onEnter() {
@@ -71,7 +71,7 @@ void PlayState::setSelectedSnakeDirection() {
 }
 
 void PlayState::playErrorSound() const {
-	const auto& sample = app.getErrorAudioSample();
+	const auto& sample = appContext.getErrorAudioSample();
 	sample.play();
 }
 

@@ -29,7 +29,7 @@ void saveResult(int snakeSize) {
 } // namespace
 
 GameOverState::GameOverState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
-		StateBase(stateMachine),
+		StateBase(stateMachine, appContext),
 		appContext(appContext),
 		gameContext(gameContext) {
 }

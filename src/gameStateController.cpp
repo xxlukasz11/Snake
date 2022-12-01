@@ -3,9 +3,9 @@
 #include "playState.h"
 #include "pauseState.h"
 #include "gameOverState.h"
+#include "appContext.h"
 
 GameStateController::GameStateController(AppContext& appContext) :
-		appContext(appContext),
 		gameContext(appContext.getDisplay()),
 		startupState(std::make_shared<StartupState>(*this, appContext, gameContext)),
 		playState(std::make_shared<PlayState>(*this, appContext, gameContext)),
@@ -13,10 +13,6 @@ GameStateController::GameStateController(AppContext& appContext) :
 		gameOverState(std::make_shared<GameOverState>(*this, appContext, gameContext)),
 		currentStateType(StateType::NONE) {
 	setState(StateType::STARTUP);
-}
-
-void GameStateController::terminate() {
-	appContext.stopApp();
 }
 
 void GameStateController::setState(StateType stateType) {

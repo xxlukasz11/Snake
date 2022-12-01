@@ -3,22 +3,21 @@
 
 #include <memory>
 
-#include "appContext.h"
 #include "state.h"
 #include "stateMachine.h"
 #include "gameContext.h"
 #include "worldPainter.h"
 #include "framework/event.h"
 
+class AppContext;
+
 class GameStateController : public StateMachine {
 public:
 	GameStateController(AppContext& appContext);
 	void setState(StateType stateType) override;
-	void terminate() override;
 	void handleEvent(const framework::Event& event);
 
 private:
-	AppContext& appContext;
 	GameContext gameContext;
 	std::shared_ptr<State> startupState;
 	std::shared_ptr<State> playState;
