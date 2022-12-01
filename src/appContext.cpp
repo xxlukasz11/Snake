@@ -70,8 +70,8 @@ bool AppContext::loadMainFont() {
 }
 
 bool AppContext::initFrameRateTimer() {
-	snakeMovementTimer = Timer::create(FRAME_RATE_INTERVAL_SECONDS);
-	return snakeMovementTimer.operator bool();
+	frameRateTimer = Timer::create(FRAME_RATE_INTERVAL_SECONDS);
+	return frameRateTimer.operator bool();
 }
 
 bool AppContext::loadAudioSamples() {
@@ -84,12 +84,12 @@ bool AppContext::loadAudioSamples() {
 
 void AppContext::registerEventSources() {
 	queue.registerKeyboard();
-	queue.registerTimer(*snakeMovementTimer);
+	queue.registerTimer(*frameRateTimer);
 	queue.registerDisplay(*display);
 }
 
-Timer& AppContext::getSnakeMovementTimer() const {
-	return *snakeMovementTimer;
+Timer& AppContext::getFrameRateTimer() const {
+	return *frameRateTimer;
 }
 
 TextWriter& AppContext::getTextWriter() const {

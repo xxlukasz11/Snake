@@ -36,7 +36,7 @@ private:
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 	SnakeMovementHandler& snakeMovementHandler;
-	framework::Timer& snakeMovementTimer;
+	framework::Timer& frameRateTimer;
 	std::optional<Direction> snakeDirectionForNextMove;
 };
 

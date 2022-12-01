@@ -18,7 +18,7 @@ public:
 	bool shouldBeRunning() const;
 	const framework::Display& getDisplay() const;
 	const framework::AudioSample& getErrorAudioSample() const;
-	framework::Timer& getSnakeMovementTimer() const;
+	framework::Timer& getFrameRateTimer() const;
 	framework::TextWriter& getTextWriter() const;
 	framework::Event waitForEvent();
 
@@ -33,7 +33,7 @@ private:
 	framework::EventQueue queue;
 	std::unique_ptr<framework::Font> font;
 	std::unique_ptr<framework::Display> display;
-	std::unique_ptr<framework::Timer> snakeMovementTimer;
+	std::unique_ptr<framework::Timer> frameRateTimer;
 	std::unique_ptr<framework::AudioSample> errorSample;
 	std::unique_ptr<framework::TextWriter> textWriter;
 };

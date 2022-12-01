@@ -11,14 +11,14 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& app, GameContext& g
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
 		snakeMovementHandler(gameContext.getSnakeMovementHandler()),
-		snakeMovementTimer(app.getSnakeMovementTimer()) {
+		frameRateTimer(app.getFrameRateTimer()) {
 }
 
 void PlayState::onEnter() {
 	if (!foodContext.isFoodPlanted()) {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	}
-	snakeMovementTimer.start();
+	frameRateTimer.start();
 }
 
 void PlayState::handleStateEvent(const Event& event) {
@@ -39,7 +39,7 @@ void PlayState::handleStateEvent(const Event& event) {
 }
 
 void PlayState::handleTimerEvent(const Event& event) {
-	if (event.isEventSource(snakeMovementTimer)) {
+	if (event.isEventSource(frameRateTimer)) {
 		nextMoveIteration();
 	}
 }
