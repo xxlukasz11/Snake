@@ -2,7 +2,6 @@
 #define SRC_SNAKEMOVEMENTHANDLER_H_
 
 #include "snakeContext.h"
-#include "worldMapContext.h"
 #include "foodContext.h"
 #include "direction.h"
 
@@ -13,7 +12,6 @@ public:
 	SnakeMovementHandler(GameContext& gameContext);
 	void setSnakeDirectionIfValid(const Direction& direction);
 	void moveSnake();
-	bool gameEnded() const;
 	void reset();
 
 private:
@@ -24,7 +22,6 @@ private:
 
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
-	const WorldMapContext& worldMap;
 	Direction snakeDirection;
 };
 

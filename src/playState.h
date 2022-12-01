@@ -29,6 +29,7 @@ private:
 	void handleControlKey(const framework::KeyboardKey& key);
 	void drawFrame();
 	void setSelectedSnakeDirection();
+	bool isGameLost();
 
 	AppContext& app;
 	GameContext& gameContext;

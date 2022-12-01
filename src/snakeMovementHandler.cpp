@@ -4,7 +4,6 @@
 SnakeMovementHandler::SnakeMovementHandler(GameContext& gameContext) :
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
-		worldMap(gameContext.getWorldMapContext()),
 		snakeDirection(Direction::NONE) {
 }
 
@@ -19,13 +18,6 @@ void SnakeMovementHandler::moveSnake() {
 	moveSnakeTailIfNecessary(newHeadPosition);
 	// TODO: display animation when tail is cut off
 	snakeContext.cutOffTailIfHeadCollided();
-}
-
-bool SnakeMovementHandler::gameEnded() const {
-	if (worldMap.isBorderHere(snakeContext.getHead())) {
-		return true;
-	}
-	return false;
 }
 
 Vector2D SnakeMovementHandler::moveSnakeHead() {

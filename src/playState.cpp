@@ -48,7 +48,7 @@ void PlayState::nextMoveIteration() {
 	setSelectedSnakeDirection();
 	snakeMovementHandler.moveSnake();
 	drawFrame();
-	if (snakeMovementHandler.gameEnded()) {
+	if (isGameLost()) {
 		// TODO: display some animation -> make frame updates independent from snake movement
 		playErrorSound();
 		nextState(StateType::GAME_OVER);
@@ -95,6 +95,11 @@ void PlayState::changeSnakeDirection(const framework::KeyboardKey& key) {
 		snakeDirectionForNextMove = Direction::RIGHT;
 		return;
 	}
+}
+
+bool PlayState::isGameLost() {
+	const auto& worldMap = gameContext.getWorldMapContext();
+	return worldMap.isBorderHere(snakeContext.getHead());
 }
 
 void PlayState::handleControlKey(const framework::KeyboardKey& key) {
