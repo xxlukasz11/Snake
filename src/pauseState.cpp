@@ -10,15 +10,17 @@ PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameC
 }
 
 void PauseState::onEnter() {
-	auto& frameRateTimer = appContext.getFrameRateTimer();
-	frameRateTimer.stop();
-	drawFrame();
 }
 
 void PauseState::handleStateEvent(const Event& event) {
 	if (event.isKeyReleased(KeyboardKey::KEY_ESCAPE)) {
 		nextState(StateType::PLAY);
 	}
+}
+
+void PauseState::displayPauseInformation() {
+	auto& writer = appContext.getTextWriter();
+	writer.writeCenter("PAUSED");
 }
 
 void PauseState::drawFrame() {
@@ -28,9 +30,4 @@ void PauseState::drawFrame() {
 	painter.drawSnake(gameContext.getSnakeContext());
 	displayPauseInformation();
 	painter.flushDisplay();
-}
-
-void PauseState::displayPauseInformation() {
-	auto& writer = appContext.getTextWriter();
-	writer.writeCenter("PAUSED");
 }

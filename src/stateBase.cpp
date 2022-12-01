@@ -1,4 +1,5 @@
 #include "stateBase.h"
+#include "appContext.h"
 
 using framework::Event;
 using framework::DisplayEvent;
@@ -14,6 +15,9 @@ void StateBase::handleEvent(const Event& event) {
 		return;
 	}
 	handleStateEvent(event);
+	if (event.isTimerEvent()) {
+		drawFrame();
+	}
 }
 
 void StateBase::exitGame() {

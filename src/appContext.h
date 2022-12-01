@@ -18,9 +18,9 @@ public:
 	bool shouldBeRunning() const;
 	const framework::Display& getDisplay() const;
 	const framework::AudioSample& getErrorAudioSample() const;
-	framework::Timer& getFrameRateTimer() const;
 	framework::TextWriter& getTextWriter() const;
 	framework::Event waitForEvent();
+	void startFrameRateUpdates();
 
 private:
 	bool initDisplay();

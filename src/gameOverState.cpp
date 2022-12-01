@@ -35,9 +35,7 @@ GameOverState::GameOverState(StateMachine& stateMachine, AppContext& appContext,
 }
 
 void GameOverState::onEnter() {
-	auto& frameRateTimer = appContext.getFrameRateTimer();
-	frameRateTimer.stop();
-	handleGameEnd();
+	initializeGameEndData();
 }
 
 void GameOverState::handleStateEvent(const Event& event) {
@@ -51,25 +49,19 @@ void GameOverState::handleStateEvent(const Event& event) {
 	}
 }
 
-void GameOverState::handleGameEnd() {
+void GameOverState::initializeGameEndData() {
 	const auto& snakeContext = gameContext.getSnakeContext();
 	auto snakeSize = snakeContext.getSnakeSize();
 	auto highestScore = getHighestScoreSoFar();
 	saveResult(snakeSize);
-	drawEndingScreen(snakeSize, highestScore);
+	gameEndData.highestScore = highestScore;
+	gameEndData.achievedScore = snakeSize;
 }
 
-void GameOverState::drawEndingScreen(int snakeSize, int highestScore) const {
-	const auto& snakeContext = gameContext.getSnakeContext();
-	const auto& painter = gameContext.getPainter();
-	painter.drawMap(gameContext.getWorldMapContext());
-	painter.drawSnake(snakeContext);
-	drawInstructions(snakeSize, highestScore);
-	painter.flushDisplay();
-}
-
-void GameOverState::drawInstructions(int snakeSize, int highestScore) const {
+void GameOverState::drawInstructions() const {
 	auto& writer = appContext.getTextWriter();
+	auto snakeSize = gameEndData.achievedScore;
+	auto highestScore = gameEndData.highestScore;
 	if (snakeSize == highestScore) {
 		writer.writeCenterAtLine(-3, "EXCELLENT! YOU MATCHED THE RECORD!");
 	} else if (snakeSize > highestScore) {
@@ -96,4 +88,13 @@ void GameOverState::handleYesResponse() {
 
 void GameOverState::handleNoResponse() {
 	appContext.stopApp();
+}
+
+void GameOverState::drawFrame() {
+	const auto& snakeContext = gameContext.getSnakeContext();
+	const auto& painter = gameContext.getPainter();
+	painter.drawMap(gameContext.getWorldMapContext());
+	painter.drawSnake(snakeContext);
+	drawInstructions();
+	painter.flushDisplay();
 }

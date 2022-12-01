@@ -88,8 +88,8 @@ void AppContext::registerEventSources() {
 	queue.registerDisplay(*display);
 }
 
-Timer& AppContext::getFrameRateTimer() const {
-	return *frameRateTimer;
+void AppContext::startFrameRateUpdates() {
+	return frameRateTimer->start();
 }
 
 TextWriter& AppContext::getTextWriter() const {

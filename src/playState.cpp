@@ -10,23 +10,16 @@ PlayState::PlayState(StateMachine& stateMachine, AppContext& appContext, GameCon
 		gameContext(gameContext),
 		snakeContext(gameContext.getSnakeContext()),
 		foodContext(gameContext.getFoodContext()),
-		snakeMovementHandler(gameContext.getSnakeMovementHandler()),
-		frameRateTimer(appContext.getFrameRateTimer()) {
+		snakeMovementHandler(gameContext.getSnakeMovementHandler()) {
 }
 
 void PlayState::onEnter() {
 	if (!foodContext.isFoodPlanted()) {
 		foodContext.placeFoodOnAvailableSquares(snakeContext);
 	}
-	frameRateTimer.start();
 }
 
 void PlayState::handleStateEvent(const Event& event) {
-	if (event.isTimerEvent()) {
-		handleTimerEvent(event);
-		return;
-	}
-
 	if (event.isKeyPressed()) {
 		changeSnakeDirection(event.getKey());
 		return;
@@ -38,29 +31,14 @@ void PlayState::handleStateEvent(const Event& event) {
 	}
 }
 
-void PlayState::handleTimerEvent(const Event& event) {
-	if (event.isEventSource(frameRateTimer)) {
-		nextMoveIteration();
-	}
-}
-
 void PlayState::nextMoveIteration() {
 	setSelectedSnakeDirection();
 	snakeMovementHandler.moveSnake();
-	drawFrame();
 	if (isGameLost()) {
 		// TODO: display some animation -> make frame updates independent from snake movement
 		playErrorSound();
 		nextState(StateType::GAME_OVER);
 	}
-}
-
-void PlayState::drawFrame() {
-	const auto& painter = gameContext.getPainter();
-	painter.drawMap(gameContext.getWorldMapContext());
-	painter.drawSnake(snakeContext);
-	painter.drawFood(foodContext);
-	painter.flushDisplay();
 }
 
 void PlayState::setSelectedSnakeDirection() {
@@ -107,3 +85,13 @@ void PlayState::handleControlKey(const framework::KeyboardKey& key) {
 		nextState(StateType::PAUSE);
 	}
 }
+
+void PlayState::drawFrame() {
+	nextMoveIteration();
+	const auto& painter = gameContext.getPainter();
+	painter.drawMap(gameContext.getWorldMapContext());
+	painter.drawSnake(snakeContext);
+	painter.drawFood(foodContext);
+	painter.flushDisplay();
+}
+

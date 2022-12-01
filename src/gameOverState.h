@@ -11,16 +11,22 @@ public:
 	GameOverState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext);
 	void onEnter() override;
 	void handleStateEvent(const framework::Event& event) override;
+	void drawFrame() override;
 
 private:
-	void handleGameEnd();
-	void drawEndingScreen(int snakeSize, int highestScore) const;
-	void drawInstructions(int snakeSize, int highestScore) const;
+	struct GameEndData {
+		int highestScore;
+		int achievedScore;
+	};
+
+	void initializeGameEndData();
+	void drawInstructions() const;
 	void handleYesResponse();
 	void handleNoResponse();
 
 	AppContext& appContext;
 	GameContext& gameContext;
+	GameEndData gameEndData;
 };
 
 #endif /* SRC_GAMEOVERSTATE_H_ */

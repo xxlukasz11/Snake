@@ -3,7 +3,8 @@
 
 #include "state.h"
 #include "stateMachine.h"
-#include "appContext.h"
+
+class AppContext;
 
 class StateBase : public State {
 public:
@@ -11,6 +12,7 @@ public:
 
 protected:
 	virtual void handleStateEvent(const framework::Event& event) = 0;
+	virtual void drawFrame() = 0;
 	void nextState(StateType stateType);
 
 private:

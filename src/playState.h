@@ -11,23 +11,18 @@
 #include "snakeMovementHandler.h"
 #include "direction.h"
 
-namespace framework {
-class Timer;
-}
-
 class PlayState : public StateBase {
 public:
 	PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext);
 	void onEnter() override;
 	void handleStateEvent(const framework::Event& event) override;
+	void drawFrame() override;
 
 private:
-	void handleTimerEvent(const framework::Event& event);
 	void nextMoveIteration();
 	void playErrorSound() const;
 	void changeSnakeDirection(const framework::KeyboardKey& key);
 	void handleControlKey(const framework::KeyboardKey& key);
-	void drawFrame();
 	void setSelectedSnakeDirection();
 	bool isGameLost();
 
@@ -36,7 +31,6 @@ private:
 	SnakeContext& snakeContext;
 	FoodContext& foodContext;
 	SnakeMovementHandler& snakeMovementHandler;
-	framework::Timer& frameRateTimer;
 	std::optional<Direction> snakeDirectionForNextMove;
 };
 
