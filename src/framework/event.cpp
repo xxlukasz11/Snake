@@ -53,7 +53,11 @@ bool Event::isKeyPressed() const {
 }
 
 const framework::KeyboardKey Event::readKeyFromEvent() const {
-	return keyboardMapping.find(event.keyboard.keycode)->second;
+	auto key = keyboardMapping.find(event.keyboard.keycode);
+	if (key == keyboardMapping.end()) {
+		return KeyboardKey::UNKNOWN;
+	}
+	return key->second;
 }
 
 bool Event::isKeyCodeMatching(KeyboardKey key) const {

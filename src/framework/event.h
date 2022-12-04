@@ -6,7 +6,7 @@
 namespace framework {
 
 enum class KeyboardKey {
-	KEY_UP, KEY_LEFT, KEY_RIGHT, KEY_DOWN, KEY_ESCAPE, KEY_Y, KEY_N
+	KEY_UP, KEY_LEFT, KEY_RIGHT, KEY_DOWN, KEY_ESCAPE, KEY_Y, KEY_N, UNKNOWN
 };
 
 enum class DisplayEvent {
