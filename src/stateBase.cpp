@@ -2,7 +2,7 @@
 #include "appContext.h"
 
 using framework::Event;
-using framework::DisplayEvent;
+using framework::EventType;
 
 StateBase::StateBase(StateMachine& stateMachine, AppContext& appContext) :
 		stateMachine(stateMachine),
@@ -10,12 +10,13 @@ StateBase::StateBase(StateMachine& stateMachine, AppContext& appContext) :
 }
 
 void StateBase::handleEvent(const Event& event) {
-	if (event.isDisplayEvent(DisplayEvent::CLOSE)) {
+	auto eventType = event.getEventType();
+	if (EventType::DISPLAY_CLOSE == eventType) {
 		exitGame();
 		return;
 	}
 	handleStateEvent(event);
-	if (event.isTimerEvent()) {
+	if (EventType::TIMER_EXPIRED == eventType) {
 		frameUpdate();
 	}
 }

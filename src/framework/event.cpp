@@ -5,8 +5,9 @@
 namespace framework {
 
 // @formatter:off
-static const std::unordered_map<DisplayEvent, ALLEGRO_EVENT_TYPE> displayEventMapping{
-		{ DisplayEvent::CLOSE, ALLEGRO_EVENT_DISPLAY_CLOSE }
+static const std::unordered_map<ALLEGRO_EVENT_TYPE, EventType> eventTypeMapping {
+	{ ALLEGRO_EVENT_DISPLAY_CLOSE, EventType::DISPLAY_CLOSE },
+	{ ALLEGRO_EVENT_TIMER, EventType::TIMER_EXPIRED }
 };
 
 static const std::unordered_map<int, KeyboardKey> keyboardMapping{
@@ -24,16 +25,20 @@ Event::Event(const ALLEGRO_EVENT& event) :
 		event(event) {
 }
 
-bool Event::isDisplayEvent(DisplayEvent displayEvent) const {
-	return event.type == displayEventMapping.find(displayEvent)->second;
+EventType Event::readEventType() const {
+	auto found = eventTypeMapping.find(event.type);
+	if (found == eventTypeMapping.end()) {
+		return EventType::UNKNOWN;
+	}
+	return found->second;
+}
+
+EventType Event::getEventType() const {
+	return readEventType();
 }
 
 bool Event::isEventSource(const Timer& timer) const {
 	return event.timer.source == timer.allegroTimer.get();
-}
-
-bool Event::isTimerEvent() const {
-	return event.type == ALLEGRO_EVENT_TIMER;
 }
 
 bool Event::isKeyReleased(KeyboardKey key) const {
@@ -52,7 +57,7 @@ bool Event::isKeyPressed() const {
 	return event.type == ALLEGRO_EVENT_KEY_DOWN;
 }
 
-const framework::KeyboardKey Event::readKeyFromEvent() const {
+KeyboardKey Event::readKeyFromEvent() const {
 	auto key = keyboardMapping.find(event.keyboard.keycode);
 	if (key == keyboardMapping.end()) {
 		return KeyboardKey::UNKNOWN;
