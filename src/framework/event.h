@@ -26,12 +26,14 @@ public:
 	bool isKeyPressed(KeyboardKey key) const;
 
 private:
+	bool isKeyboardEvent() const;
 	bool isKeyReleased() const;
 	bool isKeyPressed() const;
-	KeyboardKey readKeyFromEvent() const;
-	EventType readEventType() const;
+	void readKeyIfPossible();
 
 	ALLEGRO_EVENT event;
+	EventType eventType;
+	KeyboardKey key;
 };
 
 } // namespace framework

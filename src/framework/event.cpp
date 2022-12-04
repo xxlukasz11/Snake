@@ -23,16 +23,29 @@ static const std::unordered_map<int, KeyboardKey> keyboardMapping{
 };
 // @formatter:on
 
+namespace {
+EventType readEventType(const ALLEGRO_EVENT& event) {
+	auto found = eventTypeMapping.find(event.type);
+	if (found == eventTypeMapping.end()) {
+		return EventType::UNKNOWN;
+	}
+	return found->second;
+}
+} // namespace
+
 Event::Event(const ALLEGRO_EVENT& event) :
-		event(event) {
+		event(event),
+		eventType(readEventType(event)),
+		key(KeyboardKey::UNKNOWN) {
+	readKeyIfPossible();
 }
 
 EventType Event::getEventType() const {
-	return readEventType();
+	return eventType;
 }
 
 KeyboardKey Event::getKey() const {
-	return readKeyFromEvent();
+	return key;
 }
 
 bool Event::isEventSource(const Timer& timer) const {
@@ -40,35 +53,33 @@ bool Event::isEventSource(const Timer& timer) const {
 }
 
 bool Event::isKeyReleased(KeyboardKey key) const {
-	return isKeyReleased() && key == readKeyFromEvent();
+	return isKeyReleased() && key == this->key;
 }
 
 bool Event::isKeyPressed(KeyboardKey key) const {
-	return isKeyPressed() && key == readKeyFromEvent();
+	return isKeyPressed() && key == this->key;
+}
+
+bool Event::isKeyboardEvent() const {
+	return isKeyReleased() || isKeyPressed();
 }
 
 bool Event::isKeyReleased() const {
-	return EventType::KEY_RELEASED == readEventType();
+	return EventType::KEY_RELEASED == eventType;
 }
 
 bool Event::isKeyPressed() const {
-	return EventType::KEY_PRESSED == readEventType();
+	return EventType::KEY_PRESSED == eventType;
 }
 
-EventType Event::readEventType() const {
-	auto found = eventTypeMapping.find(event.type);
-	if (found == eventTypeMapping.end()) {
-		return EventType::UNKNOWN;
+void Event::readKeyIfPossible() {
+	if (!isKeyboardEvent()) {
+		return;
 	}
-	return found->second;
-}
-
-KeyboardKey Event::readKeyFromEvent() const {
-	auto key = keyboardMapping.find(event.keyboard.keycode);
-	if (key == keyboardMapping.end()) {
-		return KeyboardKey::UNKNOWN;
+	auto found = keyboardMapping.find(event.keyboard.keycode);
+	if (found != keyboardMapping.end()) {
+		key = found->second;
 	}
-	return key->second;
 }
 
 } // namespace framework
