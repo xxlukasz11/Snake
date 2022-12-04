@@ -3,6 +3,7 @@
 #include "direction.h"
 
 using framework::Event;
+using framework::EventType;
 using framework::KeyboardKey;
 
 namespace {
@@ -51,7 +52,7 @@ void StartupState::writeInstructions() const {
 }
 
 void StartupState::handleStateEvent(const Event& event) {
-	if (!event.isKeyPressed()) {
+	if (event.getEventType() != EventType::KEY_PRESSED) {
 		return;
 	}
 

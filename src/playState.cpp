@@ -2,6 +2,7 @@
 #include "snakeMovementHandler.h"
 
 using framework::Event;
+using framework::EventType;
 using framework::KeyboardKey;
 
 PlayState::PlayState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
@@ -20,12 +21,13 @@ void PlayState::onEnter() {
 }
 
 void PlayState::handleStateEvent(const Event& event) {
-	if (event.isKeyPressed()) {
+	auto eventType = event.getEventType();
+	if (EventType::KEY_PRESSED == eventType) {
 		changeSnakeDirection(event.getKey());
 		return;
 	}
 
-	if (event.isKeyReleased()) {
+	if (EventType::KEY_RELEASED == eventType) {
 		handleControlKey(event.getKey());
 		return;
 	}

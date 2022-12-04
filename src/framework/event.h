@@ -10,7 +10,7 @@ enum class KeyboardKey {
 };
 
 enum class EventType {
-	DISPLAY_CLOSE, TIMER_EXPIRED, UNKNOWN
+	DISPLAY_CLOSE, TIMER_EXPIRED, KEY_PRESSED, KEY_RELEASED, UNKNOWN
 };
 
 class Timer;
@@ -19,15 +19,15 @@ class Event {
 public:
 	Event(const ALLEGRO_EVENT& event);
 	EventType getEventType() const;
+	KeyboardKey getKey() const;
+
 	bool isEventSource(const Timer& timer) const;
 	bool isKeyReleased(KeyboardKey key) const;
 	bool isKeyPressed(KeyboardKey key) const;
-	bool isKeyReleased() const;
-	bool isKeyPressed() const;
-	KeyboardKey getKey() const;
 
 private:
-	bool isKeyCodeMatching(KeyboardKey key) const;
+	bool isKeyReleased() const;
+	bool isKeyPressed() const;
 	KeyboardKey readKeyFromEvent() const;
 	EventType readEventType() const;
 

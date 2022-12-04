@@ -7,7 +7,9 @@ namespace framework {
 // @formatter:off
 static const std::unordered_map<ALLEGRO_EVENT_TYPE, EventType> eventTypeMapping {
 	{ ALLEGRO_EVENT_DISPLAY_CLOSE, EventType::DISPLAY_CLOSE },
-	{ ALLEGRO_EVENT_TIMER, EventType::TIMER_EXPIRED }
+	{ ALLEGRO_EVENT_TIMER, EventType::TIMER_EXPIRED },
+	{ ALLEGRO_EVENT_KEY_DOWN, EventType::KEY_PRESSED },
+	{ ALLEGRO_EVENT_KEY_UP, EventType::KEY_RELEASED }
 };
 
 static const std::unordered_map<int, KeyboardKey> keyboardMapping{
@@ -25,6 +27,34 @@ Event::Event(const ALLEGRO_EVENT& event) :
 		event(event) {
 }
 
+EventType Event::getEventType() const {
+	return readEventType();
+}
+
+KeyboardKey Event::getKey() const {
+	return readKeyFromEvent();
+}
+
+bool Event::isEventSource(const Timer& timer) const {
+	return event.timer.source == timer.allegroTimer.get();
+}
+
+bool Event::isKeyReleased(KeyboardKey key) const {
+	return isKeyReleased() && key == readKeyFromEvent();
+}
+
+bool Event::isKeyPressed(KeyboardKey key) const {
+	return isKeyPressed() && key == readKeyFromEvent();
+}
+
+bool Event::isKeyReleased() const {
+	return EventType::KEY_RELEASED == readEventType();
+}
+
+bool Event::isKeyPressed() const {
+	return EventType::KEY_PRESSED == readEventType();
+}
+
 EventType Event::readEventType() const {
 	auto found = eventTypeMapping.find(event.type);
 	if (found == eventTypeMapping.end()) {
@@ -33,44 +63,12 @@ EventType Event::readEventType() const {
 	return found->second;
 }
 
-EventType Event::getEventType() const {
-	return readEventType();
-}
-
-bool Event::isEventSource(const Timer& timer) const {
-	return event.timer.source == timer.allegroTimer.get();
-}
-
-bool Event::isKeyReleased(KeyboardKey key) const {
-	return isKeyReleased() && isKeyCodeMatching(key);
-}
-
-bool Event::isKeyPressed(KeyboardKey key) const {
-	return isKeyPressed() && isKeyCodeMatching(key);
-}
-
-bool Event::isKeyReleased() const {
-	return event.type == ALLEGRO_EVENT_KEY_UP;
-}
-
-bool Event::isKeyPressed() const {
-	return event.type == ALLEGRO_EVENT_KEY_DOWN;
-}
-
 KeyboardKey Event::readKeyFromEvent() const {
 	auto key = keyboardMapping.find(event.keyboard.keycode);
 	if (key == keyboardMapping.end()) {
 		return KeyboardKey::UNKNOWN;
 	}
 	return key->second;
-}
-
-bool Event::isKeyCodeMatching(KeyboardKey key) const {
-	return key == readKeyFromEvent();
-}
-
-KeyboardKey Event::getKey() const {
-	return readKeyFromEvent();
 }
 
 } // namespace framework
