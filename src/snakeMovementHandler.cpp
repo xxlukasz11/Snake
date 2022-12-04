@@ -35,8 +35,7 @@ void SnakeMovementHandler::moveSnakeTailIfNecessary(const Vector2D& newHeadPosit
 }
 
 Vector2D SnakeMovementHandler::calculateNewHeadPosition() {
-	const auto& body = snakeContext.getBody();
-	const auto& headPosition = body.at(0);
+	const auto& headPosition = snakeContext.getHead();
 	auto snakeSpeed = snakeDirection.getSpeedVector();
 	return {headPosition.x + snakeSpeed.x, headPosition.y + snakeSpeed.y};
 }
