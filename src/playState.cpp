@@ -1,9 +1,9 @@
 #include "playState.h"
 #include "snakeMovementHandler.h"
 
-using framework::Event;
-using framework::EventType;
-using framework::KeyboardKey;
+using allegrocpp::Event;
+using allegrocpp::EventType;
+using allegrocpp::KeyboardKey;
 
 PlayState::PlayState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine, appContext),
@@ -56,23 +56,23 @@ void PlayState::playErrorSound() const {
 	sample.play();
 }
 
-void PlayState::changeSnakeDirection(const framework::KeyboardKey& key) {
-	if (KeyboardKey::KEY_UP == key) {
+void PlayState::changeSnakeDirection(const allegrocpp::KeyboardKey& key) {
+	if (KeyboardKey::UP == key) {
 		snakeDirectionForNextMove = Direction::UP;
 		return;
 	}
 
-	if (KeyboardKey::KEY_DOWN == key) {
+	if (KeyboardKey::DOWN == key) {
 		snakeDirectionForNextMove = Direction::DOWN;
 		return;
 	}
 
-	if (KeyboardKey::KEY_LEFT == key) {
+	if (KeyboardKey::LEFT == key) {
 		snakeDirectionForNextMove = Direction::LEFT;
 		return;
 	}
 
-	if (KeyboardKey::KEY_RIGHT == key) {
+	if (KeyboardKey::RIGHT == key) {
 		snakeDirectionForNextMove = Direction::RIGHT;
 		return;
 	}
@@ -83,8 +83,8 @@ bool PlayState::isGameLost() {
 	return worldMap.isBorderHere(snakeContext.getHead());
 }
 
-void PlayState::handleControlKey(const framework::KeyboardKey& key) {
-	if (key == KeyboardKey::KEY_ESCAPE) {
+void PlayState::handleControlKey(const allegrocpp::KeyboardKey& key) {
+	if (key == KeyboardKey::ESCAPE) {
 		nextState(StateType::PAUSE);
 	}
 }

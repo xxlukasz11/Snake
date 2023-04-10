@@ -2,23 +2,23 @@
 #include "startupState.h"
 #include "direction.h"
 
-using framework::Event;
-using framework::EventType;
-using framework::KeyboardKey;
+using allegrocpp::Event;
+using allegrocpp::EventType;
+using allegrocpp::KeyboardKey;
 
 namespace {
 
 std::optional<Direction> tryCalculatingDirection(const KeyboardKey& key) {
-	if (KeyboardKey::KEY_UP == key) {
+	if (KeyboardKey::UP == key) {
 		return Direction::UP;
 	}
-	if (KeyboardKey::KEY_DOWN == key) {
+	if (KeyboardKey::DOWN == key) {
 		return Direction::DOWN;
 	}
-	if (KeyboardKey::KEY_LEFT == key) {
+	if (KeyboardKey::LEFT == key) {
 		return Direction::LEFT;
 	}
-	if (KeyboardKey::KEY_RIGHT == key) {
+	if (KeyboardKey::RIGHT == key) {
 		return Direction::RIGHT;
 	}
 	return std::nullopt;

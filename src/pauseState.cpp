@@ -1,7 +1,7 @@
 #include "pauseState.h"
 
-using framework::Event;
-using framework::KeyboardKey;
+using allegrocpp::Event;
+using allegrocpp::KeyboardKey;
 
 PauseState::PauseState(StateMachine& stateMachine, AppContext& appContext, GameContext& gameContext) :
 		StateBase(stateMachine, appContext),
@@ -13,7 +13,7 @@ void PauseState::onEnter() {
 }
 
 void PauseState::handleStateEvent(const Event& event) {
-	if (event.isKeyReleased(KeyboardKey::KEY_ESCAPE)) {
+	if (event.isKeyReleased(KeyboardKey::ESCAPE)) {
 		nextState(StateType::PLAY);
 	}
 }

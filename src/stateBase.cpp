@@ -1,8 +1,8 @@
 #include "stateBase.h"
 #include "appContext.h"
 
-using framework::Event;
-using framework::EventType;
+using allegrocpp::Event;
+using allegrocpp::EventType;
 
 StateBase::StateBase(StateMachine& stateMachine, AppContext& appContext) :
 		stateMachine(stateMachine),

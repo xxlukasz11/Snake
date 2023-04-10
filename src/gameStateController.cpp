@@ -40,6 +40,6 @@ void GameStateController::setState(StateType stateType) {
 	currentState->onEnter();
 }
 
-void GameStateController::handleEvent(const framework::Event& event) {
+void GameStateController::handleEvent(const allegrocpp::Event& event) {
 	currentState->handleEvent(event);
 }

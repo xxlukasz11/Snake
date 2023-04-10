@@ -7,13 +7,13 @@
 #include "worldPainter.h"
 #include "snakeMovementHandler.h"
 
-namespace framework {
+namespace allegrocpp {
 class Display;
 }
 
 class GameContext {
 public:
-	GameContext(const framework::Display& display);
+	GameContext(const allegrocpp::Display& display);
 
 	void reset();
 	const WorldPainter& getPainter() const;

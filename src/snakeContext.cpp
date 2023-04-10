@@ -1,6 +1,8 @@
 #include "snakeContext.h"
 #include <algorithm>
 
+using allegrocpp::Color;
+
 static const Color HEAD_COLOR = Color::rgb(255, 0, 0);
 static const Color BODY_COLOR = Color::rgb(68, 136, 170);
 

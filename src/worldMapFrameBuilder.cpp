@@ -1,5 +1,7 @@
 #include "worldMapFrameBuilder.h"
 
+using allegrocpp::Color;
+
 constexpr int DEFAULT_FRAME_THICKNESS = 1;
 static const Color DEFAULT_FRAME_COLOR = Color::rgb(35, 121, 22);
 

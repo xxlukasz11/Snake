@@ -3,13 +3,13 @@
 
 #include "worldMapContext.h"
 #include "utils.h"
-#include "color.h"
+#include "allegro-cpp/color.h"
 
 class WorldMapFrameBuilder {
 public:
 	static WorldMapFrameBuilder instance(const Area& frameArea);
 	WorldMapFrameBuilder& setFrameThickness(int frameThickness);
-	WorldMapFrameBuilder& setFrameColor(const Color& frameColor);
+	WorldMapFrameBuilder& setFrameColor(const allegrocpp::Color& frameColor);
 	WorldMapContext build() const;
 
 private:
@@ -19,7 +19,7 @@ private:
 
 	Area frameArea;
 	int frameThickness;
-	Color frameColor;
+	allegrocpp::Color frameColor;
 };
 
 #endif /* SRC_WORLDMAPFRAMEBUILDER_H_ */

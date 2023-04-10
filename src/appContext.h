@@ -2,13 +2,13 @@
 #define SRC_APPCONTEXT_H_
 
 #include <memory>
-#include "framework/audioSample.h"
-#include "framework/timer.h"
-#include "framework/display.h"
-#include "framework/eventQueue.h"
-#include "framework/font.h"
-#include "framework/textWriter.h"
-#include "framework/event.h"
+#include "allegro-cpp/audioSample.h"
+#include "allegro-cpp/timer.h"
+#include "allegro-cpp/display.h"
+#include "allegro-cpp/eventQueue.h"
+#include "allegro-cpp/font.h"
+#include "allegro-cpp/textWriter.h"
+#include "allegro-cpp/event.h"
 
 class AppContext {
 public:
@@ -16,10 +16,10 @@ public:
 	void stopApp();
 
 	bool shouldBeRunning() const;
-	const framework::Display& getDisplay() const;
-	const framework::AudioSample& getErrorAudioSample() const;
-	framework::TextWriter& getTextWriter() const;
-	framework::Event waitForEvent();
+	const allegrocpp::Display& getDisplay() const;
+	const allegrocpp::AudioSample& getErrorAudioSample() const;
+	allegrocpp::TextWriter& getTextWriter() const;
+	allegrocpp::Event waitForEvent();
 	void startFrameRateUpdates();
 
 private:
@@ -30,12 +30,12 @@ private:
 	void registerEventSources();
 
 	bool runningFlag{ true };
-	framework::EventQueue queue;
-	std::unique_ptr<framework::Font> font;
-	std::unique_ptr<framework::Display> display;
-	std::unique_ptr<framework::Timer> frameRateTimer;
-	std::unique_ptr<framework::AudioSample> errorSample;
-	std::unique_ptr<framework::TextWriter> textWriter;
+	allegrocpp::EventQueue queue;
+	std::unique_ptr<allegrocpp::Font> font;
+	std::unique_ptr<allegrocpp::Display> display;
+	std::unique_ptr<allegrocpp::Timer> frameRateTimer;
+	std::unique_ptr<allegrocpp::AudioSample> errorSample;
+	std::unique_ptr<allegrocpp::TextWriter> textWriter;
 };
 
 #endif /* SRC_APPCONTEXT_H_ */

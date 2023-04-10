@@ -1,9 +1,9 @@
 #include "gameContext.h"
 #include "worldMapFrameBuilder.h"
 #include "utils.h"
-#include "framework/display.h"
+#include "allegro-cpp/display.h"
 
-using framework::Display;
+using allegrocpp::Display;
 
 namespace {
 

@@ -1,11 +1,15 @@
 #include <cmath>
 #include "worldPainter.h"
-#include "color.h"
 #include "snakeContext.h"
 #include "foodContext.h"
-#include "framework/display.h"
+#include "allegro-cpp/display.h"
+#include "allegro-cpp/color.h"
+#include "allegro-cpp/slice.h"
 
-using framework::Display;
+using allegrocpp::Display;
+using allegrocpp::Color;
+using allegrocpp::Slice;
+using Point = allegrocpp::Vec<double>;
 
 constexpr double SNAKE_BODY_OFFSET = 3.0;
 constexpr double FOOD_RADIUS_FACTOR = 0.3;
@@ -64,8 +68,8 @@ void WorldPainter::drawMap(const WorldMapContext& worldMapContext) const {
 	const auto& borderColor = worldMapContext.getBorderColor();
 	for (const auto& border : worldMapContext.getBorders()) {
 		const auto& area = border.getArea();
-		screenPainter.drawFilledRectangle(area.topLeft.x * rasterSize, area.topLeft.y * rasterSize,
-				area.bottomRight.x * rasterSize, area.bottomRight.y * rasterSize, borderColor);
+		screenPainter.drawFilledRectangle(Point{ area.topLeft.x * rasterSize, area.topLeft.y * rasterSize },
+				Point{ area.bottomRight.x * rasterSize, area.bottomRight.y * rasterSize }, borderColor);
 	}
 }
 
@@ -79,7 +83,7 @@ void WorldPainter::drawFood(const FoodContext& foodContext) const {
 void WorldPainter::drawFoodAt(const Vector2D& position) const {
 	const auto xOffset = position.x * rasterSize + foodRadius;
 	const auto yOffset = position.y * rasterSize + foodRadius;
-	screenPainter.drawFilledCircle(xOffset, yOffset, foodRadius, FOOD_COLOR);
+	screenPainter.drawFilledCircle(Point{ xOffset, yOffset }, foodRadius, FOOD_COLOR);
 }
 
 void WorldPainter::drawSnake(const SnakeContext& snake) const {
@@ -126,21 +130,25 @@ void WorldPainter::drawRoundedSegment(const Vector2D& segmentPos, const Vector2D
 
 	const auto direction = calculateVector(segmentPos, adjacentSegmentPos);
 	if (direction.x > 0) {
-		screenPainter.drawFilledRectangle(xCenter, yBodyOffset, xOffset + rasterSize, yBodyOffset + snakeWidth, color);
+		screenPainter.drawFilledRectangle(Point{ xCenter, yBodyOffset },
+				Point{ xOffset + rasterSize, yBodyOffset + snakeWidth }, color);
 	} else if (direction.x < 0) {
-		screenPainter.drawFilledRectangle(xOffset, yBodyOffset, xCenter, yBodyOffset + snakeWidth, color);
+		screenPainter.drawFilledRectangle(Point{ xOffset, yBodyOffset }, Point{ xCenter, yBodyOffset + snakeWidth },
+				color);
 	} else if (direction.y > 0) {
-		screenPainter.drawFilledRectangle(xBodyOffset, yCenter, xBodyOffset + snakeWidth, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(Point{ xBodyOffset, yCenter },
+				Point{ xBodyOffset + snakeWidth, yOffset + rasterSize }, color);
 	} else if (direction.y < 0) {
-		screenPainter.drawFilledRectangle(xBodyOffset, yOffset, xBodyOffset + snakeWidth, yCenter, color);
+		screenPainter.drawFilledRectangle(Point{ xBodyOffset, yOffset }, Point{ xBodyOffset + snakeWidth, yCenter },
+				color);
 	}
-	screenPainter.drawFilledCircle(xCenter, yCenter, radius, color);
+	screenPainter.drawFilledCircle(Point{ xCenter, yCenter }, radius, color);
 }
 
 void WorldPainter::drawBendSegment(const Vector2D& segmentPos, const Vector2D& previousSegmentPos,
 		const Vector2D& nextSegmentPos, const Color& color) const {
 	const auto bendVector = calculateBendVector(previousSegmentPos, segmentPos, nextSegmentPos);
-	const auto initialTheta = calculateInitialTheta(bendVector);
+	const float initialTheta = calculateInitialTheta(bendVector);
 	const auto radius = rasterSize / 2.0;
 	const auto arcThickness = snakeWidth;
 
@@ -148,8 +156,8 @@ void WorldPainter::drawBendSegment(const Vector2D& segmentPos, const Vector2D& p
 	arcCenter.x += (bendVector.x > 0);
 	arcCenter.y += (bendVector.y > 0);
 
-	screenPainter.drawArc(arcCenter.x * rasterSize, arcCenter.y * rasterSize, radius, initialTheta, M_PI_2,
-			arcThickness, color);
+	screenPainter.drawArc(Point{ arcCenter.x * rasterSize, arcCenter.y * rasterSize }, radius, Slice{ initialTheta,
+	M_PI_2f }, arcThickness, color);
 }
 
 void WorldPainter::drawBodySegment(const Vector2D& segmentPos, const Vector2D& adjacentSegmentPos,
@@ -159,10 +167,12 @@ void WorldPainter::drawBodySegment(const Vector2D& segmentPos, const Vector2D& a
 	const auto yOffset = segmentPos.y * rasterSize;
 	if (direction.x != 0) {
 		const auto yBodyOffset = yOffset + SNAKE_BODY_OFFSET;
-		screenPainter.drawFilledRectangle(xOffset, yBodyOffset, xOffset + rasterSize, yBodyOffset + snakeWidth, color);
+		screenPainter.drawFilledRectangle(Point{ xOffset, yBodyOffset },
+				Point{ xOffset + rasterSize, yBodyOffset + snakeWidth }, color);
 	} else {
 		const auto xBodyOffset = xOffset + SNAKE_BODY_OFFSET;
-		screenPainter.drawFilledRectangle(xBodyOffset, yOffset, xBodyOffset + snakeWidth, yOffset + rasterSize, color);
+		screenPainter.drawFilledRectangle(Point{ xBodyOffset, yOffset },
+				Point{ xBodyOffset + snakeWidth, yOffset + rasterSize }, color);
 	}
 }
 

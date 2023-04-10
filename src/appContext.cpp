@@ -1,5 +1,6 @@
 #include "appContext.h"
 #include "errorMsg.h"
+#include "allegro-cpp/color.h"
 
 // TODO: read these values from configuration file
 constexpr int DISPLAY_WIDTH_RASTERS = 40;
@@ -11,13 +12,14 @@ constexpr const char* DISPLAY_NAME = "Snake";
 constexpr const char* MAIN_FONT_FILE_NAME = "arial.ttf";
 constexpr const char* ERROR_FILE = "error.log";
 constexpr const char* AUDIO_SAMPLE_FILE = "sample.wav";
+static const allegrocpp::Color FONT_COLOR = allegrocpp::Color::rgb(0, 0, 0);
 
-using framework::AudioSample;
-using framework::Timer;
-using framework::Font;
-using framework::Display;
-using framework::TextWriter;
-using framework::Event;
+using allegrocpp::AudioSample;
+using allegrocpp::Timer;
+using allegrocpp::Font;
+using allegrocpp::Display;
+using allegrocpp::TextWriter;
+using allegrocpp::Event;
 
 bool AppContext::initialize() {
 	if (!initDisplay()) {
@@ -44,13 +46,13 @@ bool AppContext::initialize() {
 		return false;
 	}
 
-	textWriter = std::make_unique<TextWriter>(*display, *font);
+	textWriter = std::make_unique<TextWriter>(*display, *font, FONT_COLOR);
 	registerEventSources();
 	return true;
 }
 
 bool AppContext::initDisplay() {
-	framework::DisplayInitParams displayParams;
+	allegrocpp::DisplayInitParams displayParams;
 	displayParams.rasterSizePixels = RASTER_SIZE;
 	displayParams.numHorizontalRasters = DISPLAY_WIDTH_RASTERS;
 	displayParams.numVerticalRasters = DISPLAY_HEIGHT_RASTERS;

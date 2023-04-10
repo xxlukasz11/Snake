@@ -7,7 +7,7 @@
 #include "stateMachine.h"
 #include "gameContext.h"
 #include "worldPainter.h"
-#include "framework/event.h"
+#include "allegro-cpp/event.h"
 
 class AppContext;
 
@@ -15,7 +15,7 @@ class GameStateController : public StateMachine {
 public:
 	GameStateController(AppContext& appContext);
 	void setState(StateType stateType) override;
-	void handleEvent(const framework::Event& event);
+	void handleEvent(const allegrocpp::Event& event);
 
 private:
 	GameContext gameContext;

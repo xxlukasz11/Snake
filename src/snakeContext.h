@@ -3,7 +3,7 @@
 
 #include <deque>
 #include <optional>
-#include "color.h"
+#include "allegro-cpp/color.h"
 #include "utils.h"
 
 class SnakeContext {
@@ -11,8 +11,8 @@ public:
 	using Body = std::deque<Vector2D>;
 
 	void reset();
-	const Color& getHeadColor() const;
-	const Color& getBodyColor() const;
+	const allegrocpp::Color& getHeadColor() const;
+	const allegrocpp::Color& getBodyColor() const;
 	const Body& getBody() const;
 	const Vector2D& getHead() const;
 	int getSnakeSize() const;

@@ -3,8 +3,8 @@
 
 constexpr const char* HIGHSCORES_FILE_NAME = "snake_results.dat";
 
-using framework::Event;
-using framework::KeyboardKey;
+using allegrocpp::Event;
+using allegrocpp::KeyboardKey;
 
 namespace {
 
@@ -39,11 +39,11 @@ void GameOverState::onEnter() {
 }
 
 void GameOverState::handleStateEvent(const Event& event) {
-	if (event.isKeyReleased(KeyboardKey::KEY_Y)) {
+	if (event.isKeyReleased(KeyboardKey::Y)) {
 		handleYesResponse();
 		return;
 	}
-	if (event.isKeyReleased(KeyboardKey::KEY_N)) {
+	if (event.isKeyReleased(KeyboardKey::N)) {
 		handleNoResponse();
 		return;
 	}

@@ -1,0 +1,3 @@
+[submodule "lib/allegro-cpp"]
+	path = lib/allegro-cpp
+	url = git@github.com:xxlukasz11/allegro-cpp.git

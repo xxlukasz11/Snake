@@ -1,6 +1,8 @@
 #include "worldMapContext.h"
 #include <algorithm>
 
+using allegrocpp::Color;
+
 static const Color DEFAULT_BORDER_COLOR = Color::rgb(35, 121, 22);
 static const Area DEFAULT_FOOD_AREA = Area{ { 0, 0 }, { 1, 1 } };
 

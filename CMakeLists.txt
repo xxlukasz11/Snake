@@ -1,16 +1,13 @@
-cmake_minimum_required(VERSION 2.8.12)
-
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+cmake_minimum_required(VERSION 3.9)
 
 project (snake)
 
-file(GLOB SOURCES "src/*.cpp" "src/framework/*.cpp")
-add_executable(snake ${SOURCES})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
+  ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY
+  ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+  ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 
-set_property(TARGET snake PROPERTY CXX_STANDARD 17)
-
-target_compile_options(snake PRIVATE -Wall -pedantic -O2)
-target_include_directories(snake PUBLIC ${CMAKE_SOURCE_DIR}/src)
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "snake")
-target_link_libraries(snake allegro_ttf allegro_font allegro_primitives allegro_audio allegro_acodec allegro)
+add_subdirectory(lib/allegro-cpp)
+add_subdirectory(src)

@@ -15,14 +15,14 @@ class PlayState : public StateBase {
 public:
 	PlayState(StateMachine& stateMachine, AppContext& app, GameContext& gameContext);
 	void onEnter() override;
-	void handleStateEvent(const framework::Event& event) override;
+	void handleStateEvent(const allegrocpp::Event& event) override;
 	void frameUpdate() override;
 
 private:
 	void nextMoveIteration();
 	void playErrorSound() const;
-	void changeSnakeDirection(const framework::KeyboardKey& key);
-	void handleControlKey(const framework::KeyboardKey& key);
+	void changeSnakeDirection(const allegrocpp::KeyboardKey& key);
+	void handleControlKey(const allegrocpp::KeyboardKey& key);
 	void setSelectedSnakeDirection();
 	bool isGameLost();
 	void drawWorldMap();
