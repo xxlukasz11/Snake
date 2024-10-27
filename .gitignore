@@ -1,7 +1,10 @@
 .cproject
 .project
 .settings/
+.cache/
+.vscode/
 bin/
 build/
+builddir/
 /Debug/
 resources/snake_results.dat
