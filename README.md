@@ -8,7 +8,7 @@ To run the game, Allegro5 installation is required.
 git submodule update --init
 meson setup builddir
 meson compile -C builddir`
-./bin/snake
+./builddir/snake
 ```
 
 # Screenshoots
